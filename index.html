@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Granville's Coffee | Quesnel, British Columbia</title>
+<meta name="description" content="Granville's Coffee: a beloved downtown Quesnel gathering place. Explore the menu, order ahead for pickup and earn loyalty rewards.">
+<meta name="theme-color" content="#102b22">
+<meta property="og:title" content="Granville's Coffee">
+<meta property="og:description" content="Good coffee. Great stories. Every day. Order ahead and earn rewards.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+<div class="announce" id="announce" hidden></div>
+<header class="site">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="#/"><img src="assets/img/logo.svg" alt="">GRANVILLE'S <span>COFFEE</span></a>
+    <div class="links" id="links">
+      <a href="#/" data-nav="home">Home</a>
+      <a href="#/menu" data-nav="menu">Menu</a>
+      <a href="#/story" data-nav="story">Our Story</a>
+      <a href="#/rewards" data-nav="rewards">Rewards</a>
+      <a href="#/visit" data-nav="visit">Visit</a>
+      <a href="#/admin" data-nav="admin" id="adminLink" hidden>Admin</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn gold sm cart-btn" href="#/order" aria-label="Your order"><span aria-hidden="true">☕</span><span class="label">Order</span><span class="count" id="cartCount" hidden>0</span></a>
+      <a class="btn ghost sm" href="#/account" id="accountBtn">Sign in</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+  </nav>
+</header>
+<main id="view" tabindex="-1"><div class="loading">Brewing…</div></main>
+<footer class="site" id="footer">
+  <div class="cols">
+    <div>
+      <a class="brand" href="#/" style="padding:0;opacity:1"><img src="assets/img/logo.svg" alt="">GRANVILLE'S <span>COFFEE</span></a>
+      <p style="margin-top:14px" id="footAddress">Downtown Quesnel, British Columbia</p>
+      <div id="footSocial"></div>
+    </div>
+    <div><h4>Explore</h4><a href="#/menu">Menu</a><a href="#/order">Order ahead</a><a href="#/story">Our story</a><a href="#/visit">Visit &amp; contact</a></div>
+    <div><h4>Members</h4><a href="#/rewards">Rewards</a><a href="#/account">My account</a><a href="#/admin">Staff portal</a></div>
+    <div><h4>Hours</h4><div id="footHours" style="font-size:14px"></div></div>
+  </div>
+  <div class="legal"><span>© <span id="year"></span> Granville's Coffee · Quesnel, BC</span><span id="modeNote">Demonstration site. Online orders are not charged and are not sent to the café.</span></div>
+</footer>
+<div id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
