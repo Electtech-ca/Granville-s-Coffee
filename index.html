@@ -1,56 +1,329 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Granville's Coffee | Quesnel, British Columbia</title>
-<meta name="description" content="Granville's Coffee: a beloved downtown Quesnel gathering place. Explore the menu, order ahead for pickup and earn loyalty rewards.">
-<meta name="theme-color" content="#102b22">
-<meta property="og:title" content="Granville's Coffee">
-<meta property="og:description" content="Good coffee. Great stories. Every day. Order ahead and earn rewards.">
+<title>Granville's Coffee — Come for Coffee. Leave with 11 Opinions.</title>
+<meta name="description" content="Granville's Coffee in Quesnel, BC. Coffee, meals, gossip, unsolicited directions, and strangers who won't stay strangers. Walk in.">
+<meta name="theme-color" content="#14382e">
+<meta property="og:title" content="Granville's Coffee · Quesnel, BC">
+<meta property="og:description" content="Come for coffee. Leave with 11 opinions. 383 Reid Street, Quesnel.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/og-image.jpg">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;family=Fraunces:opsz,wght,SOFT,WONK@9..144,600,20,1;9..144,800,20,1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="preload" as="image" href="assets/img/granvilles-cafe-banner.webp" imagesrcset="assets/img/granvilles-cafe-banner-900.webp 900w, assets/img/granvilles-cafe-banner.webp 1672w" imagesizes="100vw">
+<script>document.documentElement.classList.remove('no-js')</script>
 </head>
 <body>
-<a class="skip" href="#view">Skip to content</a>
-<div class="announce" id="announce" hidden></div>
-<header class="site">
-  <nav class="nav" aria-label="Main">
-    <a class="brand" href="#/"><img src="assets/img/logo.svg" alt="">GRANVILLE'S <span>COFFEE</span></a>
-    <div class="links" id="links">
-      <a href="#/" data-nav="home">Home</a>
-      <a href="#/menu" data-nav="menu">Menu</a>
-      <a href="#/story" data-nav="story">Our Story</a>
-      <a href="#/rewards" data-nav="rewards">Rewards</a>
-      <a href="#/visit" data-nav="visit">Visit</a>
-      <a href="#/admin" data-nav="admin" id="adminLink" hidden>Admin</a>
-    </div>
-    <div class="nav-cta">
-      <a class="btn gold sm cart-btn" href="#/order" aria-label="Your order"><span aria-hidden="true">☕</span><span class="label">Order</span><span class="count" id="cartCount" hidden>0</span></a>
-      <a class="btn ghost sm" href="#/account" id="accountBtn">Sign in</a>
-    </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+<a class="skip" href="#main">Skip to the good stuff</a>
+
+<header class="top">
+  <a class="logo" href="#main">Granville's<span> Coffee.</span></a>
+  <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mainNav">☰ Menu</button>
+  <nav aria-label="Main navigation" class="nav" id="mainNav">
+    <a href="#people">Our people</a>
+    <a href="#menu-theatre">Menu</a>
+    <a href="#ted">Meet Ted</a>
+    <a href="#inside">Inside</a>
+    <a href="#games">Games</a>
+    <a class="pill" href="#visit">Visit us ↗</a>
   </nav>
 </header>
-<main id="view" tabindex="-1"><div class="loading">Brewing…</div></main>
-<footer class="site" id="footer">
-  <div class="cols">
-    <div>
-      <a class="brand" href="#/" style="padding:0;opacity:1"><img src="assets/img/logo.svg" alt="">GRANVILLE'S <span>COFFEE</span></a>
-      <p style="margin-top:14px" id="footAddress">Downtown Quesnel, British Columbia</p>
-      <div id="footSocial"></div>
+
+<div aria-label="Your journey through Granville's" class="journey-ribbon">
+  <div class="journey-inner">
+    <span class="journey-label">☕ Your café adventure</span>
+    <div class="journey-track">
+      <button aria-current="step" class="journey-stop" data-jump="town-stage" type="button">🏡 Welcome</button>
+      <button class="journey-stop" data-jump="people" type="button">🤝 Meet</button>
+      <button class="journey-stop" data-jump="menu-theatre" type="button">🥪 Eat</button>
+      <button class="journey-stop" data-jump="ted" type="button">🎩 Ted</button>
+      <button class="journey-stop" data-jump="games" type="button">🎮 Play</button>
+      <button class="journey-stop" data-jump="visit" type="button">📍 Visit</button>
     </div>
-    <div><h4>Explore</h4><a href="#/menu">Menu</a><a href="#/order">Order ahead</a><a href="#/story">Our story</a><a href="#/visit">Visit &amp; contact</a></div>
-    <div><h4>Members</h4><a href="#/rewards">Rewards</a><a href="#/account">My account</a><a href="#/admin">Staff portal</a></div>
-    <div><h4>Hours</h4><div id="footHours" style="font-size:14px"></div></div>
+    <span aria-live="polite" class="journey-passport" id="journey-stamps">0 / 3 stamps</span>
   </div>
-  <div class="legal"><span>© <span id="year"></span> Granville's Coffee · Quesnel, BC</span><span id="modeNote">Demonstration site. Online orders are not charged and are not sent to the café.</span></div>
+</div>
+<div aria-live="polite" class="journey-pop" id="journey-pop" role="status"></div>
+
+<main id="main" tabindex="-1">
+
+<!-- ===== Hero carousel ===== -->
+<div class="hero-carousel" aria-label="Granville's welcome banners" aria-roledescription="carousel" role="region">
+  <div class="hero-slides" id="heroSlides" aria-live="off">
+    <div class="hero-slide original-slide" role="group" aria-roledescription="slide" aria-label="1 of 2: Welcome to Granville's">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow" data-content="hero.eyebrow">Quesnel, British Columbia · Unofficial headquarters of everybody</div>
+          <h1 data-content="hero.title" data-rich>Come for<br>coffee.<br><em>Leave with<br>11 opinions.</em></h1>
+          <p class="lead" data-content="hero.lead">Locals come for coffee, food, gist and gossip. Newcomers make friends so quickly they forget they're new. Ask for directions and you'll get seven routes, three warnings, and an invitation to lunch.</p>
+          <div class="actions">
+            <a class="btn" href="#visit">Come join the conversation ↗</a>
+            <a class="btn ghost" href="#games">Waste a perfectly good minute ↓</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="clock-widget">
+<svg aria-label="Illustrated Granville's Coffee wall clock showing the live time in Quesnel" role="img" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#234b38"/><stop offset=".12" stop-color="#a9c990"/><stop offset=".23" stop-color="#e5edbc"/><stop offset=".32" stop-color="#477657"/><stop offset=".52" stop-color="#183e30"/><stop offset=".69" stop-color="#80a978"/><stop offset=".82" stop-color="#d5e3ad"/><stop offset="1" stop-color="#204b3a"/></linearGradient>
+ <radialGradient id="enamel" cx=".42" cy=".35" r=".8"><stop offset="0" stop-color="#105c45"/><stop offset=".65" stop-color="#084c39"/><stop offset="1" stop-color="#063b2e"/></radialGradient>
+ <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".24"/><stop offset=".26" stop-color="#fff" stop-opacity="0"/><stop offset=".73" stop-color="#fff" stop-opacity=".025"/><stop offset="1" stop-color="#fff" stop-opacity=".16"/></linearGradient>
+ <linearGradient id="handMetal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#090e0c"/><stop offset=".48" stop-color="#39433c"/><stop offset=".7" stop-color="#111816"/><stop offset="1" stop-color="#070a09"/></linearGradient>
+ <path id="brandArc" d="M 84 247 A 166 166 0 0 1 416 247"/>
+ <filter id="handShadow" x="-25%" y="-20%" width="150%" height="150%"><feDropShadow dx="2" dy="3" stdDeviation="2" flood-color="#001c15" flood-opacity=".45"/></filter>
+</defs>
+<circle cx="250" cy="250" r="245" fill="url(#metal)" stroke="#173d2e" stroke-width="3"/>
+<circle cx="250" cy="250" r="236" fill="none" stroke="#d9e9bb" stroke-width="2" opacity=".75"/>
+<circle cx="250" cy="250" r="227" fill="none" stroke="#173c2e" stroke-width="8"/>
+<circle cx="250" cy="250" r="216" fill="url(#enamel)" stroke="#f5f3dd" stroke-width="7"/>
+<circle cx="250" cy="250" r="202" fill="none" stroke="#f8f3dd" stroke-width="3"/>
+<text fill="#f9f5e6" font-family="Georgia, 'Times New Roman', serif" font-size="51" font-weight="900" letter-spacing="1.1" text-anchor="middle"><textPath href="#brandArc" startOffset="50%">GRANVILLE’S</textPath></text>
+<g fill="#faf5e5" stroke="#faf5e5" stroke-linejoin="round">
+ <path d="M217 173h58v45c0 14-10 23-28 23s-30-9-30-23z" stroke="none"/>
+ <path d="M275 182c34-5 39 9 35 24-3 13-17 20-35 16" fill="none" stroke-width="10"/>
+ <path d="M202 240h106" stroke-width="9" stroke-linecap="round"/>
+ <path d="M231 166c-10-10 10-14 0-27m20 27c-10-10 10-14 0-27" fill="none" stroke-width="3" stroke-linecap="round"/>
+</g>
+<text x="250" y="334" text-anchor="middle" fill="#fbf6e6" font-family="Georgia, 'Times New Roman', serif" font-size="79" font-weight="900" letter-spacing="-3">Coffee</text>
+<g fill="none" stroke="#f9f3df" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M150 369c18-24 38-22 50-4 15 22 36 22 50-2 14 24 35 24 50 2 12-18 32-20 50 4" stroke-width="3"/>
+ <path d="M153 379c25-12 42-3 51 8m143-8c-25-12-42-3-51 8M208 383c15 17 28 12 42-1 14 13 27 18 42 1" stroke-width="2"/>
+ <path d="M178 366c-13-17-26-14-33-5m177 5c13-17 26-14 33-5" stroke-width="2"/>
+</g>
+<g id="clock-hour" filter="url(#handShadow)"><path d="M244 260L244 192Q244 182 250 176Q256 182 256 192L256 260Z" fill="url(#handMetal)"/></g>
+<g id="clock-minute" filter="url(#handShadow)"><path d="M245 260L246 120Q250 108 254 120L255 260Z" fill="url(#handMetal)"/></g>
+<g id="clock-second"><path d="M250 278V119" stroke="#202923" stroke-width="2.2"/><circle cx="250" cy="279" r="5" fill="#202923"/></g>
+<circle cx="250" cy="250" r="10" fill="#111c16" stroke="#364d3e" stroke-width="2"/>
+<circle cx="250" cy="250" r="3" fill="#9caa91"/>
+<circle cx="250" cy="250" r="214" fill="url(#glass)" pointer-events="none"/>
+<path d="M76 180A190 190 0 0 1 209 65" stroke="#fff" stroke-width="7" opacity=".18" fill="none" stroke-linecap="round" pointer-events="none"/>
+<path d="M289 434A190 190 0 0 0 427 314" stroke="#fff" stroke-width="4" opacity=".11" fill="none" stroke-linecap="round" pointer-events="none"/>
+</svg>
+            <p>Quesnel time. Gossip runs on its own schedule.</p>
+            <details><summary>See the original clock photograph ↗</summary><img alt="The real Granville's Coffee wall clock" loading="lazy" src="assets/img/clock.webp" width="1125" height="1500"></details>
+          </div>
+          <div class="hero-note">The clock keeps time. Ted keeps the stories coming.</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide photo-slide" role="group" aria-roledescription="slide" aria-label="2 of 2: Illustrated café scene">
+      <div class="banner-frame">
+        <img src="assets/img/granvilles-cafe-banner.webp" srcset="assets/img/granvilles-cafe-banner-900.webp 900w, assets/img/granvilles-cafe-banner.webp 1672w" sizes="100vw" width="1672" height="941" alt="Illustrated Granville's café scene with the vintage green wall clock, warm lights, a coffee cup and a chalkboard that reads: good food, great coffee, lively conversation, predictable outcomes (unchecked)." decoding="async">
+        <!-- Clickable hotspots over the buttons drawn into the illustration -->
+        <a class="banner-hotspot" href="#main" style="left:30.3%;top:1.5%;width:8%;height:6%" aria-label="Home"></a>
+        <a class="banner-hotspot" href="#menu-theatre" style="left:40.2%;top:1.5%;width:7%;height:6%" aria-label="Menu"></a>
+        <a class="banner-hotspot" href="#people" style="left:49.3%;top:1.5%;width:12.2%;height:6%" aria-label="Our regulars"></a>
+        <a class="banner-hotspot" href="#quest" style="left:62%;top:1.5%;width:11.8%;height:6%" aria-label="The adventure"></a>
+        <a class="banner-hotspot" href="#ted" style="left:75.7%;top:1.5%;width:8.6%;height:6%" aria-label="The story"></a>
+        <a class="banner-hotspot" href="#visit" style="left:86.3%;top:1.5%;width:8.6%;height:6%" aria-label="Visit us"></a>
+        <a class="banner-hotspot" href="#town-stage" style="left:6.6%;top:71.2%;width:24%;height:8.6%;border-radius:40px" aria-label="Start the adventure"></a>
+      </div>
+    </div>
+  </div>
+  <button class="hero-arrow hero-prev" type="button" aria-label="Previous banner" aria-controls="heroSlides">‹</button>
+  <button class="hero-arrow hero-next" type="button" aria-label="Next banner" aria-controls="heroSlides">›</button>
+  <div class="hero-dots" role="group" aria-label="Choose a banner">
+    <button type="button" class="hero-dot is-active" aria-label="Show welcome banner" aria-pressed="true"></button>
+    <button type="button" class="hero-dot" aria-label="Show illustrated café banner" aria-pressed="false"></button>
+  </div>
+  <button class="hero-pause" type="button" aria-pressed="false">Pause slideshow</button>
+</div>
+
+<div aria-hidden="true" class="ticker"><span>COFFEE ✳ CONVERSATION ✳ COMPLETELY UNSOLICITED ADVICE ✳ POSSIBLY TRUE GOSSIP ✳ GOOD FOOD ✳ NEW FRIENDS ✳ <b>COFFEE ✳ CONVERSATION ✳ COMPLETELY UNSOLICITED ADVICE ✳ POSSIBLY TRUE GOSSIP ✳ GOOD FOOD ✳ NEW FRIENDS ✳</b></span></div>
+
+<!-- ===== Town stage ===== -->
+<section aria-labelledby="town-title" class="town-stage" id="town-stage">
+  <div class="town-top"><span class="town-stamp">✳ GRANVILLE'S · UNOFFICIAL TOWN HALL ✳</span><span class="town-signal"><i></i> OPEN TO STRANGERS, FRIENDS &amp; PEOPLE WHO KNOW GARY</span></div>
+  <div class="town-intro">
+    <div>
+      <div class="town-overline">THE SOCIAL NETWORK THAT DOESN'T REQUIRE WI-FI</div>
+      <h2 id="town-title" data-content="town.title" data-rich>One table.<br><em>A thousand stories.</em></h2>
+      <p data-content="town.intro">In Quesnel, a cup of coffee can turn into a friendship, a fishing forecast, or seven conflicting directions. Pull up a chair. The plot is already in progress.</p>
+      <button class="town-cta" id="town-spin" type="button">☕ Pull up a chair <span>↗</span></button>
+    </div>
+    <div class="town-counter"><span>STRANGERS WHO STAY STRANGERS</span><strong id="town-strangers">00</strong><small>Unofficial estimate. We haven't checked.</small></div>
+  </div>
+  <div aria-label="Illustrated Granville's community table" class="town-world" id="town-world" role="img">
+    <svg aria-hidden="true" class="town-lines" preserveAspectRatio="none" viewBox="0 0 1200 490"><path d="M105 90 Q360 200 560 245 T1090 105"/><path d="M110 380 Q390 260 600 250 T1100 380"/><path d="M320 50 Q500 180 610 250 T880 50"/></svg>
+    <div class="town-doodle town-star" aria-hidden="true">✳</div><div class="town-doodle town-heart" aria-hidden="true">♥</div><div class="town-doodle town-sun" aria-hidden="true">✺</div>
+    <div class="town-person town-person-a"><div class="town-bubble">“Is this seat taken?”</div><div aria-hidden="true" class="town-avatar">🧑‍🦳</div><span>THE REGULAR</span></div>
+    <div class="town-person town-person-b"><div class="town-bubble">“Not anymore!”</div><div aria-hidden="true" class="town-avatar">🧑🏽</div><span>THE NEWCOMER</span></div>
+    <div class="town-person town-person-c"><div class="town-bubble">“I know a shortcut…”</div><div aria-hidden="true" class="town-avatar">👩🏻‍🦰</div><span>THE DIRECTIONS EXPERT</span></div>
+    <div class="town-table"><div class="town-table-inner"><div class="town-cup" aria-hidden="true">☕<span class="town-steam">〰</span></div><strong>THE COMMUNITY<br>TABLE</strong><small>Seats: somehow always one more</small></div></div>
+    <div aria-live="polite" class="town-caption" id="town-caption">You came for coffee. You've been invited to somebody's barbecue.</div>
+  </div>
+  <div class="town-bottom">
+    <div><span class="town-bottom-label">TODAY'S COMPLETELY UNOFFICIAL REPORT</span><p id="town-story" aria-live="polite">“A traveller asked where the highway was. Four locals answered. None agreed. All offered to drive them.”</p></div>
+    <button class="town-next" id="town-next" type="button">Another story <span>↻</span></button>
+  </div>
+  <p class="town-disclaimer">Illustrated characters and conversations are fictional. The welcome is the point. Real food appears in the next act ↓</p>
+</section>
+
+<!-- ===== Our people ===== -->
+<section aria-labelledby="storyworld-title" class="storyworld" id="people">
+  <div class="storyworld-heading">
+    <span class="eyebrow">AN INTERACTIVE TALE FROM THE UNOFFICIAL QUESNEL UNIVERSE</span>
+    <h2 id="storyworld-title" data-content="people.title" data-rich>The day you accidentally<br><em>became a local.</em></h2>
+    <p data-content="people.intro">Three characters. One suspiciously friendly café. A completely unnecessary quest. Tap a character to hear their side of the story.</p>
+  </div>
+  <div aria-label="Three fictional café regulars" class="character-stage" role="group">
+    <button class="character selected" data-character="0" type="button" aria-pressed="true"><span aria-hidden="true" class="avatar">🧣</span><strong>Mabel</strong><small>Unofficial Minister of Everyone</small></button>
+    <button class="character" data-character="1" type="button" aria-pressed="false"><span aria-hidden="true" class="avatar">🧭</span><strong>Doug</strong><small>Directions, Mostly Historical</small></button>
+    <button class="character" data-character="2" type="button" aria-pressed="false"><span aria-hidden="true" class="avatar">🎒</span><strong>Alex</strong><small>New in Town (For 4 Minutes)</small></button>
+    <div aria-live="polite" class="speech" id="character-speech">“New around here? Sit down. You're late for a friendship you didn't know you had.”</div>
+  </div>
+  <div class="quest" id="quest">
+    <div class="quest-header"><span class="eyebrow" style="color:#a35431">THE GREAT GRANVILLE'S DETOUR</span><h3>One stop. Three side quests.</h3><p>Make a fictional friend, solve a food mystery, and survive Quesnel's most confident directions. Your decisions change the ending.</p></div>
+    <div class="quest-progress" id="quest-progress">CHAPTER 1 OF 3</div>
+    <div class="quest-card"><div aria-hidden="true" class="quest-art" id="quest-art">🥪</div><h4 id="quest-question" aria-live="polite">A sandwich has vanished. What do you investigate first?</h4><div class="quest-choices" id="quest-choices"></div><p aria-live="polite" id="quest-reaction"></p></div>
+    <button class="quest-restart" id="quest-restart" type="button">↻ Start a new adventure</button>
+  </div>
+  <p class="fiction-note">Mabel, Doug, Alex and their adventures are fictional. The welcome is the point.</p>
+</section>
+
+<!-- ===== Menu ===== -->
+<section aria-labelledby="real-menu-title" class="real-menu" id="menu-theatre">
+  <div class="real-menu-head">
+    <span class="menu-kicker">✦ THE REAL FOOD · THE FICTIONAL DRAMA ✦</span>
+    <h2 id="real-menu-title" data-content="menu.title" data-rich>The usual suspects.<br><em>Now with actual names.</em></h2>
+    <p data-content="menu.intro">Real dishes reported on Granville's published menu listings, introduced by a narrator who really should get out more.</p>
+  </div>
+  <div aria-label="Explore menu categories" class="menu-tabs" id="menu-tabs" role="group"></div>
+  <div aria-live="polite" class="menu-spotlight" id="menu-spotlight">
+    <div aria-hidden="true" class="spotlight-art"><div class="spotlight-halo"></div><span id="spotlight-emoji">🥪</span><span class="sparkle one">✳</span><span class="sparkle two">✦</span></div>
+    <div class="spotlight-text"><span class="spotlight-label" id="spotlight-label">THE SANDWICH DEPARTMENT</span><h3 id="spotlight-title">Classic Reuben</h3><p id="spotlight-joke">A sandwich with so much character, it may introduce you to its relatives.</p><span class="spotlight-price" id="spotlight-price"></span><button class="spotlight-next" id="spotlight-next" type="button">Meet another suspect ↝</button></div>
+  </div>
+  <div class="menu-item-grid" id="menu-items"></div>
+  <p class="menu-source-note" data-content="menu.note">These are reported menu items from third-party listings, not a verified current menu. Selection, recipes, availability and prices may change. For the current selection, please visit the café.</p>
+  <p class="menu-source-note" style="margin-top:6px"><a href="https://granvillescoffee.gotoeat.net/menu" rel="noopener noreferrer" target="_blank" id="menuListingLink">See the published menu listing ↗</a></p>
+</section>
+
+<div aria-label="Chapter 02" class="journey-chapter" role="note"><span class="chapter-number" aria-hidden="true">02</span><div class="chapter-copy"><span>THE GRANVILLE'S STORY · CHAPTER 02</span><h3>A stranger walks into a café…</h3><p>…and walks out knowing half the town, two dogs, and somebody's cousin.</p></div><span aria-hidden="true" class="chapter-art">🫂</span></div>
+
+<!-- ===== Ted ===== -->
+<section class="ted-section" id="ted" aria-labelledby="ted-title">
+  <div class="ted-portrait reveal">
+    <div class="portrait-frame" id="tedPortrait">
+<svg aria-label="Playful illustrated portrait placeholder for Ted Martindale" role="img" viewBox="0 0 380 450"><rect fill="#f5c76c" height="450" rx="30" width="380"></rect><circle cx="315" cy="76" fill="#e97e4b" r="68"></circle><path d="M70 450q-15-180 120-180t120 180" fill="#184637"></path><path d="M139 288l52 71 52-71" fill="#fff4da"></path><ellipse cx="190" cy="191" fill="#f0b98e" rx="87" ry="109"></ellipse><path d="M102 181q-9-110 88-115 100 0 91 115-24-35-49-40-77 31-130 40" fill="#eae5d8"></path><path d="M151 198q15-9 29 0m27 0q15-9 29 0" fill="none" stroke="#483c34" stroke-linecap="round" stroke-width="5"></path><path d="M165 241q26 24 52 0" fill="none" stroke="#8b4c3a" stroke-linecap="round" stroke-width="6"></path><path d="M90 125q-31-16-40 12" fill="none" stroke="#184637" stroke-width="12"></path><text fill="#fff4da" font-family="Georgia" font-size="23" text-anchor="middle" x="190" y="414">TED'S CORNER</text></svg>
+    </div>
+    <span class="portrait-label" id="tedPortraitLabel">Illustration placeholder · Not Ted's likeness</span>
+    <span class="portrait-sticker" aria-hidden="true">80 years young.<br>Still causing cake.</span>
+  </div>
+  <div class="ted-copy reveal">
+    <span class="eyebrow">Meet the owner · Keeper of the kettle</span>
+    <h2 id="ted-title" data-content="ted.title" data-rich>Ted Martindale.<br><em>Not your average cup of Ted.</em></h2>
+    <p data-content="ted.p1">Since 1992, Granville's has been a Quesnel gathering place. Ted built more than a coffee shop: a room where strangers turn into neighbours, and a five-minute visit has a habit of becoming an afternoon.</p>
+    <p data-content="ted.p2">In 2026, Ted marked his 80th birthday with a nearly 6,000-pound carrot cake. Because apparently a regular birthday cake wouldn't feed enough people—or make enough headlines.</p>
+    <p data-content="ted.p3">He was also honoured with a small-business award at Quesnel's October 2026 Business Excellence Awards. But the part worth remembering isn't the trophy. It's the generosity, the open door, and the sense that there's always room for one more person.</p>
+    <a class="btn" href="#fitness">Take Ted's totally unofficial fitness test ↓</a>
+  </div>
+</section>
+
+<!-- ===== Inside Granville's (real photos) ===== -->
+<section class="inside" id="inside" aria-labelledby="inside-title">
+  <div class="inside-head reveal">
+    <span class="eyebrow">Real photos · No filters, just lighting</span>
+    <h2 id="inside-title" data-content="inside.title">Inside Granville's.</h2>
+    <p data-content="inside.intro">A few things you'll notice the moment you walk in. Some of them will notice you back.</p>
+  </div>
+  <div class="inside-grid" id="inside-grid">
+    <figure><img src="assets/img/ceiling-one.webp" alt="Ceiling lined with burlap coffee sacks stamped 'Product of Colombia', with track lights" loading="lazy" width="1125" height="1500"><figcaption><strong>Look up.</strong>The ceiling is upholstered in coffee sacks. Colombia says hello.</figcaption></figure>
+    <figure><img src="assets/img/ceiling-two.webp" alt="Coffee-sack ceiling with a vintage ceiling fan and a wall of signs" loading="lazy" width="1125" height="1500"><figcaption><strong>Keep looking.</strong>A fan, a hundred sacks, and walls that collect stories.</figcaption></figure>
+    <figure><img src="assets/img/clock.webp" alt="The green Granville's Coffee wall clock" loading="lazy" width="1125" height="1500"><figcaption><strong>The clock.</strong>The real one. It keeps better time than the conversations do.</figcaption></figure>
+    <figure><img src="assets/img/pager.webp" alt="An orange table pager labelled 'When flashing, wave us down'" loading="lazy" width="1125" height="1500"><figcaption><strong>When flashing, wave us down.</strong>Your food is ready. Your conversation can continue.</figcaption></figure>
+  </div>
+</section>
+
+<!-- ===== Oddities ===== -->
+<section class="oddities" id="oddities" aria-labelledby="oddities-title">
+  <span class="eyebrow">THE GRANVILLE'S FIELD GUIDE</span>
+  <h2 id="oddities-title">Things a map<br><em>can't tell you.</em></h2>
+  <div class="oddity-grid">
+    <div><span>01 / THE CEILING</span><h3>Look up.</h3><p>Yes, those are coffee sacks overhead. Some businesses frame certificates. Granville's went in another direction.</p></div>
+    <div><span>02 / THE CONVERSATION</span><h3>Bring a question.</h3><p>Leave with an answer, a second answer, and a spirited debate about the first answer.</p></div>
+    <div><span>03 / THE HOUSE RULE</span><h3>Walk right in.</h3><p>No online ordering. No reservation labyrinth. Just a real door and people on the other side.</p></div>
+  </div>
+</section>
+
+<!-- ===== Games ===== -->
+<section class="dark" id="games" aria-labelledby="games-title">
+  <div class="section-head reveal">
+    <div class="eyebrow">Department of important nonsense</div>
+    <h2 id="games-title">Games, gossip &amp; other terrible uses of the internet.</h2>
+    <p>We don't take online orders. We do, however, provide completely unnecessary entertainment while you decide to visit in person.</p>
+  </div>
+  <div class="game-grid">
+    <article class="game reveal"><span class="badge">Interactive foolishness #01</span><h3>The Local Directions Machine</h3><p>Ask for directions. Receive advice from people who all know a shortcut.</p><button id="directions" type="button">Ask another local ↗</button><div aria-live="polite" class="result" id="directionsResult">“Turn left where the old hardware store used to be. Unless you're coming from the other side.”</div><small>Fictional jokes, not actual navigation. Please use a map to drive.</small></article>
+    <article class="game reveal"><span class="badge">Interactive foolishness #02</span><h3>Catch the runaway bun</h3><p>You have 15 seconds. The bun has no intention of cooperating.</p><div class="score"><span id="score">Caught: 0</span><span id="timer">Time: 15s</span></div><div class="bun-stage" id="stage"><button aria-label="Catch the cinnamon bun" class="bun" id="bun" type="button">🥮</button></div><button id="start" type="button">Start the nonsense →</button><div aria-live="polite" id="bunMessage" style="margin-top:12px;min-height:24px">No buns were harmed in the making of this game.</div></article>
+    <article class="game reveal"><span class="badge">Interactive foolishness #03</span><h3>Rumour or ridiculous?</h3><p>Generate a harmless imaginary piece of small-town news.</p><button id="rumour" type="button">Print the scandal 🗞️</button><div aria-live="polite" class="result" id="rumourResult">Breaking: somebody ordered tea. The coffee cups are requesting a meeting.</div><small>All rumours are fictional. Real people deserve better.</small></article>
+    <article class="game reveal"><span class="badge">Interactive foolishness #04</span><h3>How long until you're a local?</h3><p>Take our scientifically unsupported citizenship test.</p><button id="local" type="button">Assess my localness →</button><div aria-live="polite" class="result" id="localResult">Our highly trained committee (one imaginary uncle) is standing by.</div><small>No personal information collected. Not legally binding anywhere.</small></article>
+  </div>
+</section>
+
+<!-- ===== Fitness test ===== -->
+<section class="fitness-section" id="fitness" aria-labelledby="fitness-title">
+  <div class="fitness-copy">
+    <span class="eyebrow">The Department of Questionable Qualifications</span>
+    <h2 id="fitness-title">Is Ted fit<br>to run a café?</h2>
+    <p>A <strong>playful fictional tribute</strong> to one of Ted's jokes. Not his actual wording, and not a claim about any government requirement.</p>
+    <div class="fitness-paper">
+      <span class="paper-stamp">HIGHLY UNOFFICIAL</span>
+      <h3>Annual Café Fitness Examination</h3>
+      <p>Applicant: Ted Martindale<br>Occupation: Community conversation facilitator (coffee division)</p>
+      <div aria-live="polite" id="fitnessQuestion">Question 1: Can you lift a coffee cup without starting a 45-minute conversation?</div>
+      <button id="fitnessNext" type="button">Submit suspiciously confident answer →</button>
+      <div aria-live="polite" id="fitnessResult"></div>
+    </div>
+  </div>
+  <div aria-hidden="true" class="fitness-doodle"><span>🏋️</span><strong>100%<br>UNSCIENTIFIC</strong><span>☕</span><p>Regulation 11: All good stories must be served hot.</p></div>
+</section>
+
+<!-- ===== Visit ===== -->
+<section class="visit" id="visit" aria-labelledby="visit-title">
+  <div class="eyebrow">The only call to action that matters</div>
+  <h2 id="visit-title" data-content="visit.title">Get in here.</h2>
+  <p><span data-content="visit.intro">Bring your appetite. Bring your curiosity. Leave your awkward small talk at the door—we've got plenty.</span></p>
+  <div class="visit-grid">
+    <div class="visit-card">
+      <h3>Find us</h3>
+      <p><strong>Granville's Coffee</strong><br><span data-setting="address">383 Reid Street, Quesnel, BC</span></p>
+      <p id="phoneLine" hidden>Phone: <a data-setting-link="phone" href="#"></a></p>
+      <p id="emailLine" hidden>Email: <a data-setting-link="email" href="#"></a></p>
+      <p style="margin-top:14px"><a class="btn" id="mapsLink" href="https://www.google.com/maps/search/?api=1&amp;query=Granville%27s+Coffee+383+Reid+Street+Quesnel+BC" rel="noopener noreferrer" target="_blank">Show me the way ↗</a></p>
+    </div>
+    <div class="visit-card">
+      <h3>Hours</h3>
+      <ul id="hoursList"><li><span>Walk-in focused</span><span>Call ahead</span></li></ul>
+      <p class="note" style="margin-top:10px" data-content="visit.hoursNote">Please confirm current opening hours before travelling.</p>
+    </div>
+    <div class="visit-card">
+      <h3>Say hello</h3>
+      <form class="visit-form" id="contactForm" novalidate>
+        <label class="sr-only" for="cName">Your name</label><input id="cName" name="name" autocomplete="name" placeholder="Your name" required maxlength="120">
+        <label class="sr-only" for="cEmail">Email</label><input id="cEmail" name="email" type="email" autocomplete="email" placeholder="Email" required maxlength="200">
+        <label class="sr-only" for="cMsg">Message</label><textarea id="cMsg" name="message" placeholder="Question, compliment, or catering request" required maxlength="3000"></textarea>
+        <label style="font-size:13px;display:flex;gap:8px;align-items:flex-start"><input type="checkbox" name="newsletter" style="width:auto;margin-top:3px"> Send me the occasional café news (unsubscribe any time)</label>
+        <button type="submit">Send message</button>
+        <p class="form-status" id="formStatus" role="status"></p>
+      </form>
+    </div>
+  </div>
+  <p class="note">Walk-in focused. Prices and menu items can change; ask at the counter.</p>
+</section>
+</main>
+
+<footer>
+  <strong>Granville's Coffee · Quesnel, BC</strong>
+  <nav aria-label="Footer"><a href="#menu-theatre">Menu</a><a href="#ted">Our story</a><a href="#inside">Photos</a><a href="#visit">Visit &amp; contact</a></nav>
+  <span>© <span id="year">2026</span> Granville's Coffee. Humorous scenarios are fictional.</span>
 </footer>
-<div id="toast" role="status" aria-live="polite"></div>
-<script type="module" src="assets/js/app.js"></script>
+
+<script src="assets/js/content.js"></script>
+<script src="assets/js/site.js"></script>
 </body>
 </html>
