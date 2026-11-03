@@ -149,7 +149,7 @@ async function seedDemo({ days = 120 } = {}) {
 
     // sales & shifts per day
     const weights = { sandwiches: 1.2, comfort: 0.8, breakfast: 0.9, sweets: 1.1, drinks: 2.6 };
-    for (let d = days; d >= 0; d--) {
+    for (let d = days; d >= 1; d--) { // stop at yesterday so no sample sale is in the future
       const date = new Date(); date.setDate(date.getDate() - d); date.setHours(0, 0, 0, 0);
       const dow = date.getDay();
       if (dow === 0 && r() < 0.7) continue; // mostly closed Sundays
