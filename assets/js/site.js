@@ -96,31 +96,6 @@
     syncPause(); show(0); schedule();
   })();
 
-  /* ---------- Live Quesnel clock ---------- */
-  (function clock() {
-    const hands = ["clock-hour", "clock-minute", "clock-second"].map((id) => document.getElementById(id));
-    if (hands.some((h) => !h)) return;
-    const fmt = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Vancouver", hour: "numeric", minute: "numeric", second: "numeric", hourCycle: "h23" });
-    let frame = 0, last = -1, tick = null;
-    function draw() {
-      const now = new Date();
-      const p = Object.fromEntries(fmt.formatToParts(now).filter((x) => x.type !== "literal").map((x) => [x.type, Number(x.value)]));
-      const s = p.second + (reduceMotion.matches ? 0 : now.getMilliseconds() / 1000);
-      const m = p.minute + s / 60;
-      const h = (p.hour % 12) + m / 60;
-      [h * 30, m * 6, s * 6].forEach((a, i) => hands[i].setAttribute("transform", "rotate(" + a + " 250 250)"));
-    }
-    function loop(t) { if (t - last >= 30) { draw(); last = t; } frame = requestAnimationFrame(loop); }
-    function start() {
-      cancelAnimationFrame(frame); clearInterval(tick); draw();
-      if (document.hidden) return;
-      if (reduceMotion.matches) tick = setInterval(draw, 1000); else frame = requestAnimationFrame(loop);
-    }
-    document.addEventListener("visibilitychange", start);
-    reduceMotion.addEventListener?.("change", start);
-    start();
-  })();
-
   /* ---------- Town stage stories ---------- */
   (function town() {
     const world = $("#town-world");
@@ -282,18 +257,205 @@
     });
   })();
 
-  (function fitness() {
-    const q = $("#fitnessQuestion"), r = $("#fitnessResult"), b = $("#fitnessNext");
-    if (!q || !r || !b) return;
-    let i = 0, done = false;
-    const label = "Submit suspiciously confident answer →";
-    b.addEventListener("click", () => {
-      const F = C.fitness || { questions: [], responses: [] };
-      if (done) { done = false; i = 0; q.textContent = F.questions[0]; r.textContent = ""; b.textContent = label; return; }
-      i++;
-      if (i < F.questions.length) { q.textContent = F.questions[i]; r.textContent = F.responses[i - 1] || ""; }
-      else { q.textContent = "Examination complete!"; r.textContent = F.verdict; b.textContent = "Retake this nonsense ↻"; done = true; }
+  /* ---------- The Bottom of the Cup: swirl, settle, read ---------- */
+  (function oracle() {
+    const canvas = $("#oracleCup"), btn = $("#oracleSwirl");
+    if (!canvas || !btn || !canvas.getContext) return;
+    const ctx = canvas.getContext("2d");
+    const section = $("#oracle"), box = $("#oracleReading"), kicker = $("#oracleKicker"), nameEl = $("#oracleName"),
+      textEl = $("#oracleText"), orderEl = $("#oracleOrder"), tally = $("#oracleTally");
+    const FOUND_KEY = "granvilles-cup-symbols";
+    const COUNT = window.matchMedia("(max-width: 700px)").matches ? 750 : 1300;
+    const store = { get() { try { return JSON.parse(localStorage.getItem(FOUND_KEY) || "[]"); } catch (e) { return []; } },
+      set(v) { try { localStorage.setItem(FOUND_KEY, JSON.stringify(v)); } catch (e) { /* private mode: the tally just won't persist */ } } };
+
+    let size = 0, cx = 0, cy = 0, bowl = 0, cupLayer = null;
+    let state = "rest", omega = 0, swirlUntil = 0, settleStart = 0, last = 0, lastPick = "", running = false;
+    let gold = false, sparks = [];
+    const grains = Array.from({ length: COUNT }, () => {
+      const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * 0.92;
+      return { a, r, x: 0, y: 0, sx: 0, sy: 0, tx: 0, ty: 0, delay: Math.random() * 0.35, s: 0.7 + Math.random() * 1.5, shade: Math.random() };
     });
+
+    function resize() {
+      const w = canvas.getBoundingClientRect().width || 480, dpr = Math.min(2, window.devicePixelRatio || 1);
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(w * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      size = w; cx = cy = w / 2; bowl = w * 0.31;
+      cupLayer = drawCup(w, dpr);
+      grains.forEach((g) => { if (state === "rest" || state === "swirl") polar(g); });
+      if (state === "shown") grains.forEach((g) => { g.x = cx + g.tx * bowl; g.y = cy + g.ty * bowl; });
+      frame(performance.now(), true);
+    }
+    function polar(g) { g.x = cx + Math.cos(g.a) * g.r * bowl; g.y = cy + Math.sin(g.a) * g.r * bowl; }
+
+    // The cup, seen from above: saucer, green-banded rim, cream bowl with a little sheen. Drawn once per resize.
+    function drawCup(w, dpr) {
+      const c = document.createElement("canvas"); c.width = w * dpr; c.height = w * dpr;
+      const k = c.getContext("2d"); k.scale(dpr, dpr);
+      const m = w / 2, b = w * 0.31;
+      let g = k.createRadialGradient(m, m * 1.04, b * 1.2, m, m, m * 0.98);
+      g.addColorStop(0, "#efe4cf"); g.addColorStop(0.75, "#d9c9ab"); g.addColorStop(1, "#b9a481");
+      k.fillStyle = g; k.beginPath(); k.arc(m, m, m * 0.97, 0, Math.PI * 2); k.fill();           // saucer
+      k.strokeStyle = "#14382e"; k.lineWidth = w * 0.012; k.beginPath(); k.arc(m, m, m * 0.9, 0, Math.PI * 2); k.stroke();
+      k.save(); k.shadowColor = "#00000066"; k.shadowBlur = w * 0.05; k.shadowOffsetY = w * 0.015;
+      k.fillStyle = "#f8f1e3"; k.beginPath(); k.arc(m, m, b * 1.22, 0, Math.PI * 2); k.fill(); k.restore();   // rim
+      k.strokeStyle = "#14382e"; k.lineWidth = w * 0.022; k.beginPath(); k.arc(m, m, b * 1.15, 0, Math.PI * 2); k.stroke();
+      k.strokeStyle = "#ffcb65"; k.lineWidth = w * 0.005; k.beginPath(); k.arc(m, m, b * 1.115, 0, Math.PI * 2); k.stroke();
+      g = k.createRadialGradient(m - b * 0.25, m - b * 0.3, b * 0.1, m, m, b * 1.06);
+      g.addColorStop(0, "#fffaf0"); g.addColorStop(0.7, "#efe3cb"); g.addColorStop(1, "#cdb894");
+      k.fillStyle = g; k.beginPath(); k.arc(m, m, b * 1.06, 0, Math.PI * 2); k.fill();           // bowl
+      k.fillStyle = "#6b412233"; k.beginPath(); k.arc(m, m, b * 1.06, 0, Math.PI * 2); k.arc(m, m, b * 0.96, 0, Math.PI * 2, true); k.fill(); // coffee ring
+      k.save(); k.translate(m + b * 1.3, m + b * 0.1); k.rotate(0.15);                           // handle
+      k.fillStyle = "#f8f1e3"; k.strokeStyle = "#14382e"; k.lineWidth = w * 0.01;
+      k.beginPath(); k.ellipse(0, 0, b * 0.28, b * 0.13, 0, 0, Math.PI * 2); k.fill(); k.stroke(); k.restore();
+      return c;
+    }
+
+    // Turn a symbol into target points by drawing it off-screen and sampling the inked pixels.
+    function shapePoints(symbol, fallbackLetter) {
+      const n = 220, off = document.createElement("canvas"); off.width = off.height = n;
+      const k = off.getContext("2d", { willReadFrequently: true });
+      const draw = (txt, font) => { k.clearRect(0, 0, n, n); k.font = font; k.textAlign = "center"; k.textBaseline = "middle"; k.fillStyle = "#000"; k.fillText(txt, n / 2, n / 2 + 8); };
+      const sample = () => { const d = k.getImageData(0, 0, n, n).data, pts = []; for (let y = 0; y < n; y += 2) for (let x = 0; x < n; x += 2) if (d[(y * n + x) * 4 + 3] > 110) pts.push([x, y]); return pts; };
+      draw(symbol, `170px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`);
+      let pts = sample();
+      if (pts.length < 160) { draw(fallbackLetter, `900 190px Fraunces, Georgia, serif`); pts = sample(); }
+      let minX = n, maxX = 0, minY = n, maxY = 0;
+      pts.forEach(([x, y]) => { minX = Math.min(minX, x); maxX = Math.max(maxX, x); minY = Math.min(minY, y); maxY = Math.max(maxY, y); });
+      const span = Math.max(maxX - minX, maxY - minY) || 1, mx = (minX + maxX) / 2, my = (minY + maxY) / 2;
+      return pts.map(([x, y]) => [((x - mx) / span) * 1.3 + (Math.random() - 0.5) * 0.012, ((y - my) / span) * 1.3 + (Math.random() - 0.5) * 0.012]);
+    }
+
+    function pickReading() {
+      const O = C.oracle || {}, list = (O.readings || []).filter((r) => r && r.name);
+      if (O.legendary && Math.random() < 1 / Math.max(2, Number(O.odds) || 40)) return Object.assign({ legendary: true }, O.legendary);
+      const pool = list.filter((r) => r.name !== lastPick);
+      return (pool.length ? pool : list)[Math.floor(Math.random() * (pool.length || list.length))] || { symbol: "?", name: "The Mystery", reading: "The grounds are shy today." };
+    }
+    function luckyOrder() {
+      const items = (C.menu || []).flatMap((c) => (c.items || []).filter((i) => i.visible !== false).map((i) => i.name)).filter(Boolean);
+      return items.length ? items[Math.floor(Math.random() * items.length)] : "";
+    }
+    function updateTally(found) {
+      const total = ((C.oracle || {}).readings || []).length;
+      const n = found.filter((f) => f !== "legendary").length, hasGold = found.includes("legendary");
+      tally.textContent = n >= total && total ? `All ${total} symbols found${hasGold ? ", plus the gold" : ""}. Ted owes you a high five.` :
+        n ? `${n} of ${total} symbols found${hasGold ? " · gold struck!" : ""}` : `${total} symbols are hiding in this cup`;
+    }
+
+    let reading = null;
+    function beginSwirl(strength) {
+      if (state === "settling") return;
+      reading = null; gold = false; section.classList.remove("is-legendary"); sparks = [];
+      if (state === "shown") grains.forEach((g) => { const dx = g.x - cx, dy = g.y - cy; g.a = Math.atan2(dy, dx); g.r = Math.min(0.95, Math.hypot(dx, dy) / bowl); });
+      state = "swirl"; omega = Math.max(omega, strength); swirlUntil = performance.now() + 1500;
+      kicker.textContent = "Swirling…"; start();
+    }
+    function settle() {
+      reading = pickReading(); lastPick = reading.name;
+      const pts = shapePoints(reading.symbol || "?", (reading.name || "?").replace(/^The\s+/i, "").charAt(0));
+      const shuffled = pts.sort(() => Math.random() - 0.5), use = Math.min(shuffled.length, Math.floor(COUNT * 0.78));
+      grains.forEach((g, i) => {
+        g.sx = g.x; g.sy = g.y;
+        if (i < use) { g.tx = shuffled[i][0] * 0.62; g.ty = shuffled[i][1] * 0.62; g.edge = false; }
+        else { const a = Math.random() * Math.PI * 2, r = 0.86 + Math.random() * 0.12; g.tx = Math.cos(a) * r; g.ty = Math.sin(a) * r; g.edge = true; }
+      });
+      gold = !!reading.legendary; state = "settling"; settleStart = performance.now();
+      if (reduceMotion.matches) { grains.forEach((g) => { g.x = cx + g.tx * bowl; g.y = cy + g.ty * bowl; }); reveal(); }
+    }
+    function reveal() {
+      state = "shown"; omega = 0; btn.disabled = false; btn.textContent = "Swirl again";
+      const found = store.get(), key = reading.legendary ? "legendary" : reading.name;
+      const isNew = !found.includes(key); if (isNew) { found.push(key); store.set(found); }
+      updateTally(found);
+      box.classList.remove("is-new"); void box.offsetWidth; box.classList.add("is-new");
+      const total = ((C.oracle || {}).readings || []).length;
+      kicker.textContent = reading.legendary ? `Once in a lifetime · about 1 in ${(C.oracle || {}).odds || 40} cups` : `${isNew ? "New symbol" : "Seen it before"} · ${total} hide in this cup`;
+      nameEl.textContent = `${reading.symbol ? reading.symbol + " " : ""}${reading.name}`;
+      textEl.textContent = reading.reading || "";
+      const order = luckyOrder();
+      orderEl.hidden = !order; orderEl.textContent = order ? `Lucky order today: ${order}` : "";
+      if (gold) {
+        section.classList.add("is-legendary");
+        if (!reduceMotion.matches) for (let i = 0; i < 90; i++) { const a = Math.random() * Math.PI * 2, v = 60 + Math.random() * 220; sparks.push({ x: cx, y: cy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1 }); }
+      }
+      start();
+    }
+
+    function frame(now, still) {
+      const dt = Math.min(0.05, (now - last) / 1000 || 0); last = now;
+      if (state === "swirl") {
+        if (now > swirlUntil) omega *= Math.pow(0.18, dt);
+        grains.forEach((g) => {
+          g.a += omega * (1.25 - g.r * 0.55) * dt;
+          g.r += ((0.62 + Math.min(omega, 10) / 30) + Math.sin(g.a * 3 + g.shade * 6) * 0.08 - g.r) * Math.min(1, dt * 2.5);
+          polar(g);
+        });
+        if (now > swirlUntil && omega < 1.4) settle();
+      } else if (state === "settling") {
+        const t = (now - settleStart) / 1000;
+        let doneAll = true;
+        grains.forEach((g) => {
+          const p = Math.min(1, Math.max(0, (t - g.delay) / 1.25)), e = 1 - Math.pow(1 - p, 3);
+          if (p < 1) doneAll = false;
+          const swirlBack = (1 - e) * 0.6;
+          const tx = cx + g.tx * bowl, ty = cy + g.ty * bowl;
+          const bx = g.sx + (tx - g.sx) * e, by = g.sy + (ty - g.sy) * e;
+          const ang = swirlBack, dx = bx - cx, dy = by - cy;
+          g.x = cx + dx * Math.cos(ang) - dy * Math.sin(ang); g.y = cy + dx * Math.sin(ang) + dy * Math.cos(ang);
+        });
+        if (doneAll) reveal();
+      }
+      ctx.clearRect(0, 0, size, size);
+      if (cupLayer) ctx.drawImage(cupLayer, 0, 0, size, size);
+      ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, bowl * 1.05, 0, Math.PI * 2); ctx.clip();
+      grains.forEach((g) => {
+        const tone = gold && !g.edge ? (g.shade < 0.5 ? "#c8901f" : "#f3c64c") : (g.shade < 0.33 ? "#2b170b" : g.shade < 0.66 ? "#43260f" : "#5c3718");
+        ctx.fillStyle = tone; ctx.beginPath(); ctx.arc(g.x, g.y, g.s * size / 520, 0, Math.PI * 2); ctx.fill();
+      });
+      ctx.restore();
+      if (sparks.length) {
+        sparks.forEach((s) => { s.x += s.vx * dt; s.y += s.vy * dt; s.vx *= 0.97; s.vy *= 0.97; s.life -= dt * 0.7; });
+        sparks = sparks.filter((s) => s.life > 0);
+        sparks.forEach((s) => { ctx.globalAlpha = Math.max(0, s.life); ctx.fillStyle = "#ffe08a"; ctx.beginPath(); ctx.arc(s.x, s.y, 2.4 * size / 520, 0, Math.PI * 2); ctx.fill(); });
+        ctx.globalAlpha = 1;
+      }
+      if (still) return;
+      if (state === "swirl" || state === "settling" || sparks.length) requestAnimationFrame(frame);
+      else running = false;
+    }
+    function start() { if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); } }
+
+    btn.addEventListener("click", () => {
+      btn.disabled = true; btn.textContent = "Reading the grounds…";
+      if (reduceMotion.matches) { beginSwirl(0); settle(); return; }
+      beginSwirl(11);
+    });
+
+    // Draw circles on the cup to swirl it by hand; enough turning and the grounds settle on release.
+    let dragging = false, prevAng = 0, turned = 0;
+    const angleAt = (e) => { const r = canvas.getBoundingClientRect(); return Math.atan2(e.clientY - r.top - r.height / 2, e.clientX - r.left - r.width / 2); };
+    canvas.addEventListener("pointerdown", (e) => { if (state === "settling") return; dragging = true; turned = 0; prevAng = angleAt(e); canvas.setPointerCapture(e.pointerId); });
+    canvas.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      let d = angleAt(e) - prevAng; prevAng += d;
+      if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2;
+      turned += Math.abs(d);
+      if (state !== "swirl") beginSwirl(0);
+      omega = Math.min(14, omega + Math.abs(d) * 2.2); swirlUntil = performance.now() + 250;
+    });
+    const release = () => {
+      if (!dragging) return; dragging = false;
+      if (turned > Math.PI * 2.5) { btn.disabled = true; btn.textContent = "Reading the grounds…"; swirlUntil = performance.now() + 400; omega = Math.max(omega, 6); }
+    };
+    canvas.addEventListener("pointerup", release);
+    canvas.addEventListener("pointercancel", release);
+
+    updateTally(store.get());
+    document.addEventListener("granvilles:live", () => updateTally(store.get())); // readings edited in the admin
+    if ("ResizeObserver" in window) new ResizeObserver(resize).observe(canvas); else window.addEventListener("resize", resize);
+    resize();
   })();
 
   /* ---------- Journey ribbon & passport ---------- */
@@ -318,6 +480,7 @@
     $("#menu-theatre")?.addEventListener("click", (e) => { if (e.target.closest("button")) stamp("menu"); });
     $("#town-stage")?.addEventListener("click", (e) => { if (e.target.closest("button")) stamp("friends"); });
     $("#games")?.addEventListener("click", (e) => { if (e.target.closest("button")) stamp("game"); });
+    $("#oracle")?.addEventListener("click", (e) => { if (e.target.closest("button")) stamp("game"); });
 
     if (!("IntersectionObserver" in window)) return;
     const ids = ["town-stage", "people", "menu-theatre", "ted", "games", "visit"];
@@ -432,10 +595,11 @@
       if (!live) return;
       apiOnline = true;
       const staff = $("#staffLink"); if (staff) staff.hidden = false; // the admin only works where the server runs
-      ["settings", "text", "lists", "fitness"].forEach((k) => { if (live[k]) C[k] = Object.assign({}, C[k], live[k]); });
+      ["settings", "text", "lists", "oracle"].forEach((k) => { if (live[k]) C[k] = Object.assign({}, C[k], live[k]); });
       ["menu", "hours", "stories", "gallery", "characters", "quest"].forEach((k) => { if (Array.isArray(live[k]) && live[k].length) C[k] = live[k]; });
       if (live.tedPhoto) C.tedPhoto = live.tedPhoto;
       renderAll();
+      document.dispatchEvent(new Event("granvilles:live"));
       navigator.sendBeacon?.(API + "/public/track", new Blob([JSON.stringify({ path: location.pathname + location.hash, referrer: document.referrer.slice(0, 300) })], { type: "application/json" }));
     })
     .catch(() => clearTimeout(timeout));

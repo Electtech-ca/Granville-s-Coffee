@@ -94,14 +94,24 @@ window.GRANVILLES_DEFAULTS = {
     { art: "🗞️", q: "Mabel has three versions of the same story. Which one do you trust?", choices: ["The one with the dramatic pause.", "The one told by the person who was actually there."], reactions: ["Excellent choice. Absolutely no evidence, but wonderful suspense.", "Sensible. The room is disappointed by your commitment to facts."] },
     { art: "🧭", q: "Doug offers directions to the highway. Your response?", choices: ["Ask for the route that still exists.", "Stay for pie and let the highway find you."], reactions: ["Doug draws a map. Half the landmarks closed in 1984.", "You have discovered the true shortcut: dessert."] }
   ],
-  fitness: {
-    questions: [
-      "Question 1: Can you lift a coffee cup without starting a 45-minute conversation?",
-      "Question 2: Can you remember a customer's name, their cousin's name, and their dog's birthday?",
-      "Question 3: Can you survive an entire morning without giving somebody unsolicited directions?",
-      "Question 4: Can you bake a birthday cake that fits through an ordinary doorway?"
+  // "The Bottom of the Cup": the coffee grounds settle into one of these symbols.
+  // symbol is drawn by the grounds (an emoji works best); legendary appears about once in `odds` swirls.
+  oracle: {
+    odds: 40,
+    readings: [
+      { symbol: "🫎", name: "The Moose", reading: "A large, unhurried opportunity is standing in the middle of your road. Do not honk. Wait for it to finish thinking." },
+      { symbol: "🛶", name: "The Canoe", reading: "Two rivers meet in your future, the way the Fraser meets the Quesnel. Paddle toward whichever side has pie." },
+      { symbol: "🌲", name: "The Pine", reading: "You will grow tall, steady and slightly sticky. People will lean on you, mostly in a good way." },
+      { symbol: "🥧", name: "The Pie", reading: "A slice of good news arrives warm. Someone at the next table will claim they heard it first." },
+      { symbol: "🔑", name: "The Key", reading: "A door you thought was locked is only stiff. Lift a little and push, like every good back door in town." },
+      { symbol: "⛰️", name: "The Mountain", reading: "A big climb is coming. Take snacks. Take a friend. Ignore anyone who mentions a shortcut." },
+      { symbol: "🦉", name: "The Owl", reading: "You already know the answer. You were waiting for someone to top up your cup and say it out loud." },
+      { symbol: "❤️", name: "The Heart", reading: "Someone is about to remember your order without asking. Act natural. Tip generously." },
+      { symbol: "🐟", name: "The Fish", reading: "The one that got away has been telling everyone about you. You come off rather well in the story." },
+      { symbol: "☀️", name: "The Sun", reading: "Clear skies ahead, which in the Cariboo means bring a jacket anyway." },
+      { symbol: "🚲", name: "The Bicycle", reading: "Balance is coming back to your life. Keep pedalling and wave at everyone. They will wave back." },
+      { symbol: "❓", name: "The Question Mark", reading: "The grounds refuse to comment until they've heard your side of the story. Order another cup and start talking." }
     ],
-    responses: ["Excellent. The examiner has wandered off for coffee.", "Promising. The committee requests another biscuit.", "A very strong performance, considering nobody knows the rules."],
-    verdict: "VERDICT: Spectacularly overqualified for making people feel welcome. Official status: absolutely none."
+    legendary: { symbol: "⭐", name: "The Cariboo Gold", reading: "Once in a lifetime. The grounds have struck gold, the way the Cariboo did in the 1860s. Your luck is extraordinary today. Tell Ted. Ted will tell everyone." }
   }
 };

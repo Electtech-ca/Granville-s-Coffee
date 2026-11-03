@@ -29,7 +29,7 @@ async function siteContent() {
     stories: S.stories,
     characters: S.characters,
     quest: S.quest,
-    fitness: S.fitness,
+    oracle: S.oracle,
     tedPhoto: S.tedPhoto || "",
     menu,
     gallery

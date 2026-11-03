@@ -419,6 +419,7 @@
     const L = content.settings.lists || {};
     const stories = content.settings.stories || [];
     const lines = (arr) => esc((arr || []).join("\n"));
+    const O = content.settings.oracle || {}, G = O.legendary || {};
     box.innerHTML = `<div class="notice info" style="margin-bottom:14px">One item per line. These feed the buttons in the games section of the website.</div>
       <form class="grid g3" id="listsForm">
         <label class="card field">Local Directions Machine<textarea name="directions" rows="8">${lines(L.directions)}</textarea></label>
@@ -427,7 +428,17 @@
         <div class="span2"><button class="btn gold" type="submit">Save game lines</button></div></form>
       <form class="card stack" id="storiesForm" style="margin-top:16px"><h2>Community table stories</h2><p class="sub">Shown when visitors press "Another story". Speech bubbles are for the three characters.</p>
         <div id="storyRows" class="stack">${stories.map(storyRow).join("")}</div>
-        <div class="row"><button class="btn light sm" type="button" id="addStory">+ Add story</button><span class="spacer"></span><button class="btn gold" type="submit">Save stories</button></div></form>`;
+        <div class="row"><button class="btn light sm" type="button" id="addStory">+ Add story</button><span class="spacer"></span><button class="btn gold" type="submit">Save stories</button></div></form>
+      <form class="card stack" id="oracleForm" style="margin-top:16px"><h2>The Bottom of the Cup</h2><p class="sub">Visitors swirl a coffee cup and the grounds settle into one of these symbols. Use a single emoji for the symbol.</p>
+        <div id="cupRows" class="stack">${(O.readings || []).map(cupRow).join("")}</div>
+        <div class="row"><button class="btn light sm" type="button" id="addCup">+ Add reading</button></div>
+        <h3 style="margin-top:8px">The rare golden reading</h3>
+        <div class="story" id="cupGold" style="border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff8e1"><div class="form-grid">
+          <label class="field">Symbol<input type="text" data-k="symbol" maxlength="8" value="${esc(G.symbol || "")}"></label>
+          <label class="field">Name<input type="text" data-k="name" value="${esc(G.name || "")}"></label>
+          <label class="field full">Reading<textarea data-k="reading" rows="2">${esc(G.reading || "")}</textarea></label>
+          <label class="field">How rare? (1 in ...)<span class="hint">40 means about one swirl in forty</span><input type="number" min="2" max="1000" id="cupOdds" value="${esc(O.odds || 40)}"></label></div></div>
+        <div class="row"><span class="spacer"></span><button class="btn gold" type="submit">Save cup readings</button></div></form>`;
     $("#listsForm").onsubmit = (e) => {
       e.preventDefault();
       const f = formData(e.target), split = (v) => v.split("\n").map((s) => s.trim()).filter(Boolean);
@@ -441,7 +452,23 @@
       const value = $$(".story", box).map((s) => ({ line: $("[data-k=line]", s).value.trim(), caption: $("[data-k=caption]", s).value.trim(), bubbles: $$("[data-k=bubble]", s).map((b) => b.value.trim()) })).filter((s) => s.line);
       busy(e.submitter, async () => { await put("/content/settings/stories", { value }); content.settings.stories = value; toast("Stories saved."); });
     };
+    const readCup = (el) => ({ symbol: $("[data-k=symbol]", el).value.trim(), name: $("[data-k=name]", el).value.trim(), reading: $("[data-k=reading]", el).value.trim() });
+    $("#addCup").onclick = () => $("#cupRows").insertAdjacentHTML("beforeend", cupRow({ symbol: "", name: "", reading: "" }));
+    $("#cupRows").addEventListener("click", (e) => { if (e.target.matches("[data-rm]")) e.target.closest(".story").remove(); });
+    $("#oracleForm").onsubmit = (e) => {
+      e.preventDefault();
+      const readings = $$("#cupRows .story", box).map(readCup).filter((r) => r.symbol && r.name);
+      if (!readings.length) return toast("Add at least one reading with a symbol and a name.", true);
+      const odds = Math.min(1000, Math.max(2, parseInt($("#cupOdds").value, 10) || 40));
+      const value = { odds, readings, legendary: readCup($("#cupGold")) };
+      busy(e.submitter, async () => { await put("/content/settings/oracle", { value }); content.settings.oracle = value; toast("Cup readings saved."); });
+    };
   }
+  const cupRow = (r) => `<div class="story" style="border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff">
+    <div class="form-grid"><label class="field">Symbol<input type="text" data-k="symbol" maxlength="8" value="${esc(r.symbol)}"></label>
+    <label class="field">Name<input type="text" data-k="name" value="${esc(r.name)}"></label>
+    <label class="field full">Reading<textarea data-k="reading" rows="2">${esc(r.reading)}</textarea></label>
+    <div class="row"><button type="button" class="btn danger sm" data-rm>Remove</button></div></div></div>`;
   const storyRow = (s) => `<div class="story" style="border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff">
     <div class="form-grid"><label class="field full">Story<textarea data-k="line" rows="2">${esc(s.line)}</textarea></label>
     <label class="field full">Caption<input type="text" data-k="caption" value="${esc(s.caption)}"></label>

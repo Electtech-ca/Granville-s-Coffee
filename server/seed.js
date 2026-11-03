@@ -90,7 +90,7 @@ async function seedContent() {
     stories: D.stories,
     characters: D.characters,
     quest: D.quest,
-    fitness: D.fitness,
+    oracle: D.oracle,
     tedPhoto: ""
   };
   for (const [k, v] of Object.entries(settings)) {
