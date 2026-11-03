@@ -431,6 +431,7 @@
       clearTimeout(timeout);
       if (!live) return;
       apiOnline = true;
+      const staff = $("#staffLink"); if (staff) staff.hidden = false; // the admin only works where the server runs
       ["settings", "text", "lists", "fitness"].forEach((k) => { if (live[k]) C[k] = Object.assign({}, C[k], live[k]); });
       ["menu", "hours", "stories", "gallery", "characters", "quest"].forEach((k) => { if (Array.isArray(live[k]) && live[k].length) C[k] = live[k]; });
       if (live.tedPhoto) C.tedPhoto = live.tedPhoto;
