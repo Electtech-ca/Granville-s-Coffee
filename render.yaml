@@ -1,0 +1,27 @@
+# One-click deploy on Render: New > Blueprint > pick this repository.
+# Creates the website + admin server and a PostgreSQL database, wired together.
+services:
+  - type: web
+    name: granvilles-coffee
+    runtime: node
+    plan: starter
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: granvilles-db
+          property: connectionString
+      - key: BUSINESS_TZ
+        value: America/Vancouver
+      - key: SETUP_TOKEN
+        generateValue: true
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: SEED_DEMO
+        value: "0"
+databases:
+  - name: granvilles-db
+    plan: basic-256mb
+    databaseName: granvilles

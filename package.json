@@ -1,0 +1,23 @@
+{
+  "name": "granvilles-coffee",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Granville's Coffee website, PostgreSQL content database and admin portal (CRM, ERP, analytics, AI).",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "db:seed": "node server/seed.js",
+    "seed:demo": "node server/seed.js --demo",
+    "check": "node --check server/index.js && node --check server/routes/admin.js && node --check server/routes/public.js && node --check server/analytics.js && node --check server/ai.js && node --check server/seed.js && node --check admin/admin.js && node --check assets/js/site.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.4.0",
+    "express": "^4.22.3",
+    "pg": "^8.23.1"
+  }
+}
