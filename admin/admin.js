@@ -82,7 +82,7 @@
     });
     return o;
   };
-  const download = (path) => { window.location.href = API + path; };
+  const download = (path) => { if (window.GRANVILLES_PREVIEW) return toast("Exports are off in this preview. On the real server this downloads a CSV file you can open in Excel."); window.location.href = API + path; };
 
   /* ================= Charts (SVG, no libraries) ================= */
   function lineChart(points, { forecast = [], height = 220, prefix = "$" } = {}) {
@@ -356,7 +356,7 @@
     const r = await api("POST", "/upload", file, { headers: { "X-Filename": file.name } });
     return r.url;
   }
-  const imgSrc = (src) => (/^(https?:)?\/\//.test(src) || src.startsWith("/") ? src : "../" + src);
+  const imgSrc = (src) => (/^((https?:)?\/\/|blob:|data:)/.test(src) || src.startsWith("/") ? src : "../" + src);
 
   async function websitePhotos(box, content) {
     const { rows } = await get("/r/gallery");
