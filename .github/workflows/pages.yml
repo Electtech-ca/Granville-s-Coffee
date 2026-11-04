@@ -23,6 +23,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Stamp asset versions so browsers fetch the new CSS and JS
+        run: |
+          v="${GITHUB_SHA::8}"
+          find . -name '*.html' -not -path './node_modules/*' -not -path './.git/*' \
+            -exec sed -i -E "s/\\?v=[0-9A-Za-z]+\"/?v=${v}\"/g" {} +
+          grep -h '?v=' index.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

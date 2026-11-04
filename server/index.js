@@ -47,7 +47,9 @@ app.use((req, res, next) => {
   next();
 });
 app.use("/admin", express.static(path.join(ROOT, "admin"), { index: "index.html" }));
-app.use(express.static(ROOT, { index: "index.html", dotfiles: "deny", maxAge: "1h" }));
+// Pages, styles and scripts are re-checked on every visit (cheap 304s) so a deploy shows up straight away; images stay cached.
+const revalidate = (res, file) => { if (/\.(html|css|js)$/i.test(file)) res.setHeader("Cache-Control", "no-cache"); };
+app.use(express.static(ROOT, { index: "index.html", dotfiles: "deny", maxAge: "1h", setHeaders: revalidate }));
 
 app.use((err, req, res, _next) => {
   const status = err.status || (err.type === "entity.too.large" ? 413 : 500);

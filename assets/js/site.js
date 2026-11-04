@@ -96,6 +96,31 @@
     syncPause(); show(0); schedule();
   })();
 
+  /* ---------- Live Quesnel clock ---------- */
+  (function clock() {
+    const hands = ["clock-hour", "clock-minute", "clock-second"].map((id) => document.getElementById(id));
+    if (hands.some((h) => !h)) return;
+    const fmt = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Vancouver", hour: "numeric", minute: "numeric", second: "numeric", hourCycle: "h23" });
+    let frame = 0, last = -1, tick = null;
+    function draw() {
+      const now = new Date();
+      const p = Object.fromEntries(fmt.formatToParts(now).filter((x) => x.type !== "literal").map((x) => [x.type, Number(x.value)]));
+      const s = p.second + (reduceMotion.matches ? 0 : now.getMilliseconds() / 1000);
+      const m = p.minute + s / 60;
+      const h = (p.hour % 12) + m / 60;
+      [h * 30, m * 6, s * 6].forEach((a, i) => hands[i].setAttribute("transform", "rotate(" + a + " 250 250)"));
+    }
+    function loop(t) { if (t - last >= 30) { draw(); last = t; } frame = requestAnimationFrame(loop); }
+    function start() {
+      cancelAnimationFrame(frame); clearInterval(tick); draw();
+      if (document.hidden) return;
+      if (reduceMotion.matches) tick = setInterval(draw, 1000); else frame = requestAnimationFrame(loop);
+    }
+    document.addEventListener("visibilitychange", start);
+    reduceMotion.addEventListener?.("change", start);
+    start();
+  })();
+
   /* ---------- Town stage stories ---------- */
   (function town() {
     const world = $("#town-world");
