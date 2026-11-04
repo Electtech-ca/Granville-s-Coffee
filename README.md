@@ -74,12 +74,18 @@ the owner there (it asks for `SETUP_TOKEN` if you set one). To try the portal wi
 
 ### Deploying
 
-Any Node host with PostgreSQL works. On **Render**, choose *New → Blueprint* and pick this repository: `render.yaml`
-creates the web service and database and connects them. Then add `ANTHROPIC_API_KEY` if you want AI, open
-`https://<your-app>.onrender.com/admin/`, and use the `SETUP_TOKEN` shown in the service's Environment tab to create
-the owner login. On Railway, Fly.io or a VPS: create a Postgres database, set `DATABASE_URL`, run `npm start`.
-Point the café's domain at that server; the GitHub Pages copy keeps working as a static fallback (its "Staff login"
-link stays hidden because there is no server behind it).
+**OVH VPS (the café's host).** On a fresh Ubuntu 22.04/24.04 or Debian 12 VPS, one command installs Node.js,
+PostgreSQL, nginx, a free HTTPS certificate, auto-restart and nightly backups. Step-by-step guide:
+[`deploy/ovh/README.md`](deploy/ovh/README.md).
+
+**Other hosts.** Any Node host with PostgreSQL works: set `DATABASE_URL` and run `npm start`. `render.yaml` is a
+ready-made blueprint for Render.
+
+**Public preview on GitHub Pages.** The Pages copy at https://electtech-ca.github.io/Granville-s-Coffee/ shows the
+public site with its built-in content (the "Staff login" link stays hidden because there is no server behind it), and
+`/admin-preview/` shows the admin portal filled with sample data so people can click through it. Nothing there is
+saved. To refresh the sample data, run the server with `SEED_DEMO=1` and then `node scripts/build-admin-preview.js`
+(see the comment at the top of that file). The real server redirects `/admin-preview/` to `/admin/`.
 
 ### Security notes
 
@@ -104,6 +110,8 @@ server/analytics.js     KPIs, forecast, segments, menu engineering, insights
 server/ai.js            Claude-powered helpers (briefing, Q&A, copywriting, reply drafts, marketing)
 server/seed.js          copies site content into the database; optional sample data
 render.yaml             one-click Render deploy
+deploy/ovh/             OVH VPS installer, update and backup scripts
+admin-preview/          sample-data admin preview for GitHub Pages (built by scripts/build-admin-preview.js)
 ```
 
 Without the server, open `index.html` through any static server (e.g. `python3 -m http.server`) or GitHub Pages

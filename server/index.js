@@ -42,7 +42,8 @@ app.get("/uploads/:id", async (req, res, next) => {
 
 // Static site; never serve server code, dotfiles or package files.
 app.use((req, res, next) => {
-  if (/^\/(server|node_modules|docs|\.git|\.github|package(-lock)?\.json|README\.md)(\/|$)/i.test(req.path)) return res.status(404).end();
+  if (/^\/admin-preview(\/|$)/i.test(req.path)) return res.redirect("/admin/"); // the sample-data preview is for GitHub Pages only
+  if (/^\/(server|node_modules|docs|deploy|\.git|\.github|\.env[^/]*|package(-lock)?\.json|render\.yaml|README\.md)(\/|$)/i.test(req.path)) return res.status(404).end();
   next();
 });
 app.use("/admin", express.static(path.join(ROOT, "admin"), { index: "index.html" }));
