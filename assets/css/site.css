@@ -49,7 +49,7 @@ h1,h2,h3{font-family:Fraunces,Georgia,serif;letter-spacing:-.055em}
 @media(max-width:700px){.journey-label{display:none}.journey-inner{padding:8px}.journey-stop{font-size:10px;padding:8px 2px}.journey-passport{font-size:10px}}
 
 /* ---------- Hero (slide 1) ---------- */
-.hero{position:relative;display:grid;grid-template-columns:minmax(0,860px);align-items:center;min-height:min(calc(100svh - 70px),780px);background:linear-gradient(90deg,#0d2c23f7 0%,#123a2fdd 42%,#12392e66 100%),url(../img/ceiling-two.webp) center 35%/cover var(--forest);color:#fff;overflow:hidden}
+.hero{position:relative;display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:calc(100svh - 70px);background:var(--forest);color:#fff;overflow:hidden}
 .hero:after{content:"";position:absolute;width:520px;height:520px;border:1px solid #ffffff20;border-radius:50%;left:-260px;bottom:-290px;pointer-events:none}
 .hero-copy{position:relative;z-index:1;padding:clamp(22px,3.2vh,42px) 4vw clamp(24px,4vh,45px) clamp(22px,6vw,100px)}
 .hero-copy:before{content:"✳";position:absolute;right:3%;top:2%;font-size:65px;color:var(--yellow);animation:spinny 18s linear infinite}
@@ -61,6 +61,14 @@ h1,h2,h3{font-family:Fraunces,Georgia,serif;letter-spacing:-.055em}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:2px solid var(--yellow);background:var(--yellow);color:var(--dark);padding:16px 23px;border-radius:100px;text-decoration:none;font-weight:800;font-size:14px;transition:transform .2s}
 .btn:hover{transform:translateY(-4px)}
 .btn.ghost{background:transparent;color:#fff}
+.hero-art{position:relative;display:flex;align-items:center;justify-content:center;height:100%;padding:12px 20px 45px;background:radial-gradient(circle at 50% 35%,#3e7863 0%,#173f32 50%,#0c241d 100%)}
+.hero-note{position:absolute;z-index:3;left:12px;right:12px;bottom:7px;background:#f6eddbf2;color:var(--ink);padding:12px;transform:rotate(-2deg);font-weight:800;font-size:12px;text-align:center;box-shadow:0 10px 30px #0004}
+.clock-widget{position:relative;z-index:2;width:min(100%,380px);margin-inline:auto;padding:9px;background:#f6eddbf2;border:6px solid #f4cb74;border-radius:28px;box-shadow:0 28px 70px #061e19b8;text-align:center;transform:rotate(-3deg);animation:clockFloat 6s ease-in-out infinite}
+.clock-widget svg{display:block;width:min(100%,min(34vw,315px,48vh));margin:auto;filter:drop-shadow(0 10px 8px #10251e40)}
+.clock-widget p{margin:8px 0 0;color:#173c30;font-weight:800;font-size:13px}
+.clock-widget details{color:#173c30;font-size:12px;max-width:400px;margin:auto}
+.clock-widget summary{cursor:pointer;text-decoration:underline;padding:7px;font-weight:700}
+.clock-widget details img{width:100%;height:auto;border-radius:12px;display:block}
 @keyframes clockFloat{50%{transform:translateY(-8px) rotate(2deg)}}
 @keyframes spinny{to{transform:rotate(360deg)}}
 @keyframes bob{50%{transform:translateY(-12px) rotate(8deg)}}
@@ -69,8 +77,11 @@ h1,h2,h3{font-family:Fraunces,Georgia,serif;letter-spacing:-.055em}
   .hero-copy{padding:34px 23px 25px}
   .hero-copy:after{display:none}
   .hero h1{font-size:clamp(48px,10vw,75px)}
+  .hero-art{min-height:0;padding:8px 18px 46px}
+  .clock-widget{width:min(78vw,285px);padding:7px}
+  .clock-widget svg{width:min(65vw,235px)}
 }
-@media(min-width:851px) and (max-height:730px){.hero{min-height:560px}}
+@media(min-width:851px) and (max-height:730px){.hero{min-height:620px}.clock-widget svg{width:min(28vw,265px)}}
 
 /* ---------- Hero carousel ---------- */
 .hero-carousel{position:relative;display:block;width:100%;overflow:hidden;background:#102b22;isolation:isolate}
