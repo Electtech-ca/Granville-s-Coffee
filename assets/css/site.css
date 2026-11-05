@@ -90,6 +90,36 @@ h1,h2,h3{font-family:Fraunces,Georgia,serif;letter-spacing:-.055em}
 .hero-slide.photo-slide{background:#102b22;min-height:clamp(250px,55vw,850px);container-type:size;display:flex;align-items:center;justify-content:center}
 .banner-frame{position:relative;width:min(100cqw,calc(100cqh * 1672 / 837));aspect-ratio:1672/837}
 .banner-frame img{display:block;width:100%;height:100%;object-fit:cover}
+/* Slide 2: the café cutaway */
+.cut-frame{container-type:inline-size;overflow:hidden;background:#0b211b}
+.cutaway{position:absolute;inset:0;display:block;width:100%;height:100%}
+.cutaway a{cursor:pointer}
+.cutaway .c-hot{transition:filter .25s}
+.cutaway .c-hot:hover,.cutaway .c-hot:focus-visible{filter:brightness(1.12) drop-shadow(0 0 10px #ffcb65aa);outline:none}
+.cutaway .c-tag rect{transition:fill .2s}.cutaway .c-tag:hover rect{fill:#fff}
+.c-star{animation:cTwinkle 4s ease-in-out infinite}
+.c-smoke{animation:cSmoke 4s ease-out infinite;transform-box:fill-box;transform-origin:center}
+.c-bulb{animation:cTwinkle 2.4s ease-in-out infinite}
+.c-lamp{animation:cSwing 6s ease-in-out infinite}
+.c-glow{animation:cGlowPulse 5s ease-in-out infinite}
+.c-fan{animation:cFan .9s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+.c-steam{animation:cSteam 2.8s ease-in-out infinite}
+.c-bubble{animation:cBubble 4.8s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes cTwinkle{50%{opacity:.25}}
+@keyframes cSmoke{0%{transform:translate(0,0) scale(.6);opacity:0}25%{opacity:.5}100%{transform:translate(28px,-70px) scale(1.6);opacity:0}}
+@keyframes cSwing{50%{transform:rotate(2.2deg)}}
+@keyframes cGlowPulse{50%{opacity:.8}}
+@keyframes cFan{from{transform:scaleX(1)}to{transform:scaleX(.18)}}
+@keyframes cSteam{0%{opacity:0;transform:translateY(8px)}40%{opacity:.7}100%{opacity:0;transform:translateY(-16px)}}
+@keyframes cBubble{0%,8%{opacity:0;transform:scale(.6)}16%,62%{opacity:1;transform:scale(1)}72%,100%{opacity:0;transform:scale(.9)}}
+.cut-copy{position:absolute;left:4.2cqw;top:50%;transform:translateY(-50%);width:31cqw;color:#fff;z-index:2}
+.cut-kicker{margin:0 0 1cqw;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:clamp(9px,.85cqw,14px);color:var(--yellow)}
+.cut-title{margin:0;font-family:Fraunces,Georgia,serif;font-size:clamp(22px,4.3cqw,74px);line-height:.95;letter-spacing:-.04em;text-shadow:0 4px 24px #0008}
+.cut-title em{font-style:italic;color:var(--yellow);font-weight:600}
+.cut-sub{margin:1.4cqw 0 2cqw;font-size:clamp(11px,1.2cqw,19px);line-height:1.5;color:#e6efe8;max-width:28cqw}
+.cut-btn{font-size:clamp(11px,1cqw,16px);padding:clamp(8px,1cqw,16px) clamp(12px,1.6cqw,26px);white-space:nowrap}
+@media(max-width:600px){.cut-sub,.cut-kicker{display:none}.cut-copy{width:34cqw;left:3cqw}.cut-title{font-size:6cqw}.cut-btn{font-size:10px;padding:6px 10px;margin-top:8px;border-width:1px}}
+@media(prefers-reduced-motion:reduce){.cutaway *{animation:none!important}.c-bubble{opacity:1}}
 .banner-hotspot{position:absolute;display:block;border-radius:14px;outline-offset:0}
 .banner-hotspot:hover{background:#ffcb6526;box-shadow:0 0 0 2px #ffcb65aa}
 .banner-hotspot:focus-visible{outline:3px solid var(--yellow);background:#ffcb6533}
