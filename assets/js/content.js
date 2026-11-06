@@ -134,6 +134,13 @@
       { name: "Prince George or Williams Lake", time: "About 1 hr 30 min each way", how: "Highway 97 runs through town. Go north about 120 km for Prince George, or south about 120 km for Williams Lake.", local: "\"Everyone at the counter has a favourite pit stop on that highway. Ask one person, not the whole room.\"", query: "Highway 97 Quesnel BC" }
     ],
 
+    // "From the highway": step-by-step for travellers coming off Highway 97. One step per line.
+    fromHighway: [
+      { from: "Coming from the south (Williams Lake, Vancouver)", steps: "Stay on Highway 97 into downtown Quesnel. In town the highway follows Carson Avenue toward the Fraser River.\nKeep going on Carson Avenue toward the river. Reid Street is the last street before Front Street, the one along the river.\nTurn onto Reid Street. Granville's is at 383 Reid Street, in the middle of downtown, with the coffee sacks on the ceiling.", tip: "If you can see the river, you've gone one block too far. If you can see Prince George, you've gone a lot too far." },
+      { from: "Coming from the north (Prince George)", steps: "Highway 97 crosses the Quesnel River and becomes Front Street, running along the Fraser River through downtown.\nTurn left off Front Street, away from the river, onto one of the downtown cross streets.\nTurn onto Reid Street, the next street over. Granville's is at 383 Reid Street.", tip: "Still lost? Call 250-992-3667 and someone will talk you in. We've been doing it since 1992." }
+    ],
+    // "Then and now" pairs for the Our Story page. Empty until the museum gives permission.
+    thenNow: [],
     // Short stories shown on the home page under "Overheard at the counter".
     stories: [
       { line: "“A traveller asked where the highway was. Four locals answered. None agreed. All offered to drive.”", caption: "Directions are free. Accuracy is extra." },

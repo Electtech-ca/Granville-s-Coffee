@@ -141,7 +141,7 @@
   /* ================= Shell & router ================= */
   const NAV = [
     ["Overview", [["dashboard", "📊", "Dashboard", "staff"], ["ai", "✨", "AI assistant", "staff"]]],
-    ["Website", [["website", "🖥️", "Edit website", "manager"], ["inbox", "✉️", "Inbox", "staff"]]],
+    ["Website", [["board", "🧑‍🍳", "Today's board", "staff"], ["website", "🖥️", "Edit website", "manager"], ["inbox", "✉️", "Inbox", "staff"]]],
     ["Customers & sales", [["customers", "🤝", "Customers (CRM)", "staff"], ["sales", "🧾", "Record sales", "staff"]]],
     ["Operations", [["inventory", "📦", "Stock & suppliers", "staff"], ["team", "👥", "Team & shifts", "staff"], ["finance", "💵", "Money", "manager"]]],
     ["Growth", [["performance", "🎯", "Goals & performance", "staff"], ["settings", "⚙️", "Settings", "staff"]]]
@@ -258,7 +258,7 @@
 
   /* ================= Website editor ================= */
   views.website = async (el, [tab = "text"]) => {
-    const tabs = [["text", "Page text"], ["menu", "Menu & food photos"], ["awards", "Awards"], ["history", "History"], ["directions", "Directions desk"], ["photos", "Photos & Ted"], ["contact", "Contact & hours"], ["fun", "Stories"]];
+    const tabs = [["text", "Page text"], ["menu", "Menu & food photos"], ["faces", "Faces of Granville's"], ["awards", "Awards"], ["history", "History"], ["directions", "Directions desk"], ["highway", "From the highway"], ["thennow", "Then & now"], ["photos", "Photos & Ted"], ["contact", "Contact & hours"], ["fun", "Stories"]];
     el.innerHTML = header("Edit website", "Changes go live on the website within a few seconds.", `<a class="btn light" href="../" target="_blank" rel="noopener">View website ↗</a>`) +
       `<nav class="tabs">${tabs.map(([id, l]) => `<a href="#/website/${id}" class="${tab === id ? "on" : ""}">${l}</a>`).join("")}</nav><div id="tab"></div>`;
     const box = $("#tab", el);
@@ -269,25 +269,38 @@
     if (tab === "contact") return websiteContact(box, content);
     if (tab === "fun") return websiteFun(box, content);
     if (tab === "awards") return websiteList(box, content, LIST_EDITORS.awards);
+    if (tab === "faces") return websiteList(box, content, LIST_EDITORS.faces);
     if (tab === "history") return websiteList(box, content, LIST_EDITORS.timeline);
     if (tab === "directions") return websiteList(box, content, LIST_EDITORS.places);
+    if (tab === "highway") return websiteList(box, content, LIST_EDITORS.fromHighway);
+    if (tab === "thennow") return websiteList(box, content, LIST_EDITORS.thenNow);
   };
 
   // Simple card editors for the Awards wall, the history timeline and the Directions Desk.
   const LIST_EDITORS = {
+    faces: { key: "faces", title: "Faces of Granville's", noun: "regular", saved: "Faces saved. They're on the home page now.",
+      intro: "Regulars shown on the home page, with their photo and a line about them. Only people marked \"Yes, they agreed\" AND with a photo are shown. Always ask first, and take the photo yourself or get theirs with permission.",
+      fields: [["name", "Name (first name is fine)", "input"], ["since", "Coming in since (e.g. \"Every morning since 1994\")", "input"], ["consent", "Did they agree to be on the website?", "select", [["no", "Not yet: don't show"], ["yes", "Yes, they agreed"]]], ["photo", "Photo", "photo"], ["line", "A line about them, or their own words", "textarea"]] },
     awards: { key: "awards", title: "Awards & honours", noun: "award", saved: "Awards saved. The Wall of Honour is updated.",
       intro: "Each award is shown as a plaque on the Awards page, newest first in the order below. Add a source link so visitors can see where it was reported.",
       fields: [["year", "Year", "input"], ["title", "Award name", "input"], ["from", "Given by", "input"], ["status", "Type", "select", [["confirmed", "Confirmed (reported in the news)"], ["pending", "Pending (decision not announced yet)"], ["milestone", "Milestone (a proud fact, not a trophy)"]]], ["text", "What it was for", "textarea"], ["source", "Source name (e.g. Quesnel Observer, May 2026)", "input"], ["sourceUrl", "Source link (https://…)", "input"]] },
     timeline: { key: "timeline", title: "History timeline", noun: "year", saved: "History saved.",
       intro: "The timeline on the Our Story page, from the oldest at the top to the newest at the bottom.",
       fields: [["year", "Year or years", "input"], ["title", "Headline", "input"], ["text", "What happened", "textarea"]] },
+    fromHighway: { key: "fromHighway", title: "From the highway", noun: "route", saved: "Highway directions saved.",
+      intro: "Step-by-step directions on the Visit page for travellers coming off Highway 97. Put each step on its own line. Please check them against the real streets before the site goes live.",
+      fields: [["from", "Coming from (e.g. \"Coming from the south (Williams Lake)\")", "input"], ["steps", "Steps, one per line", "textarea"], ["tip", "A friendly tip at the end", "textarea"]] },
+    thenNow: { key: "thenNow", title: "Then & now", noun: "pair", saved: "Then & now saved.",
+      intro: "Old photos next to today's view, on the Our Story page. A pair only shows once you mark \"Yes, we have written permission\" AND both photos are uploaded. Ask the Quesnel & District Museum and Archives first, and put the credit wording they ask for in the credit line.",
+      fields: [["title", "What it shows (e.g. \"Reid Street, looking north\")", "input"], ["thenYear", "Year of the old photo", "input"], ["permission", "Permission to use the old photo?", "select", [["no", "Not yet: don't show"], ["yes", "Yes, we have written permission"]]], ["thenPhoto", "Old photo (then)", "photo"], ["nowPhoto", "Today's photo (now)", "photo"], ["caption", "A line about it", "textarea"], ["credit", "Credit line (e.g. \"Photo courtesy of the Quesnel & District Museum and Archives\")", "input"]] },
     places: { key: "places", title: "Directions desk", noun: "place", saved: "Directions desk saved.",
       intro: "Places visitors often ask about, shown on the Visit page. Give the sensible directions, then the regulars' version. The map button uses the \"Map search\" words.",
       fields: [["name", "Place", "input"], ["time", "How long it takes", "input"], ["how", "Sensible directions", "textarea"], ["local", "What the regulars would say", "textarea"], ["query", "Map search (what to look up on Google Maps)", "input"]] }
   };
   function websiteList(box, content, cfg) {
     const rows = Array.isArray(content.settings[cfg.key]) ? content.settings[cfg.key] : [];
-    const field = ([k, label, type, opts], v) => type === "textarea" ? `<label class="field full">${esc(label)}<textarea data-k="${k}" rows="3">${esc(v[k] || "")}</textarea></label>`
+    const field = ([k, label, type, opts], v) => type === "photo" ? `<div class="field full"><span>${esc(label)}</span><div class="row"><span data-preview>${v[k] ? `<img src="${esc(imgSrc(v[k]))}" alt="" style="width:110px;height:110px;object-fit:cover;border-radius:10px">` : `<span class="pill warn">No photo yet</span>`}</span><label class="btn light sm">Upload photo<input type="file" accept="image/*" hidden data-upload></label></div><input type="hidden" data-k="${k}" value="${esc(v[k] || "")}"></div>`
+      : type === "textarea" ? `<label class="field full">${esc(label)}<textarea data-k="${k}" rows="3">${esc(v[k] || "")}</textarea></label>`
       : type === "select" ? `<label class="field">${esc(label)}<select data-k="${k}">${opts.map(([o, l]) => `<option value="${o}" ${(v[k] || opts[0][0]) === o ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></label>`
       : `<label class="field">${esc(label)}<input type="text" data-k="${k}" value="${esc(v[k] || "")}"></label>`;
     const row = (v) => `<div class="story list-row" style="border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff"><div class="form-grid">${cfg.fields.map((f) => field(f, v)).join("")}
@@ -297,6 +310,16 @@
       <div class="row"><button class="btn light sm" type="button" id="addRow">+ Add ${esc(cfg.noun)}</button><span class="spacer"></span><button class="btn gold" type="submit">💾 Save</button></div></form>`;
     const list = $("#listRows", box);
     $("#addRow", box).onclick = () => list.insertAdjacentHTML("beforeend", row({}));
+    list.addEventListener("change", (e) => {
+      if (!e.target.matches("[data-upload]")) return;
+      const f = e.target.closest(".field");
+      busy(null, async () => {
+        const url = await uploadImage(e.target.files[0]); if (!url) return;
+        $('input[type=hidden][data-k]', f).value = url;
+        $("[data-preview]", f).innerHTML = `<img src="${esc(imgSrc(url))}" alt="" style="width:110px;height:110px;object-fit:cover;border-radius:10px">`;
+        toast("Photo uploaded. Press Save to publish it.");
+      });
+    });
     list.addEventListener("click", (e) => {
       const r = e.target.closest(".list-row"); if (!r) return;
       if (e.target.matches("[data-rm]")) r.remove();
@@ -483,6 +506,30 @@
     <div class="form-grid"><label class="field full">Story<textarea data-k="line" rows="2">${esc(s.line)}</textarea></label>
     <label class="field full">Caption<input type="text" data-k="caption" value="${esc(s.caption)}"></label>
     <div class="row"><button type="button" class="btn danger sm" data-rm>Remove</button></div></div></div>`;
+
+  /* ================= Today's board ================= */
+  views.board = async (el) => {
+    const content = await get("/content");
+    const b = content.settings.board || {};
+    const today = new Intl.DateTimeFormat("en-CA", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "America/Vancouver" }).format(new Date());
+    const live = b.date === today;
+    el.innerHTML = header("Today's board", "What's on the chalkboard today. It shows on the home page and the menu, and disappears by itself at midnight.", `<a class="btn light" href="../" target="_blank" rel="noopener">View website ↗</a>`) + `
+      <div class="notice ${live ? "info" : "warn"}" style="margin-bottom:14px">${live ? "Today's board is showing on the website." : "Nothing is showing today. Fill in what you have and press Put it on the website."}</div>
+      <form class="card stack" id="boardForm" style="max-width:720px">
+        <label class="field">Soup of the day<input type="text" name="soup" maxlength="300" placeholder="e.g. Doukhobor borscht" value="${esc(live ? b.soup : "")}"></label>
+        <label class="field">Today's special<input type="text" name="special" maxlength="300" placeholder="e.g. Hot turkey sandwich with gravy" value="${esc(live ? b.special : "")}"></label>
+        <label class="field">Fresh from the oven<input type="text" name="baking" maxlength="300" placeholder="e.g. Strawberry rhubarb tarts" value="${esc(live ? b.baking : "")}"></label>
+        <label class="field">A note for customers <span class="hint">Optional. e.g. "Closing at 3 today for the Christmas party."</span><input type="text" name="note" maxlength="300" value="${esc(live ? b.note : "")}"></label>
+        <div class="row"><button class="btn gold" type="submit">📋 Put it on the website</button>${live ? `<button class="btn light" type="button" id="boardClear">Take it down</button>` : ""}<span class="spacer"></span>${b.by && live ? `<span class="small muted">Last updated by ${esc(b.by)}</span>` : ""}</div>
+      </form>`;
+    $("#boardForm").onsubmit = (e) => {
+      e.preventDefault();
+      const f = formData(e.target);
+      if (!f.soup && !f.special && !f.baking && !f.note) return toast("Fill in at least one line first.", true);
+      busy(e.submitter, async () => { await put("/board", Object.assign({ date: today }, f)); toast("Today's board is on the website."); views.board(el); });
+    };
+    const clr = $("#boardClear"); if (clr) clr.onclick = () => busy(clr, async () => { await put("/board", { date: "2000-01-01" }); toast("Board taken down."); views.board(el); });
+  };
 
   /* ================= Inbox ================= */
   views.inbox = async (el, [filter = "open"]) => {
