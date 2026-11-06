@@ -117,7 +117,7 @@
     timeline: [
       { year: "Before 1992", title: "Nine years on the road", text: "Ted spent nine years travelling for work and drank a great deal of highway coffee. He came away with one conclusion: a town needs a proper place to sit down." },
       { year: "1992", title: "A loan, some used equipment and no experience", text: "In his words, he \"borrowed a whole bunch of money, bought a bunch of old restaurant equipment and somehow started off.\" No restaurant background. No cooking lessons. Quesnel's first espresso shop opened on Reid Street." },
-      { year: "1990s – 2010s", title: "The room fills up", text: "The coffee sacks went up on the ceiling, the green clock went up on the wall, and the regulars claimed their tables. The café grew to cover 375 and 383 Reid Street." },
+      { year: "1990s – 2010s", title: "The room fills up", text: "The coffee sacks went up on the ceiling, the regulars claimed their tables, and the morning crowd became a Quesnel tradition. The café grew to cover 375 and 383 Reid Street." },
       { year: "2020", title: "Business Person of the Year", text: "Quesnel's business community named Ted its Business Person of the Year." },
       { year: "2021", title: "Rotary's Paul Harris Fellowship", text: "Honoured by the Quesnel Rotary Club for years of giving: autism awareness, fire victims, Search and Rescue and the downtown." },
       { year: "2025", title: "Lifetime Achievement", text: "The Chamber of Commerce created a Lifetime Achievement Business Award and gave the first one to Ted. Granville's now employs 26 people." },
@@ -137,7 +137,7 @@
     // Short stories shown on the home page under "Overheard at the counter".
     stories: [
       { line: "“A traveller asked where the highway was. Four locals answered. None agreed. All offered to drive.”", caption: "Directions are free. Accuracy is extra." },
-      { line: "“Someone came in to ask the time. They left with two recipes, a fishing tip and a new friend.”", caption: "The clock on the wall is right. The visit length never is." },
+      { line: "“Someone came in to ask the time. They left with two recipes, a fishing tip and a new friend.”", caption: "Nobody here has ever had a quick coffee. We've stopped apologizing." },
       { line: "“The newcomer said they didn't know anyone in town. The room took that personally.”", caption: "Stranger status usually lasts one coffee." },
       { line: "“A simple question about the weather produced seven forecasts and an argument about 1996.”", caption: "Forecast: a 100% chance of conversation." },
       { line: "“One person ordered lunch. Somehow the whole table is now organizing a fundraiser.”", caption: "That's how a lot of good things in this town got started." }
@@ -152,7 +152,7 @@
       "Jeremy Yap", "tabitha turner", "Elena Leya", "Katya Azimova", "Pablo Merchán Montes", "Sebastian Coman Photography",
       "Victor Rutka", "Clarissa Carbungco", "Doug Bagg", "Sara Julie", "Jugoslocos", "Fanny Gustafsson", "Jonathan Borba",
       "Tyrone Sanders", "Rhamely", "Luke Tokaryk", "Joseph Gonzalez", "Joyful", "Jessica Kantak Bailey", "Crystal Jo", "James Kern",
-      "Brooke Cagle", "Vitaly Gariev", "Toa Heftiba", "Uta Scholl"
+      "Brooke Cagle", "Vitaly Gariev", "Zeno Hind", "Toa Heftiba", "Uta Scholl"
     ]
   };
 })();
