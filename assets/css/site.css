@@ -271,3 +271,32 @@ form.contact .check input{width:24px;height:24px;margin-top:3px}
 .face p{margin:0;font-size:.95rem;color:var(--muted);font-style:italic}
 .face.invite{background:var(--paper);border:2px dashed var(--brass);box-shadow:none}
 .face.invite p{font-style:normal}
+
+/* Find us in one tap */
+.onetap{display:flex;flex-wrap:wrap;gap:10px}
+.onetap .btn{white-space:nowrap}
+/* From the highway */
+.highway{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(max-width:760px){.highway{grid-template-columns:1fr}}
+.route{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.route h3{margin-bottom:.5em}
+.route ol{margin:0 0 1em;padding-left:1.4em}
+.route li{margin-bottom:.6em}
+.route .local{font-family:"Libre Caslon Text",Georgia,serif;font-style:italic;color:var(--green-ink);background:var(--paper);border-left:4px solid var(--brass);padding:10px 12px;margin:0}
+/* Google reviews */
+.reviews-wrap{border-top:1px solid var(--line)}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:1em}
+@media(max-width:980px){.reviews{grid-template-columns:1fr}}
+.review{margin:0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.review-head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:.5em}
+.review p{margin:0 0 .7em}
+.review cite{font-style:normal;font-weight:700}
+.stars{color:#b8860b;letter-spacing:2px;font-size:1.15rem}
+.review .when,.reviews-score{color:var(--muted)}
+/* Then and now */
+.thennow{display:grid;gap:28px}
+.pair-photos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.pair-photos{grid-template-columns:1fr}}
+.pair figure{margin:0;background:#fff;padding:8px;border:1px solid var(--line)}
+.pair img,.pair .noimg{width:100%;aspect-ratio:4/3;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--paper-2)}
+.pair figcaption{font-weight:700;padding:8px 4px 2px}

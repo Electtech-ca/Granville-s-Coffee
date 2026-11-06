@@ -196,7 +196,7 @@ router.put("/content/text", requireRole("manager"), wrap(async (req, res) => {
   res.json({ ok: true, saved: entries.length });
 }));
 
-const SETTING_KEYS = ["settings", "hours", "stories", "awards", "timeline", "places", "faces", "board", "tedPhoto"];
+const SETTING_KEYS = ["settings", "hours", "stories", "awards", "timeline", "places", "faces", "board", "fromHighway", "thenNow", "tedPhoto"];
 router.put("/content/settings/:key", requireRole("manager"), wrap(async (req, res) => {
   if (!SETTING_KEYS.includes(req.params.key)) return bad(res, "Unknown setting.", 404);
   const value = req.body.value;

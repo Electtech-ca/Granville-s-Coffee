@@ -2,6 +2,7 @@
 const express = require("express");
 const db = require("../db");
 const { rateLimit } = require("../auth");
+const google = require("../google");
 
 const router = express.Router();
 
@@ -32,6 +33,9 @@ async function siteContent() {
     // Only regulars who agreed to appear, and only with a photo.
     faces: (Array.isArray(S.faces) ? S.faces : []).filter((f) => f && f.consent === "yes" && f.photo).map(({ name, since, line, photo }) => ({ name, since, line, photo })),
     board: S.board || null,
+    fromHighway: S.fromHighway,
+    // Then-and-now pairs only once permission is recorded and both photos are in.
+    thenNow: (Array.isArray(S.thenNow) ? S.thenNow : []).filter((t) => t && t.permission === "yes" && t.thenPhoto && t.nowPhoto).map(({ title, thenYear, thenPhoto, nowPhoto, caption, credit }) => ({ title, thenYear, thenPhoto, nowPhoto, caption, credit })),
     tedPhoto: S.tedPhoto || "",
     menu,
     gallery
@@ -46,6 +50,11 @@ router.get("/site", async (_req, res, next) => {
     if (!cache.data || Date.now() - cache.at > 15000) cache = { at: Date.now(), data: await siteContent() };
     res.set("Cache-Control", "no-cache").json(cache.data);
   } catch (e) { next(e); }
+});
+
+// Live Google reviews (empty until GOOGLE_PLACES_API_KEY is set).
+router.get("/reviews", async (_req, res) => {
+  res.set("Cache-Control", "public, max-age=600").json(await google.getReviews());
 });
 
 const clean = (v, max) => String(v == null ? "" : v).trim().slice(0, max);

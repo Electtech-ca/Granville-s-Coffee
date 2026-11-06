@@ -76,7 +76,22 @@
     }
     const maps = $("#mapsLink");
     if (maps && /^https:\/\//.test(s.mapsUrl || "")) maps.href = s.mapsUrl;
+    // Find us in one tap: directions, a text message to yourself, or copy the address.
+    const addr = s.address || "383 Reid Street, Quesnel, BC V2J 2M5";
+    const dir = $("#dirLink");
+    if (dir) dir.href = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent("Granville's Coffee, " + addr);
+    const sms = $("#smsLink");
+    if (sms) sms.href = "sms:?&body=" + encodeURIComponent("Granville's Coffee\n" + addr + "\n" + (/^https:\/\//.test(s.mapsUrl || "") ? s.mapsUrl : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Granville's Coffee " + addr)));
   }
+  (function copyAddress() {
+    const btn = $("#copyAddress"), status = $("#copyStatus");
+    if (!btn) return;
+    btn.addEventListener("click", async () => {
+      const addr = "Granville's Coffee, " + ((C.settings && C.settings.address) || "383 Reid Street, Quesnel, BC V2J 2M5");
+      try { await navigator.clipboard.writeText(addr); status.textContent = "Copied. Paste it into your map or a message."; }
+      catch (_) { status.textContent = addr; }
+    });
+  })();
   const span = (h) => (h.closed ? "Closed" : (h.open || "?") + " – " + (h.close || "?"));
   function renderHours() {
     const H = Array.isArray(C.hours) ? C.hours : [];
@@ -183,6 +198,53 @@
     }
   }
 
+  /* ---------- Visit: from the highway, step by step ---------- */
+  function renderHighway() {
+    const box = $("#highwaySteps");
+    if (!box || !Array.isArray(C.fromHighway)) return;
+    box.replaceChildren(...C.fromHighway.map((r) => el("article", { class: "route" },
+      el("h3", { text: r.from || "" }),
+      el("ol", {}, String(r.steps || "").split(/\n+/).map((t) => t.trim()).filter(Boolean).map((t) => el("li", { text: t }))),
+      r.tip ? el("p", { class: "local", text: r.tip }) : null)));
+  }
+
+  /* ---------- Our Story: then and now (only pairs with permission) ---------- */
+  function renderThenNow() {
+    const wrap = $("#thenNow"), list = $("#thenNowList");
+    if (!wrap || !list) return;
+    const pairs = (Array.isArray(C.thenNow) ? C.thenNow : []).filter((t) => safeUrl(t.thenPhoto) && safeUrl(t.nowPhoto));
+    wrap.hidden = !pairs.length;
+    list.replaceChildren(...pairs.map((t) => el("article", { class: "pair" },
+      t.title ? el("h3", { text: t.title }) : null,
+      el("div", { class: "pair-photos" },
+        el("figure", {}, photo(t.thenPhoto, (t.title || "Reid Street") + (t.thenYear ? ", " + t.thenYear : ", years ago"), "🏛️"), el("figcaption", { text: "Then" + (t.thenYear ? " · " + t.thenYear : "") })),
+        el("figure", {}, photo(t.nowPhoto, (t.title || "Reid Street") + " today", "📷"), el("figcaption", { text: "Now" }))),
+      t.caption ? el("p", { text: t.caption }) : null,
+      t.credit ? el("p", { class: "small muted", text: t.credit }) : null)));
+  }
+
+  /* ---------- Home: live Google reviews (only when the server has a Google key) ---------- */
+  function loadReviews() {
+    const wrap = $("#reviews");
+    if (!wrap) return;
+    fetch(API + "/public/reviews", { headers: { Accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((g) => {
+        if (!g || !Array.isArray(g.reviews) || !g.reviews.length) return;
+        const stars = (n) => { const k = Math.max(0, Math.min(5, Math.floor(n))); return el("span", { class: "stars", role: "img", "aria-label": n + " out of 5 stars", text: "★".repeat(k) + "☆".repeat(5 - k) }); };
+        const score = $("#reviewsScore");
+        if (g.rating) score.replaceChildren(stars(g.rating), " " + g.rating.toFixed(1) + " out of 5 on Google, from " + g.count + " reviews");
+        $("#reviewsList").replaceChildren(...g.reviews.map((r) => el("blockquote", { class: "review" },
+          el("div", { class: "review-head" }, stars(r.rating || 0), r.when ? el("span", { class: "when", text: r.when }) : null),
+          el("p", { text: r.text }),
+          el("cite", {}, /^https:\/\//.test(r.authorUrl || "") ? el("a", { href: r.authorUrl, rel: "noopener", target: "_blank", text: r.author }) : r.author, " on Google"))));
+        const more = $("#reviewsMore");
+        if (/^https:\/\//.test(g.url || "")) more.href = g.url; else more.closest("p").hidden = true;
+        wrap.hidden = false;
+      })
+      .catch(() => { /* no reviews: the section stays hidden */ });
+  }
+
   /* ---------- Today's board: shown only on the day it was written ---------- */
   const todayIso = () => new Intl.DateTimeFormat("en-CA", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: TZ }).format(new Date());
   function renderBoard() {
@@ -209,7 +271,7 @@
     grid.replaceChildren(...cards, invite || "");
   }
 
-  function renderAll() { renderText(); renderSettings(); renderHours(); renderBoard(); renderFaces(); renderQuotes(); renderMenu(); renderStory(); renderAwards(); renderDesk(); }
+  function renderAll() { renderText(); renderSettings(); renderHours(); renderBoard(); renderFaces(); renderQuotes(); renderMenu(); renderStory(); renderAwards(); renderDesk(); renderHighway(); renderThenNow(); }
 
   /* ---------- Contact form ---------- */
   (function contact() {
@@ -257,8 +319,11 @@
       ["menu", "hours", "stories", "awards", "timeline", "places", "gallery"].forEach((k) => { if (Array.isArray(live[k]) && live[k].length) C[k] = live[k]; });
       if (live.tedPhoto) C.tedPhoto = live.tedPhoto;
       if (Array.isArray(live.faces)) C.faces = live.faces;
+      if (Array.isArray(live.fromHighway) && live.fromHighway.length) C.fromHighway = live.fromHighway;
+      if (Array.isArray(live.thenNow)) C.thenNow = live.thenNow;
       if (live.board) C.board = live.board;
       renderAll();
+      loadReviews();
       navigator.sendBeacon?.(API + "/public/track", new Blob([JSON.stringify({ path: location.pathname + location.hash, referrer: document.referrer.slice(0, 300) })], { type: "application/json" }));
     })
     .catch(() => clearTimeout(timeout));

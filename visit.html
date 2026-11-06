@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css?v=20261106d">
+<link rel="stylesheet" href="assets/css/site.css?v=20261106e">
 <script>try{if(localStorage.getItem("granvilles-big")==="1")document.documentElement.classList.add("big")}catch(e){}</script>
 </head>
 <body data-page="visit">
@@ -52,7 +52,13 @@
     <div class="info-card">
       <h2>Find us</h2>
       <p style="font-size:1.15rem"><strong>Granville's Coffee</strong><br><span data-setting="address">383 Reid Street, Quesnel, BC V2J 2M5</span></p>
-      <p class="btns"><a class="btn" id="mapsLink" href="https://www.google.com/maps/search/?api=1&amp;query=Granville%27s+Coffee+383+Reid+Street+Quesnel+BC" rel="noopener" target="_blank">🗺️ Open the map</a></p>
+      <p class="btns onetap">
+        <a class="btn" id="dirLink" href="https://www.google.com/maps/dir/?api=1&amp;destination=Granville%27s+Coffee+383+Reid+Street+Quesnel+BC" rel="noopener" target="_blank">🧭 Directions to us</a>
+        <a class="btn line" id="smsLink" href="sms:?&amp;body=Granville%27s%20Coffee%2C%20383%20Reid%20Street%2C%20Quesnel%2C%20BC%20V2J%202M5">💬 Text me the address</a>
+        <button class="btn line" type="button" id="copyAddress">📋 Copy the address</button>
+        <a class="btn line" id="mapsLink" href="https://www.google.com/maps/search/?api=1&amp;query=Granville%27s+Coffee+383+Reid+Street+Quesnel+BC" rel="noopener" target="_blank">🗺️ Open the map</a>
+      </p>
+      <p class="small muted" id="copyStatus" role="status"></p>
     </div>
     <div class="info-card">
       <h2>Hours</h2>
@@ -65,6 +71,17 @@
       <p class="email-line" hidden>Email: <a data-setting-link="email" href="#"></a></p>
       <p>Catering, big groups, or a question about the menu? Call, or use the form below.</p>
     </div>
+  </div>
+</section>
+
+<section id="fromHighway">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Coming off Highway 97</span>
+      <h2 data-content="visitus.highway.title">From the highway to your table</h2>
+      <p data-content="visitus.highway.intro">Half our visitors are on their way somewhere else. Highway 97 runs right through downtown, so we're only a block or two off your route. Here's how to find us without turning around three times.</p>
+    </div>
+    <div class="highway" id="highwaySteps"></div>
   </div>
 </section>
 
@@ -135,7 +152,7 @@
     </div>
   </div>
 </footer>
-<script src="assets/js/content.js?v=20261106d"></script>
-<script src="assets/js/site.js?v=20261106d"></script>
+<script src="assets/js/content.js?v=20261106e"></script>
+<script src="assets/js/site.js?v=20261106e"></script>
 </body>
 </html>

@@ -258,7 +258,7 @@
 
   /* ================= Website editor ================= */
   views.website = async (el, [tab = "text"]) => {
-    const tabs = [["text", "Page text"], ["menu", "Menu & food photos"], ["faces", "Faces of Granville's"], ["awards", "Awards"], ["history", "History"], ["directions", "Directions desk"], ["photos", "Photos & Ted"], ["contact", "Contact & hours"], ["fun", "Stories"]];
+    const tabs = [["text", "Page text"], ["menu", "Menu & food photos"], ["faces", "Faces of Granville's"], ["awards", "Awards"], ["history", "History"], ["directions", "Directions desk"], ["highway", "From the highway"], ["thennow", "Then & now"], ["photos", "Photos & Ted"], ["contact", "Contact & hours"], ["fun", "Stories"]];
     el.innerHTML = header("Edit website", "Changes go live on the website within a few seconds.", `<a class="btn light" href="../" target="_blank" rel="noopener">View website ↗</a>`) +
       `<nav class="tabs">${tabs.map(([id, l]) => `<a href="#/website/${id}" class="${tab === id ? "on" : ""}">${l}</a>`).join("")}</nav><div id="tab"></div>`;
     const box = $("#tab", el);
@@ -272,6 +272,8 @@
     if (tab === "faces") return websiteList(box, content, LIST_EDITORS.faces);
     if (tab === "history") return websiteList(box, content, LIST_EDITORS.timeline);
     if (tab === "directions") return websiteList(box, content, LIST_EDITORS.places);
+    if (tab === "highway") return websiteList(box, content, LIST_EDITORS.fromHighway);
+    if (tab === "thennow") return websiteList(box, content, LIST_EDITORS.thenNow);
   };
 
   // Simple card editors for the Awards wall, the history timeline and the Directions Desk.
@@ -285,6 +287,12 @@
     timeline: { key: "timeline", title: "History timeline", noun: "year", saved: "History saved.",
       intro: "The timeline on the Our Story page, from the oldest at the top to the newest at the bottom.",
       fields: [["year", "Year or years", "input"], ["title", "Headline", "input"], ["text", "What happened", "textarea"]] },
+    fromHighway: { key: "fromHighway", title: "From the highway", noun: "route", saved: "Highway directions saved.",
+      intro: "Step-by-step directions on the Visit page for travellers coming off Highway 97. Put each step on its own line. Please check them against the real streets before the site goes live.",
+      fields: [["from", "Coming from (e.g. \"Coming from the south (Williams Lake)\")", "input"], ["steps", "Steps, one per line", "textarea"], ["tip", "A friendly tip at the end", "textarea"]] },
+    thenNow: { key: "thenNow", title: "Then & now", noun: "pair", saved: "Then & now saved.",
+      intro: "Old photos next to today's view, on the Our Story page. A pair only shows once you mark \"Yes, we have written permission\" AND both photos are uploaded. Ask the Quesnel & District Museum and Archives first, and put the credit wording they ask for in the credit line.",
+      fields: [["title", "What it shows (e.g. \"Reid Street, looking north\")", "input"], ["thenYear", "Year of the old photo", "input"], ["permission", "Permission to use the old photo?", "select", [["no", "Not yet: don't show"], ["yes", "Yes, we have written permission"]]], ["thenPhoto", "Old photo (then)", "photo"], ["nowPhoto", "Today's photo (now)", "photo"], ["caption", "A line about it", "textarea"], ["credit", "Credit line (e.g. \"Photo courtesy of the Quesnel & District Museum and Archives\")", "input"]] },
     places: { key: "places", title: "Directions desk", noun: "place", saved: "Directions desk saved.",
       intro: "Places visitors often ask about, shown on the Visit page. Give the sensible directions, then the regulars' version. The map button uses the \"Map search\" words.",
       fields: [["name", "Place", "input"], ["time", "How long it takes", "input"], ["how", "Sensible directions", "textarea"], ["local", "What the regulars would say", "textarea"], ["query", "Map search (what to look up on Google Maps)", "input"]] }
@@ -304,11 +312,11 @@
     $("#addRow", box).onclick = () => list.insertAdjacentHTML("beforeend", row({}));
     list.addEventListener("change", (e) => {
       if (!e.target.matches("[data-upload]")) return;
-      const r = e.target.closest(".list-row");
+      const f = e.target.closest(".field");
       busy(null, async () => {
         const url = await uploadImage(e.target.files[0]); if (!url) return;
-        $('input[type=hidden][data-k]', e.target.closest(".field")).value = url;
-        $("[data-preview]", r).innerHTML = `<img src="${esc(imgSrc(url))}" alt="" style="width:110px;height:110px;object-fit:cover;border-radius:10px">`;
+        $('input[type=hidden][data-k]', f).value = url;
+        $("[data-preview]", f).innerHTML = `<img src="${esc(imgSrc(url))}" alt="" style="width:110px;height:110px;object-fit:cover;border-radius:10px">`;
         toast("Photo uploaded. Press Save to publish it.");
       });
     });
