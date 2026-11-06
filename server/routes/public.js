@@ -9,15 +9,15 @@ async function siteContent() {
   const [texts, settingsRows, cats, items, gallery] = await Promise.all([
     db.many("select key,value from site_text"),
     db.many("select key,value from site_settings"),
-    db.many("select id,slug,label,title,emoji from menu_categories where visible order by sort,id"),
-    db.many("select category_id,name,description,price,emoji from menu_items where visible order by sort,id"),
+    db.many("select id,slug,label,title,emoji,photo from menu_categories where visible order by sort,id"),
+    db.many("select category_id,name,description,price,emoji,photo from menu_items where visible order by sort,id"),
     db.many("select src,title,caption,alt from gallery where visible order by sort,id")
   ]);
   const S = Object.fromEntries(settingsRows.map((r) => [r.key, r.value]));
   const showPrices = !!(S.settings && S.settings.showPrices);
   const menu = cats.map((c) => ({
-    slug: c.slug, label: c.label, title: c.title, emoji: c.emoji,
-    items: items.filter((i) => i.category_id === c.id).map((i) => ({ name: i.name, description: i.description, emoji: i.emoji || undefined, price: showPrices ? i.price : null }))
+    slug: c.slug, label: c.label, title: c.title, emoji: c.emoji, photo: c.photo || undefined,
+    items: items.filter((i) => i.category_id === c.id).map((i) => ({ name: i.name, description: i.description, emoji: i.emoji || undefined, photo: i.photo || undefined, price: showPrices ? i.price : null }))
   }));
   const settings = Object.assign({}, S.settings || {});
   delete settings.showPrices;
@@ -25,11 +25,10 @@ async function siteContent() {
     text: Object.fromEntries(texts.filter((t) => t.value).map((t) => [t.key, t.value])),
     settings,
     hours: S.hours || [],
-    lists: S.lists,
     stories: S.stories,
-    characters: S.characters,
-    quest: S.quest,
-    oracle: S.oracle,
+    awards: S.awards,
+    timeline: S.timeline,
+    places: S.places,
     tedPhoto: S.tedPhoto || "",
     menu,
     gallery

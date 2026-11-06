@@ -1,655 +1,197 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Granville's Coffee — Come for Coffee. Leave with 11 Opinions.</title>
-<meta name="description" content="Granville's Coffee in Quesnel, BC. Coffee, meals, gossip, unsolicited directions, and strangers who won't stay strangers. Walk in.">
-<meta name="theme-color" content="#14382e">
-<meta property="og:title" content="Granville's Coffee · Quesnel, BC">
-<meta property="og:description" content="Come for coffee. Leave with 11 opinions. 383 Reid Street, Quesnel.">
+<title>Granville's Coffee · Quesnel's Front Room since 1992</title>
+<meta name="description" content="Granville's Coffee, 383 Reid Street, Quesnel, B.C. Coffee, home cooking and the town's favourite place to meet people and ask for directions. Since 1992.">
+<meta name="theme-color" content="#1d3b2e">
+<meta property="og:title" content="Granville's Coffee · Quesnel's Front Room since 1992">
+<meta property="og:description" content="Granville's Coffee, 383 Reid Street, Quesnel, B.C. Coffee, home cooking and the town's favourite place to meet people and ask for directions. Since 1992.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/img/og-image.jpg">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;family=Fraunces:opsz,wght,SOFT,WONK@9..144,600,20,1;9..144,800,20,1&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css?v=20261105">
-<script>document.documentElement.classList.remove('no-js')</script>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css?v=20261106">
+<script>try{if(localStorage.getItem("granvilles-big")==="1")document.documentElement.classList.add("big")}catch(e){}</script>
 </head>
-<body>
-<a class="skip" href="#main">Skip to the good stuff</a>
+<body data-page="index">
+<a class="skip" href="#main">Skip to the page</a>
 
-<header class="top">
-  <a class="logo" href="#main">Granville's<span> Coffee.</span></a>
-  <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mainNav">☰ Menu</button>
-  <nav aria-label="Main navigation" class="nav" id="mainNav">
-    <a href="#people">Our people</a>
-    <a href="#menu-theatre">Menu</a>
-    <a href="#ted">Meet Ted</a>
-    <a href="#inside">Inside</a>
-    <a href="#games">Games</a>
-    <a class="pill" href="#visit">Visit us ↗</a>
+<header class="site-head">
+  <div class="wrap head-top">
+    <a class="brand" href="index.html"><b>Granville's Coffee</b><small>Est. 1992 · 383 Reid Street · Quesnel, B.C.</small></a>
+    <div class="head-tools">
+      <a class="call" href="tel:+12509923667" data-setting-tel><span aria-hidden="true">📞</span> Call <span data-setting="phone">250-992-3667</span></a>
+      <button class="textsize" type="button" id="textSize" aria-pressed="false">A+ Bigger text</button>
+    </div>
+  </div>
+  <nav class="wrap mainnav" aria-label="Main">
+      <a href="index.html" aria-current="page"><span class="ico" aria-hidden="true">🏠</span>Home</a>
+      <a href="menu.html" class="menu-link"><span class="ico" aria-hidden="true">🍽️</span>Food &amp; Drink Menu</a>
+      <a href="story.html"><span class="ico" aria-hidden="true">📖</span>Our Story</a>
+      <a href="awards.html"><span class="ico" aria-hidden="true">🏆</span>Awards</a>
+      <a href="visit.html"><span class="ico" aria-hidden="true">📍</span>Visit &amp; Directions</a>
   </nav>
 </header>
 
-<div aria-label="Your journey through Granville's" class="journey-ribbon">
-  <div class="journey-inner">
-    <span class="journey-label">☕ Your café adventure</span>
-    <div class="journey-track">
-      <button aria-current="step" class="journey-stop" data-jump="town-stage" type="button">🏡 Welcome</button>
-      <button class="journey-stop" data-jump="people" type="button">🤝 Meet</button>
-      <button class="journey-stop" data-jump="menu-theatre" type="button">🥪 Eat</button>
-      <button class="journey-stop" data-jump="ted" type="button">🎩 Ted</button>
-      <button class="journey-stop" data-jump="games" type="button">🎮 Play</button>
-      <button class="journey-stop" data-jump="visit" type="button">📍 Visit</button>
-    </div>
-    <span aria-live="polite" class="journey-passport" id="journey-stamps">0 / 3 stamps</span>
-  </div>
-</div>
-<div aria-live="polite" class="journey-pop" id="journey-pop" role="status"></div>
-
 <main id="main" tabindex="-1">
 
-<!-- ===== Hero carousel ===== -->
-<div class="hero-carousel" aria-label="Granville's welcome banners" aria-roledescription="carousel" role="region">
-  <div class="hero-slides" id="heroSlides" aria-live="off">
-    <div class="hero-slide original-slide" role="group" aria-roledescription="slide" aria-label="1 of 2: Welcome to Granville's">
-      <div class="hero">
-        <div class="hero-copy">
-          <div class="eyebrow" data-content="hero.eyebrow">Quesnel, British Columbia · Unofficial headquarters of everybody</div>
-          <h1 data-content="hero.title" data-rich>Come for<br>coffee.<br><em>Leave with<br>11 opinions.</em></h1>
-          <p class="lead" data-content="hero.lead">Locals come for coffee, food, gist and gossip. Newcomers make friends so quickly they forget they're new. Ask for directions and you'll get seven routes, three warnings, and an invitation to lunch.</p>
-          <div class="actions">
-            <a class="btn" href="#visit">Come join the conversation ↗</a>
-            <a class="btn ghost" href="#games">Waste a perfectly good minute ↓</a>
-          </div>
-        </div>
-        <div class="hero-art">
-          <div class="clock-widget">
-<svg aria-label="Illustrated Granville's Coffee wall clock showing the live time in Quesnel" role="img" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-<defs>
- <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#234b38"/><stop offset=".12" stop-color="#a9c990"/><stop offset=".23" stop-color="#e5edbc"/><stop offset=".32" stop-color="#477657"/><stop offset=".52" stop-color="#183e30"/><stop offset=".69" stop-color="#80a978"/><stop offset=".82" stop-color="#d5e3ad"/><stop offset="1" stop-color="#204b3a"/></linearGradient>
- <radialGradient id="enamel" cx=".42" cy=".35" r=".8"><stop offset="0" stop-color="#105c45"/><stop offset=".65" stop-color="#084c39"/><stop offset="1" stop-color="#063b2e"/></radialGradient>
- <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".24"/><stop offset=".26" stop-color="#fff" stop-opacity="0"/><stop offset=".73" stop-color="#fff" stop-opacity=".025"/><stop offset="1" stop-color="#fff" stop-opacity=".16"/></linearGradient>
- <linearGradient id="handMetal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#090e0c"/><stop offset=".48" stop-color="#39433c"/><stop offset=".7" stop-color="#111816"/><stop offset="1" stop-color="#070a09"/></linearGradient>
- <path id="brandArc" d="M 84 247 A 166 166 0 0 1 416 247"/>
- <filter id="handShadow" x="-25%" y="-20%" width="150%" height="150%"><feDropShadow dx="2" dy="3" stdDeviation="2" flood-color="#001c15" flood-opacity=".45"/></filter>
-</defs>
-<circle cx="250" cy="250" r="245" fill="url(#metal)" stroke="#173d2e" stroke-width="3"/>
-<circle cx="250" cy="250" r="236" fill="none" stroke="#d9e9bb" stroke-width="2" opacity=".75"/>
-<circle cx="250" cy="250" r="227" fill="none" stroke="#173c2e" stroke-width="8"/>
-<circle cx="250" cy="250" r="216" fill="url(#enamel)" stroke="#f5f3dd" stroke-width="7"/>
-<circle cx="250" cy="250" r="202" fill="none" stroke="#f8f3dd" stroke-width="3"/>
-<text fill="#f9f5e6" font-family="Georgia, 'Times New Roman', serif" font-size="51" font-weight="900" letter-spacing="1.1" text-anchor="middle"><textPath href="#brandArc" startOffset="50%">GRANVILLE’S</textPath></text>
-<g fill="#faf5e5" stroke="#faf5e5" stroke-linejoin="round">
- <path d="M217 173h58v45c0 14-10 23-28 23s-30-9-30-23z" stroke="none"/>
- <path d="M275 182c34-5 39 9 35 24-3 13-17 20-35 16" fill="none" stroke-width="10"/>
- <path d="M202 240h106" stroke-width="9" stroke-linecap="round"/>
- <path d="M231 166c-10-10 10-14 0-27m20 27c-10-10 10-14 0-27" fill="none" stroke-width="3" stroke-linecap="round"/>
-</g>
-<text x="250" y="334" text-anchor="middle" fill="#fbf6e6" font-family="Georgia, 'Times New Roman', serif" font-size="79" font-weight="900" letter-spacing="-3">Coffee</text>
-<g fill="none" stroke="#f9f3df" stroke-linecap="round" stroke-linejoin="round">
- <path d="M150 369c18-24 38-22 50-4 15 22 36 22 50-2 14 24 35 24 50 2 12-18 32-20 50 4" stroke-width="3"/>
- <path d="M153 379c25-12 42-3 51 8m143-8c-25-12-42-3-51 8M208 383c15 17 28 12 42-1 14 13 27 18 42 1" stroke-width="2"/>
- <path d="M178 366c-13-17-26-14-33-5m177 5c13-17 26-14 33-5" stroke-width="2"/>
-</g>
-<g id="clock-hour" filter="url(#handShadow)"><path d="M244 260L244 192Q244 182 250 176Q256 182 256 192L256 260Z" fill="url(#handMetal)"/></g>
-<g id="clock-minute" filter="url(#handShadow)"><path d="M245 260L246 120Q250 108 254 120L255 260Z" fill="url(#handMetal)"/></g>
-<g id="clock-second"><path d="M250 278V119" stroke="#202923" stroke-width="2.2"/><circle cx="250" cy="279" r="5" fill="#202923"/></g>
-<circle cx="250" cy="250" r="10" fill="#111c16" stroke="#364d3e" stroke-width="2"/>
-<circle cx="250" cy="250" r="3" fill="#9caa91"/>
-<circle cx="250" cy="250" r="214" fill="url(#glass)" pointer-events="none"/>
-<path d="M76 180A190 190 0 0 1 209 65" stroke="#fff" stroke-width="7" opacity=".18" fill="none" stroke-linecap="round" pointer-events="none"/>
-<path d="M289 434A190 190 0 0 0 427 314" stroke="#fff" stroke-width="4" opacity=".11" fill="none" stroke-linecap="round" pointer-events="none"/>
-</svg>
-            <p>Quesnel time. Gossip runs on its own schedule.</p>
-            <details><summary>See the original clock photograph ↗</summary><img alt="The real Granville's Coffee wall clock" loading="lazy" src="assets/img/clock.webp" width="1125" height="1500"></details>
-          </div>
-          <div class="hero-note">The clock keeps time. Ted keeps the stories coming.</div>
-        </div>
-      </div>
-    </div>
-    <div class="hero-slide photo-slide" role="group" aria-roledescription="slide" aria-label="2 of 2: A cutaway of the café">
-      <div class="banner-frame cut-frame">
-<svg class="cutaway" viewBox="0 0 1672 837" xmlns="http://www.w3.org/2000/svg" role="group" aria-labelledby="cutTitle cutDesc" preserveAspectRatio="xMidYMid slice">
-<title id="cutTitle">A cutaway of Granville's Coffee</title>
-<desc id="cutDesc">The café sliced open like a dollhouse: an attic full of lost umbrellas, a coffee-sack ceiling with warm lights and a fan, a long community table of chatting regulars, Ted at the espresso counter under the chalkboard, and a basement storing coffee sacks and a suspicious number of carrots.</desc>
-<defs>
- <linearGradient id="cSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b211b"/><stop offset=".7" stop-color="#173f32"/><stop offset="1" stop-color="#245442"/></linearGradient>
- <linearGradient id="cWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b3f24"/><stop offset=".55" stop-color="#8a5530"/><stop offset="1" stop-color="#5a341d"/></linearGradient>
- <radialGradient id="cGlow"><stop offset="0" stop-color="#ffd98a" stop-opacity=".75"/><stop offset=".45" stop-color="#ffbf5a" stop-opacity=".22"/><stop offset="1" stop-color="#ffbf5a" stop-opacity="0"/></radialGradient>
- <linearGradient id="cAttic" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2416"/><stop offset="1" stop-color="#5b3820"/></linearGradient>
- <linearGradient id="cBase" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d1d13"/><stop offset="1" stop-color="#1c120c"/></linearGradient>
- <linearGradient id="cChrome" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d9a94"/><stop offset=".45" stop-color="#f1f4ef"/><stop offset="1" stop-color="#7b8781"/></linearGradient>
- <linearGradient id="cWin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14352b"/><stop offset="1" stop-color="#2f6b55"/></linearGradient>
- <pattern id="cHatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#e9dcc0"/><path d="M0 0V10" stroke="#b89d72" stroke-width="3"/></pattern>
- <pattern id="cEarth" width="26" height="26" patternUnits="userSpaceOnUse"><rect width="26" height="26" fill="#3b2616"/><circle cx="6" cy="8" r="2" fill="#4c3220"/><circle cx="19" cy="18" r="3" fill="#311f12"/><circle cx="20" cy="5" r="1.4" fill="#5a3c26"/></pattern>
- <pattern id="cPlank" width="60" height="20" patternUnits="userSpaceOnUse"><rect width="60" height="20" fill="#9a6235"/><path d="M0 0H60M30 0V20M0 10H0" stroke="#6e4222" stroke-width="2"/></pattern>
- <filter id="cSoft"><feGaussianBlur stdDeviation="3"/></filter>
-</defs>
-<rect width="1672" height="837" fill="url(#cSky)"/>
-<circle class="c-star" cx="926" cy="286" r="2" fill="#fff6d8" opacity="0.60" style="animation-delay:3.4s"/>
-<circle class="c-star" cx="388" cy="94" r="2" fill="#fff6d8" opacity="0.70" style="animation-delay:3.2s"/>
-<circle class="c-star" cx="192" cy="228" r="1.4" fill="#fff6d8" opacity="0.43" style="animation-delay:2.2s"/>
-<circle class="c-star" cx="1420" cy="324" r="1" fill="#fff6d8" opacity="0.68" style="animation-delay:1.6s"/>
-<circle class="c-star" cx="927" cy="334" r="1" fill="#fff6d8" opacity="0.69" style="animation-delay:3.3s"/>
-<circle class="c-star" cx="129" cy="30" r="1" fill="#fff6d8" opacity="0.45" style="animation-delay:1.0s"/>
-<circle class="c-star" cx="61" cy="398" r="2" fill="#fff6d8" opacity="0.53" style="animation-delay:2.4s"/>
-<circle class="c-star" cx="400" cy="265" r="1" fill="#fff6d8" opacity="0.70" style="animation-delay:2.0s"/>
-<circle class="c-star" cx="1356" cy="43" r="2" fill="#fff6d8" opacity="0.71" style="animation-delay:1.6s"/>
-<circle class="c-star" cx="1128" cy="42" r="1.4" fill="#fff6d8" opacity="0.52" style="animation-delay:0.9s"/>
-<circle class="c-star" cx="591" cy="15" r="1" fill="#fff6d8" opacity="0.66" style="animation-delay:0.4s"/>
-<circle class="c-star" cx="220" cy="148" r="2" fill="#fff6d8" opacity="0.39" style="animation-delay:0.1s"/>
-<circle class="c-star" cx="1402" cy="0" r="1" fill="#fff6d8" opacity="0.47" style="animation-delay:3.6s"/>
-<circle class="c-star" cx="962" cy="192" r="2" fill="#fff6d8" opacity="0.58" style="animation-delay:2.3s"/>
-<circle class="c-star" cx="406" cy="398" r="1.4" fill="#fff6d8" opacity="0.54" style="animation-delay:1.2s"/>
-<circle class="c-star" cx="31" cy="209" r="1" fill="#fff6d8" opacity="0.42" style="animation-delay:2.8s"/>
-<circle class="c-star" cx="22" cy="30" r="2" fill="#fff6d8" opacity="0.79" style="animation-delay:0.7s"/>
-<circle class="c-star" cx="1145" cy="96" r="2" fill="#fff6d8" opacity="0.63" style="animation-delay:3.9s"/>
-<circle class="c-star" cx="1575" cy="67" r="2" fill="#fff6d8" opacity="0.70" style="animation-delay:0.5s"/>
-<circle class="c-star" cx="861" cy="108" r="1" fill="#fff6d8" opacity="0.50" style="animation-delay:3.9s"/>
-<circle class="c-star" cx="1645" cy="303" r="1.4" fill="#fff6d8" opacity="0.90" style="animation-delay:0.1s"/>
-<circle class="c-star" cx="383" cy="201" r="1" fill="#fff6d8" opacity="0.37" style="animation-delay:0.6s"/>
-<circle class="c-star" cx="904" cy="132" r="1" fill="#fff6d8" opacity="0.77" style="animation-delay:1.3s"/>
-<circle class="c-star" cx="606" cy="197" r="1" fill="#fff6d8" opacity="0.39" style="animation-delay:0.8s"/>
-<circle class="c-star" cx="1303" cy="124" r="1" fill="#fff6d8" opacity="0.68" style="animation-delay:1.5s"/>
-<circle class="c-star" cx="928" cy="65" r="2" fill="#fff6d8" opacity="0.81" style="animation-delay:0.5s"/>
-<circle class="c-star" cx="790" cy="93" r="1" fill="#fff6d8" opacity="0.52" style="animation-delay:0.9s"/>
-<circle class="c-star" cx="1250" cy="127" r="1" fill="#fff6d8" opacity="0.44" style="animation-delay:2.5s"/>
-<circle class="c-star" cx="1134" cy="100" r="2" fill="#fff6d8" opacity="0.84" style="animation-delay:2.4s"/>
-<circle class="c-star" cx="863" cy="24" r="1" fill="#fff6d8" opacity="0.41" style="animation-delay:2.0s"/>
-<circle class="c-star" cx="522" cy="122" r="2" fill="#fff6d8" opacity="0.49" style="animation-delay:3.3s"/>
-<circle class="c-star" cx="1221" cy="251" r="1.4" fill="#fff6d8" opacity="0.64" style="animation-delay:3.7s"/>
-<circle class="c-star" cx="140" cy="64" r="1" fill="#fff6d8" opacity="0.61" style="animation-delay:2.6s"/>
-<circle class="c-star" cx="1261" cy="314" r="1" fill="#fff6d8" opacity="0.50" style="animation-delay:3.7s"/>
-<circle class="c-star" cx="417" cy="383" r="1" fill="#fff6d8" opacity="0.39" style="animation-delay:1.6s"/>
-<circle class="c-star" cx="510" cy="30" r="1" fill="#fff6d8" opacity="0.45" style="animation-delay:1.5s"/>
-<circle class="c-star" cx="1171" cy="67" r="1" fill="#fff6d8" opacity="0.55" style="animation-delay:3.6s"/>
-<circle class="c-star" cx="677" cy="336" r="1" fill="#fff6d8" opacity="0.67" style="animation-delay:3.7s"/>
-<circle class="c-star" cx="972" cy="183" r="1.4" fill="#fff6d8" opacity="0.88" style="animation-delay:0.1s"/>
-<circle class="c-star" cx="1302" cy="38" r="2" fill="#fff6d8" opacity="0.39" style="animation-delay:1.2s"/>
-<circle class="c-star" cx="279" cy="37" r="1" fill="#fff6d8" opacity="0.60" style="animation-delay:1.5s"/>
-<circle class="c-star" cx="91" cy="377" r="1" fill="#fff6d8" opacity="0.79" style="animation-delay:3.7s"/>
-<circle class="c-star" cx="720" cy="43" r="2" fill="#fff6d8" opacity="0.85" style="animation-delay:3.5s"/>
-<circle class="c-star" cx="854" cy="404" r="1" fill="#fff6d8" opacity="0.82" style="animation-delay:2.3s"/>
-<circle class="c-star" cx="1279" cy="339" r="2" fill="#fff6d8" opacity="0.56" style="animation-delay:0.0s"/>
-<circle class="c-star" cx="147" cy="41" r="1" fill="#fff6d8" opacity="0.70" style="animation-delay:4.0s"/>
-<circle class="c-star" cx="852" cy="372" r="1.4" fill="#fff6d8" opacity="0.56" style="animation-delay:2.9s"/>
-<circle class="c-star" cx="1189" cy="234" r="2" fill="#fff6d8" opacity="0.60" style="animation-delay:2.2s"/>
-<circle class="c-star" cx="1062" cy="384" r="1" fill="#fff6d8" opacity="0.52" style="animation-delay:0.4s"/>
-<circle class="c-star" cx="45" cy="117" r="1" fill="#fff6d8" opacity="0.62" style="animation-delay:2.5s"/>
-<circle class="c-star" cx="995" cy="130" r="1" fill="#fff6d8" opacity="0.55" style="animation-delay:0.6s"/>
-<circle class="c-star" cx="1252" cy="103" r="1" fill="#fff6d8" opacity="0.76" style="animation-delay:1.4s"/>
-<circle class="c-star" cx="905" cy="255" r="1" fill="#fff6d8" opacity="0.53" style="animation-delay:2.7s"/>
-<circle class="c-star" cx="406" cy="324" r="2" fill="#fff6d8" opacity="0.79" style="animation-delay:3.0s"/>
-<circle class="c-star" cx="410" cy="109" r="2" fill="#fff6d8" opacity="0.47" style="animation-delay:3.7s"/>
-<circle class="c-star" cx="429" cy="69" r="1" fill="#fff6d8" opacity="0.62" style="animation-delay:3.3s"/>
-<circle class="c-star" cx="83" cy="364" r="1" fill="#fff6d8" opacity="0.87" style="animation-delay:1.1s"/>
-<circle class="c-star" cx="346" cy="57" r="2" fill="#fff6d8" opacity="0.61" style="animation-delay:3.7s"/>
-<circle class="c-star" cx="847" cy="195" r="2" fill="#fff6d8" opacity="0.72" style="animation-delay:2.9s"/>
-<circle class="c-star" cx="1279" cy="231" r="1.4" fill="#fff6d8" opacity="0.39" style="animation-delay:0.1s"/>
-<circle class="c-star" cx="1244" cy="21" r="1.4" fill="#fff6d8" opacity="0.66" style="animation-delay:1.2s"/>
-<circle class="c-star" cx="1621" cy="288" r="1" fill="#fff6d8" opacity="0.70" style="animation-delay:1.6s"/>
-<circle class="c-star" cx="388" cy="12" r="1.4" fill="#fff6d8" opacity="0.48" style="animation-delay:0.6s"/>
-<circle class="c-star" cx="96" cy="322" r="1" fill="#fff6d8" opacity="0.60" style="animation-delay:2.5s"/>
-<circle class="c-star" cx="1341" cy="327" r="1.4" fill="#fff6d8" opacity="0.88" style="animation-delay:2.7s"/>
-<circle class="c-star" cx="408" cy="243" r="1.4" fill="#fff6d8" opacity="0.45" style="animation-delay:0.0s"/>
-<circle class="c-star" cx="967" cy="273" r="1" fill="#fff6d8" opacity="0.45" style="animation-delay:1.1s"/>
-<circle class="c-star" cx="708" cy="276" r="1" fill="#fff6d8" opacity="0.57" style="animation-delay:3.2s"/>
-<circle class="c-star" cx="458" cy="44" r="2" fill="#fff6d8" opacity="0.86" style="animation-delay:2.9s"/>
-<circle class="c-star" cx="266" cy="230" r="2" fill="#fff6d8" opacity="0.46" style="animation-delay:3.5s"/>
-<circle cx="1530" cy="92" r="40" fill="#fff3c9"/><circle cx="1514" cy="80" r="40" fill="#0f2a22" opacity=".9"/>
-<path d="M0 600 L120 520 L210 560 L330 470 L450 545 L560 500 L640 560 L640 735 L0 735Z" fill="#1d4a3b"/>
-<path d="M0 640 L90 590 L190 625 L300 575 L420 620 L520 590 L640 630 L640 735 L0 735Z" fill="#163a2e"/>
-<path d="M30 735 l-16 0 l16 -55 l16 55z" fill="#0f2c23"/>
-<path d="M70 735 l-16 0 l16 -67 l16 67z" fill="#0f2c23"/>
-<path d="M250 735 l-16 0 l16 -72 l16 72z" fill="#0f2c23"/>
-<path d="M285 735 l-16 0 l16 -73 l16 73z" fill="#0f2c23"/>
-<path d="M470 735 l-16 0 l16 -75 l16 75z" fill="#0f2c23"/>
-<path d="M505 735 l-16 0 l16 -83 l16 83z" fill="#0f2c23"/>
-<path d="M540 735 l-16 0 l16 -71 l16 71z" fill="#0f2c23"/>
-<rect x="0" y="735" width="1672" height="12" fill="#4d4a44"/>
-<g><rect x="545" y="560" width="7" height="175" fill="#14231e"/><path d="M533 560h31l-6-22h-19z" fill="#14231e"/><circle cx="548" cy="566" r="60" fill="url(#cGlow)"/><circle cx="548" cy="566" r="7" fill="#ffe2a0"/></g>
-<rect x="0" y="747" width="1672" height="90" fill="url(#cEarth)"/>
-<rect x="618" y="753" width="1004" height="84" fill="url(#cBase)"/>
-<circle cx="1000" cy="758" r="90" fill="url(#cGlow)" opacity=".5"/>
-<path d="M1000 753v12" stroke="#222" stroke-width="2"/><circle cx="1000" cy="769" r="5" fill="#ffe2a0"/>
-<g transform="translate(640 788)"><path d="M0 49 C-4 20 4 6 10 2 L40 2 C46 6 54 20 50 49Z" fill="#c9a36b" stroke="#8c6a3c" stroke-width="2"/><path d="M8 4 Q25 -6 42 4" fill="none" stroke="#8c6a3c" stroke-width="3"/><text x="25" y="32" text-anchor="middle" font-size="9" font-weight="800" fill="#6d4b24" font-family="DM Sans,system-ui,sans-serif">COLOMBIA</text></g>
-<g transform="translate(698 788)"><path d="M0 49 C-4 20 4 6 10 2 L40 2 C46 6 54 20 50 49Z" fill="#c9a36b" stroke="#8c6a3c" stroke-width="2"/><path d="M8 4 Q25 -6 42 4" fill="none" stroke="#8c6a3c" stroke-width="3"/><text x="25" y="32" text-anchor="middle" font-size="9" font-weight="800" fill="#6d4b24" font-family="DM Sans,system-ui,sans-serif">BRASIL</text></g>
-<g transform="translate(756 788)"><path d="M0 49 C-4 20 4 6 10 2 L40 2 C46 6 54 20 50 49Z" fill="#c9a36b" stroke="#8c6a3c" stroke-width="2"/><path d="M8 4 Q25 -6 42 4" fill="none" stroke="#8c6a3c" stroke-width="3"/><text x="25" y="32" text-anchor="middle" font-size="9" font-weight="800" fill="#6d4b24" font-family="DM Sans,system-ui,sans-serif">KENYA</text></g>
-<g transform="translate(814 788)"><path d="M0 49 C-4 20 4 6 10 2 L40 2 C46 6 54 20 50 49Z" fill="#c9a36b" stroke="#8c6a3c" stroke-width="2"/><path d="M8 4 Q25 -6 42 4" fill="none" stroke="#8c6a3c" stroke-width="3"/><text x="25" y="32" text-anchor="middle" font-size="9" font-weight="800" fill="#6d4b24" font-family="DM Sans,system-ui,sans-serif">PERU</text></g>
-<g transform="translate(872 788)"><path d="M0 49 C-4 20 4 6 10 2 L40 2 C46 6 54 20 50 49Z" fill="#c9a36b" stroke="#8c6a3c" stroke-width="2"/><path d="M8 4 Q25 -6 42 4" fill="none" stroke="#8c6a3c" stroke-width="3"/><text x="25" y="32" text-anchor="middle" font-size="9" font-weight="800" fill="#6d4b24" font-family="DM Sans,system-ui,sans-serif">ETHIOPIA</text></g>
-<g transform="translate(930 788)"><path d="M0 49 C-4 20 4 6 10 2 L40 2 C46 6 54 20 50 49Z" fill="#c9a36b" stroke="#8c6a3c" stroke-width="2"/><path d="M8 4 Q25 -6 42 4" fill="none" stroke="#8c6a3c" stroke-width="3"/><text x="25" y="32" text-anchor="middle" font-size="9" font-weight="800" fill="#6d4b24" font-family="DM Sans,system-ui,sans-serif">SUMATRA</text></g>
-<g transform="translate(1100 800)"><rect width="84" height="37" fill="#a8743f" stroke="#6e4826" stroke-width="2"/><path d="M0 12H84M0 25H84" stroke="#6e4826" stroke-width="2"/>
-<path d="M10 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M15 -12 l-3 -6 M15 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M25 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M30 -12 l-3 -6 M30 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M40 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M45 -12 l-3 -6 M45 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M55 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M60 -12 l-3 -6 M60 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M70 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M75 -12 l-3 -6 M75 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-</g>
-<g transform="translate(1190 800)"><rect width="84" height="37" fill="#a8743f" stroke="#6e4826" stroke-width="2"/><path d="M0 12H84M0 25H84" stroke="#6e4826" stroke-width="2"/>
-<path d="M10 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M15 -12 l-3 -6 M15 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M25 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M30 -12 l-3 -6 M30 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M40 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M45 -12 l-3 -6 M45 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M55 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M60 -12 l-3 -6 M60 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M70 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M75 -12 l-3 -6 M75 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-</g>
-<g transform="translate(1280 800)"><rect width="84" height="37" fill="#a8743f" stroke="#6e4826" stroke-width="2"/><path d="M0 12H84M0 25H84" stroke="#6e4826" stroke-width="2"/>
-<path d="M10 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M15 -12 l-3 -6 M15 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M25 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M30 -12 l-3 -6 M30 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M40 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M45 -12 l-3 -6 M45 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M55 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M60 -12 l-3 -6 M60 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M70 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M75 -12 l-3 -6 M75 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-</g>
-<g transform="translate(1145 760)"><rect width="84" height="37" fill="#a8743f" stroke="#6e4826" stroke-width="2"/><path d="M0 12H84M0 25H84" stroke="#6e4826" stroke-width="2"/>
-<path d="M10 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M15 -12 l-3 -6 M15 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M25 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M30 -12 l-3 -6 M30 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M40 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M45 -12 l-3 -6 M45 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M55 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M60 -12 l-3 -6 M60 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M70 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M75 -12 l-3 -6 M75 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-</g>
-<g transform="translate(1235 760)"><rect width="84" height="37" fill="#a8743f" stroke="#6e4826" stroke-width="2"/><path d="M0 12H84M0 25H84" stroke="#6e4826" stroke-width="2"/>
-<path d="M10 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M15 -12 l-3 -6 M15 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M25 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M30 -12 l-3 -6 M30 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M40 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M45 -12 l-3 -6 M45 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M55 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M60 -12 l-3 -6 M60 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-<path d="M70 0 l5 -12 l5 12z" fill="#f08a2c"/><path d="M75 -12 l-3 -6 M75 -12 l3 -6" stroke="#4f9a4a" stroke-width="2"/>
-</g>
-<text x="1192" y="827" text-anchor="middle" font-size="10" font-weight="800" fill="#f6eddb" font-family="DM Sans,system-ui,sans-serif" opacity=".8">CARROTS · DO NOT ASK</text>
-<path d="M1420 837V780h60v-27" fill="none" stroke="#7b8781" stroke-width="10"/><rect x="1500" y="770" width="70" height="67" rx="10" fill="#2f6b55" stroke="#173f32" stroke-width="3"/><rect x="1510" y="784" width="50" height="16" rx="3" fill="#f6eddb"/><text x="1535" y="796" text-anchor="middle" font-size="9" font-weight="900" fill="#14382e" font-family="DM Sans,system-ui,sans-serif">BOILER</text><path d="M1527 822 q8 -14 8 -4 q8 -10 8 4z" fill="#ed794b"/>
-<rect x="600" y="268" width="18" height="467" fill="url(#cHatch)" stroke="#20352b" stroke-width="2"/>
-<rect x="1622" y="268" width="18" height="485" fill="url(#cHatch)" stroke="#20352b" stroke-width="2"/>
-<rect x="600" y="735" width="1040" height="18" fill="url(#cHatch)" stroke="#20352b" stroke-width="2"/>
-<rect x="600" y="753" width="18" height="84" fill="url(#cHatch)" stroke="#20352b" stroke-width="2"/>
-<rect x="618" y="268" width="1004" height="467" fill="url(#cWall)"/>
-<rect x="618" y="585" width="1004" height="150" fill="#1f4a3a"/><rect x="618" y="580" width="1004" height="8" fill="#c8a167"/>
-<rect x="640" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="686" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="732" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="778" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="824" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="870" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="916" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="962" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1008" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1054" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1100" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1146" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1192" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1238" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1284" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1330" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1376" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1422" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1468" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1514" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="1560" y="600" width="30" height="120" rx="3" fill="none" stroke="#2c5c49" stroke-width="3"/>
-<rect x="618" y="715" width="1004" height="20" fill="url(#cPlank)"/>
-<rect x="598" y="560" width="22" height="175" fill="#ffcf7a" opacity=".55"/><rect x="560" y="731" width="70" height="6" rx="2" fill="#b33b35"/>
-<g transform="translate(560 510)"><path d="M10 0 L30 -14 L50 0" fill="none" stroke="#c8a167" stroke-width="2"/><rect x="0" y="0" width="60" height="24" rx="4" fill="#b33b35"/><text x="30" y="17" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" font-family="DM Sans,system-ui,sans-serif">OPEN</text></g>
-<rect x="600" y="250" width="1040" height="18" fill="url(#cHatch)" stroke="#20352b" stroke-width="2"/>
-<path d="M618 250 L1129 108 L1622 250Z" fill="url(#cAttic)"/>
-<path d="M570 262 L1129 92 L1690 262 L1690 244 L1129 72 L570 244Z" fill="#1b3a2f" stroke="#0c1f19" stroke-width="3"/>
-<path d="M620 230 l46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1640 230 l-46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M671 215 l46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1589 215 l-46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M721 199 l46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1539 199 l-46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M771 184 l46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1489 184 l-46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M822 168 l46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1438 168 l-46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M872 152 l46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1388 152 l-46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M922 137 l46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1338 137 l-46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M972 121 l46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1288 121 l-46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1023 106 l46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1237 106 l-46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1073 90 l46 -14" stroke="#2d5948" stroke-width="3"/>
-<path d="M1187 90 l-46 -14" stroke="#2d5948" stroke-width="3"/>
-<rect x="1360" y="108" width="46" height="82" fill="#8a3b2c" stroke="#4d1f17" stroke-width="3"/><rect x="1352" y="100" width="62" height="14" fill="#6b2c21"/>
-<circle class="c-smoke" cx="1383" cy="86" r="12" fill="#cfd8d1" opacity=".45" style="animation-delay:0.0s"/>
-<circle class="c-smoke" cx="1383" cy="86" r="16" fill="#cfd8d1" opacity=".45" style="animation-delay:1.3s"/>
-<circle class="c-smoke" cx="1383" cy="86" r="20" fill="#cfd8d1" opacity=".45" style="animation-delay:2.6s"/>
-<g transform="translate(700 160) rotate(-17)"><path d="M40 44v22M200 44v22" stroke="#0c1f19" stroke-width="5"/><rect width="240" height="44" rx="8" fill="#f6eddb" stroke="#c8a167" stroke-width="4"/><text x="120" y="31" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="27" font-weight="800" fill="#14382e">Granville's</text></g>
-<path d="M760 214 Q900 190 1040 172 Q1180 160 1320 186 Q1420 202 1490 228" fill="none" stroke="#2b1a10" stroke-width="2"/>
-<circle class="c-bulb" cx="790" cy="212" r="4" fill="#ffd98a" style="animation-delay:0.0s"/>
-<circle class="c-bulb" cx="836" cy="201" r="4" fill="#ffd98a" style="animation-delay:0.4s"/>
-<circle class="c-bulb" cx="882" cy="191" r="4" fill="#ffd98a" style="animation-delay:0.8s"/>
-<circle class="c-bulb" cx="928" cy="183" r="4" fill="#ffd98a" style="animation-delay:1.2s"/>
-<circle class="c-bulb" cx="974" cy="177" r="4" fill="#ffd98a" style="animation-delay:1.6s"/>
-<circle class="c-bulb" cx="1020" cy="172" r="4" fill="#ffd98a" style="animation-delay:0.0s"/>
-<circle class="c-bulb" cx="1066" cy="169" r="4" fill="#ffd98a" style="animation-delay:0.4s"/>
-<circle class="c-bulb" cx="1112" cy="168" r="4" fill="#ffd98a" style="animation-delay:0.8s"/>
-<circle class="c-bulb" cx="1158" cy="168" r="4" fill="#ffd98a" style="animation-delay:1.2s"/>
-<circle class="c-bulb" cx="1204" cy="170" r="4" fill="#ffd98a" style="animation-delay:1.6s"/>
-<circle class="c-bulb" cx="1250" cy="174" r="4" fill="#ffd98a" style="animation-delay:0.0s"/>
-<circle class="c-bulb" cx="1296" cy="179" r="4" fill="#ffd98a" style="animation-delay:0.4s"/>
-<circle class="c-bulb" cx="1342" cy="186" r="4" fill="#ffd98a" style="animation-delay:0.8s"/>
-<circle class="c-bulb" cx="1388" cy="195" r="4" fill="#ffd98a" style="animation-delay:1.2s"/>
-<circle class="c-bulb" cx="1434" cy="205" r="4" fill="#ffd98a" style="animation-delay:1.6s"/>
-<g transform="translate(1010 248) rotate(11)"><path d="M0 -40 v38 q0 6 6 6" fill="none" stroke="#2b1a10" stroke-width="2.5"/><path d="M-12 -38 Q0 -56 12 -38 Z" fill="#b33b35"/></g>
-<g transform="translate(1040 248) rotate(12)"><path d="M0 -40 v38 q0 6 6 6" fill="none" stroke="#2b1a10" stroke-width="2.5"/><path d="M-12 -38 Q0 -56 12 -38 Z" fill="#ffcb65"/></g>
-<g transform="translate(1070 248) rotate(-4)"><path d="M0 -40 v38 q0 6 6 6" fill="none" stroke="#2b1a10" stroke-width="2.5"/><path d="M-12 -38 Q0 -56 12 -38 Z" fill="#2f6b55"/></g>
-<g transform="translate(1100 248) rotate(0)"><path d="M0 -40 v38 q0 6 6 6" fill="none" stroke="#2b1a10" stroke-width="2.5"/><path d="M-12 -38 Q0 -56 12 -38 Z" fill="#ed794b"/></g>
-<g transform="translate(1130 248) rotate(-4)"><path d="M0 -40 v38 q0 6 6 6" fill="none" stroke="#2b1a10" stroke-width="2.5"/><path d="M-12 -38 Q0 -56 12 -38 Z" fill="#3d6fa8"/></g>
-<g transform="translate(1160 248) rotate(6)"><path d="M0 -40 v38 q0 6 6 6" fill="none" stroke="#2b1a10" stroke-width="2.5"/><path d="M-12 -38 Q0 -56 12 -38 Z" fill="#f6eddb"/></g>
-<g transform="translate(1190 248) rotate(-8)"><path d="M0 -40 v38 q0 6 6 6" fill="none" stroke="#2b1a10" stroke-width="2.5"/><path d="M-12 -38 Q0 -56 12 -38 Z" fill="#b33b35"/></g>
-<g transform="translate(1220 248) rotate(-11)"><path d="M0 -40 v38 q0 6 6 6" fill="none" stroke="#2b1a10" stroke-width="2.5"/><path d="M-12 -38 Q0 -56 12 -38 Z" fill="#ffcb65"/></g>
-<g transform="translate(1250 248) rotate(9)"><path d="M0 -40 v38 q0 6 6 6" fill="none" stroke="#2b1a10" stroke-width="2.5"/><path d="M-12 -38 Q0 -56 12 -38 Z" fill="#2f6b55"/></g>
-<g transform="translate(1280 248) rotate(13)"><path d="M0 -40 v38 q0 6 6 6" fill="none" stroke="#2b1a10" stroke-width="2.5"/><path d="M-12 -38 Q0 -56 12 -38 Z" fill="#ed794b"/></g>
-<g transform="translate(1310 248) rotate(12)"><path d="M0 -40 v38 q0 6 6 6" fill="none" stroke="#2b1a10" stroke-width="2.5"/><path d="M-12 -38 Q0 -56 12 -38 Z" fill="#3d6fa8"/></g>
-<rect x="1360" y="214" width="56" height="36" fill="#a8743f" stroke="#6e4826" stroke-width="2"/><text x="1388" y="237" text-anchor="middle" font-size="9" font-weight="800" fill="#3a2416" font-family="DM Sans,system-ui,sans-serif">XMAS</text>
-<path d="M618 268 h84 v18 q-42 40 -84 0z" fill="#c9a36b" stroke="#8c6a3c" stroke-width="1.5"/>
-<path d="M702 268 h84 v18 q-42 40 -84 0z" fill="#bf9659" stroke="#8c6a3c" stroke-width="1.5"/>
-<text x="744" y="292" text-anchor="middle" font-size="8.5" font-weight="900" fill="#7a5426" font-family="DM Sans,system-ui,sans-serif" opacity=".85">DO BRASIL</text>
-<path d="M786 268 h84 v18 q-42 40 -84 0z" fill="#d3b07a" stroke="#8c6a3c" stroke-width="1.5"/>
-<path d="M870 268 h84 v18 q-42 40 -84 0z" fill="#c9a36b" stroke="#8c6a3c" stroke-width="1.5"/>
-<path d="M954 268 h84 v18 q-42 40 -84 0z" fill="#bf9659" stroke="#8c6a3c" stroke-width="1.5"/>
-<text x="996" y="292" text-anchor="middle" font-size="8.5" font-weight="900" fill="#7a5426" font-family="DM Sans,system-ui,sans-serif" opacity=".85">DO BRASIL</text>
-<path d="M1038 268 h84 v18 q-42 40 -84 0z" fill="#d3b07a" stroke="#8c6a3c" stroke-width="1.5"/>
-<path d="M1122 268 h84 v18 q-42 40 -84 0z" fill="#c9a36b" stroke="#8c6a3c" stroke-width="1.5"/>
-<path d="M1206 268 h84 v18 q-42 40 -84 0z" fill="#bf9659" stroke="#8c6a3c" stroke-width="1.5"/>
-<text x="1248" y="292" text-anchor="middle" font-size="8.5" font-weight="900" fill="#7a5426" font-family="DM Sans,system-ui,sans-serif" opacity=".85">DO BRASIL</text>
-<path d="M1290 268 h84 v18 q-42 40 -84 0z" fill="#d3b07a" stroke="#8c6a3c" stroke-width="1.5"/>
-<path d="M1374 268 h84 v18 q-42 40 -84 0z" fill="#c9a36b" stroke="#8c6a3c" stroke-width="1.5"/>
-<path d="M1458 268 h84 v18 q-42 40 -84 0z" fill="#bf9659" stroke="#8c6a3c" stroke-width="1.5"/>
-<text x="1500" y="292" text-anchor="middle" font-size="8.5" font-weight="900" fill="#7a5426" font-family="DM Sans,system-ui,sans-serif" opacity=".85">DO BRASIL</text>
-<path d="M1542 268 h80 v18 q-40 40 -80 0z" fill="#d3b07a" stroke="#8c6a3c" stroke-width="1.5"/>
-<g class="c-lamp" style="transform-origin:720px 300px;animation-delay:0.0s"><path d="M720 300v56" stroke="#1c120c" stroke-width="2"/><path d="M703 374 Q720 344 737 374Z" fill="#14382e" stroke="#0c1f19" stroke-width="2"/><circle cx="720" cy="378" r="7" fill="#ffe2a0"/><circle class="c-glow" cx="720" cy="392" r="120" fill="url(#cGlow)"/></g>
-<g class="c-lamp" style="transform-origin:960px 300px;animation-delay:0.7s"><path d="M960 300v56" stroke="#1c120c" stroke-width="2"/><path d="M943 374 Q960 344 977 374Z" fill="#14382e" stroke="#0c1f19" stroke-width="2"/><circle cx="960" cy="378" r="7" fill="#ffe2a0"/><circle class="c-glow" cx="960" cy="392" r="120" fill="url(#cGlow)"/></g>
-<g class="c-lamp" style="transform-origin:1210px 300px;animation-delay:1.4s"><path d="M1210 300v56" stroke="#1c120c" stroke-width="2"/><path d="M1193 374 Q1210 344 1227 374Z" fill="#14382e" stroke="#0c1f19" stroke-width="2"/><circle cx="1210" cy="378" r="7" fill="#ffe2a0"/><circle class="c-glow" cx="1210" cy="392" r="120" fill="url(#cGlow)"/></g>
-<g class="c-lamp" style="transform-origin:1460px 300px;animation-delay:2.1s"><path d="M1460 300v56" stroke="#1c120c" stroke-width="2"/><path d="M1443 374 Q1460 344 1477 374Z" fill="#14382e" stroke="#0c1f19" stroke-width="2"/><circle cx="1460" cy="378" r="7" fill="#ffe2a0"/><circle class="c-glow" cx="1460" cy="392" r="120" fill="url(#cGlow)"/></g>
-<g transform="translate(1090 318)"><path d="M0 -18v18" stroke="#1c120c" stroke-width="4"/><g class="c-fan"><ellipse cx="-44" cy="0" rx="42" ry="6" fill="#5a341d"/><ellipse cx="44" cy="0" rx="42" ry="6" fill="#6b3f24"/></g><circle r="9" fill="#2a1a10"/></g>
-<rect x="645" y="420" width="52" height="40" fill="#f6eddb" stroke="#3a2416" stroke-width="4"/>
-<rect x="705" y="404" width="40" height="54" fill="#ffcb65" stroke="#3a2416" stroke-width="4"/>
-<rect x="650" y="470" width="36" height="30" fill="#ed794b" stroke="#3a2416" stroke-width="4"/>
-<rect x="694" y="468" width="58" height="36" fill="#f6eddb" stroke="#3a2416" stroke-width="4"/>
-<rect x="760" y="418" width="30" height="40" fill="#2f6b55" stroke="#3a2416" stroke-width="4"/>
-<text x="671" y="444" text-anchor="middle" font-size="8" font-weight="900" fill="#14382e" font-family="DM Sans,system-ui,sans-serif">EST.</text><text x="671" y="455" text-anchor="middle" font-size="9" font-weight="900" fill="#14382e" font-family="DM Sans,system-ui,sans-serif">1992</text>
-<text x="723" y="490" text-anchor="middle" font-size="8" font-weight="900" fill="#b33b35" font-family="DM Sans,system-ui,sans-serif">BEST PIE</text>
-<g><rect x="830" y="395" width="130" height="150" rx="6" fill="#3a2416"/><rect x="839" y="404" width="112" height="132" fill="url(#cWin)"/><path d="M839 506 l30 -34 l24 22 l30 -40 l28 38 v44 h-112z" fill="#0f2c23"/><circle cx="922" cy="428" r="9" fill="#fff3c9"/><path d="M895 404v132M839 470h112" stroke="#3a2416" stroke-width="6"/></g>
-<g><rect x="1010" y="395" width="130" height="150" rx="6" fill="#3a2416"/><rect x="1019" y="404" width="112" height="132" fill="url(#cWin)"/><path d="M1019 506 l30 -34 l24 22 l30 -40 l28 38 v44 h-112z" fill="#0f2c23"/><circle cx="1102" cy="428" r="9" fill="#fff3c9"/><path d="M1075 404v132M1019 470h112" stroke="#3a2416" stroke-width="6"/></g>
-<g transform="translate(1255 392)"><rect width="320" height="126" rx="6" fill="#1a1d1b" stroke="#8a5530" stroke-width="8"/>
-<text x="22" y="30" font-size="19" fill="#ffcb65" font-family="DM Sans,system-ui,sans-serif">☑</text><text x="50" y="30" font-size="17" fill="#f6eddb" font-family="Fraunces,Georgia,serif" font-style="italic">Good food</text>
-<text x="22" y="56" font-size="19" fill="#ffcb65" font-family="DM Sans,system-ui,sans-serif">☑</text><text x="50" y="56" font-size="17" fill="#f6eddb" font-family="Fraunces,Georgia,serif" font-style="italic">Great coffee</text>
-<text x="22" y="82" font-size="19" fill="#ffcb65" font-family="DM Sans,system-ui,sans-serif">☑</text><text x="50" y="82" font-size="17" fill="#f6eddb" font-family="Fraunces,Georgia,serif" font-style="italic">Lively conversation</text>
-<text x="22" y="108" font-size="19" fill="#ffcb65" font-family="DM Sans,system-ui,sans-serif">☐</text><text x="50" y="108" font-size="17" fill="#f6eddb" font-family="Fraunces,Georgia,serif" font-style="italic">Predictable outcomes</text>
-</g>
-<a href="#menu-theatre" class="c-hot" aria-label="Espresso counter: see the menu">
-<rect x="1170" y="598" width="440" height="117" fill="#6e4222" stroke="#3a2416" stroke-width="3"/><rect x="1160" y="588" width="460" height="14" rx="3" fill="#c8a167" stroke="#8a5530" stroke-width="2"/>
-<rect x="1190" y="614" width="52" height="86" rx="4" fill="none" stroke="#8a5530" stroke-width="3"/>
-<rect x="1260" y="614" width="52" height="86" rx="4" fill="none" stroke="#8a5530" stroke-width="3"/>
-<rect x="1330" y="614" width="52" height="86" rx="4" fill="none" stroke="#8a5530" stroke-width="3"/>
-<rect x="1400" y="614" width="52" height="86" rx="4" fill="none" stroke="#8a5530" stroke-width="3"/>
-<rect x="1470" y="614" width="52" height="86" rx="4" fill="none" stroke="#8a5530" stroke-width="3"/>
-<rect x="1540" y="614" width="52" height="86" rx="4" fill="none" stroke="#8a5530" stroke-width="3"/>
-<g transform="translate(1440 520)"><path d="M-30 70 Q-30 20 0 18 Q30 20 30 70Z" fill="#f6eddb"/><path d="M-18 70 V34 H18 V70" fill="#2f6b55"/><circle cx="0" cy="0" r="18" fill="#e9b48a"/><path d="M-18 -4 Q-16 -22 0 -22 Q16 -22 18 -4 Q10 -14 0 -14 Q-10 -14 -18 -4Z" fill="#f2f2ee"/><path d="M-12 9 Q0 16 12 9" stroke="#f2f2ee" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="-6" cy="-1" r="2" fill="#20352b"/><circle cx="6" cy="-1" r="2" fill="#20352b"/></g>
-<g transform="translate(1215 528)"><rect width="120" height="60" rx="8" fill="#14382e" stroke="#0c1f19" stroke-width="3"/><rect x="6" y="-10" width="108" height="14" rx="4" fill="url(#cChrome)"/><circle cx="30" cy="22" r="9" fill="url(#cChrome)"/><circle cx="90" cy="22" r="9" fill="url(#cChrome)"/><rect x="22" y="36" width="16" height="10" fill="#0c1f19"/><rect x="82" y="36" width="16" height="10" fill="#0c1f19"/><rect x="24" y="50" width="12" height="10" rx="2" fill="#f6eddb"/><rect x="84" y="50" width="12" height="10" rx="2" fill="#f6eddb"/></g>
-<path class="c-steam" d="M1245 512 q-8 -14 0 -26 q8 -12 0 -26" fill="none" stroke="#f6eddb" stroke-width="3" stroke-linecap="round" opacity=".6" style="animation-delay:0.0s"/>
-<path class="c-steam" d="M1305 512 q-8 -14 0 -26 q8 -12 0 -26" fill="none" stroke="#f6eddb" stroke-width="3" stroke-linecap="round" opacity=".6" style="animation-delay:0.9s"/>
-<g transform="translate(1490 540)"><rect width="110" height="48" rx="6" fill="#e8f2ee" opacity=".35" stroke="#f6eddb" stroke-width="2"/><path d="M0 24h110" stroke="#f6eddb" stroke-width="2" opacity=".6"/>
-<circle cx="16" cy="16" r="8" fill="#c8894a"/><circle cx="16" cy="13" r="3" fill="#3d3b6e"/>
-<circle cx="42" cy="16" r="8" fill="#c8894a"/><circle cx="42" cy="13" r="3" fill="#3d3b6e"/>
-<circle cx="68" cy="16" r="8" fill="#c8894a"/><circle cx="68" cy="13" r="3" fill="#3d3b6e"/>
-<circle cx="94" cy="16" r="8" fill="#c8894a"/><circle cx="94" cy="13" r="3" fill="#3d3b6e"/>
-<path d="M10 46 h24 v-10 l-12 -8 l-12 8z" fill="#f08a2c"/><path d="M10 38 h24" stroke="#f6eddb" stroke-width="3"/>
-<path d="M44 46 h24 v-10 l-12 -8 l-12 8z" fill="#f08a2c"/><path d="M44 38 h24" stroke="#f6eddb" stroke-width="3"/>
-<path d="M78 46 h24 v-10 l-12 -8 l-12 8z" fill="#f08a2c"/><path d="M78 38 h24" stroke="#f6eddb" stroke-width="3"/>
-</g></a>
-<a href="#people" class="c-hot" aria-label="The community table: meet the regulars">
-<rect x="700" y="638" width="430" height="14" rx="4" fill="#c8894a" stroke="#6e4826" stroke-width="2"/><rect x="720" y="652" width="12" height="63" fill="#6e4826"/><rect x="1098" y="652" width="12" height="63" fill="#6e4826"/>
-<g transform="translate(740 590)"><rect x="-22" y="40" width="44" height="12" rx="4" fill="#5a341d"/><path d="M-20 48 Q-20 8 0 6 Q20 8 20 48Z" fill="#ed794b"/><circle cx="0" cy="-8" r="15" fill="#7a4a2a"/>
-<path d="M-15 -12 Q0 -30 15 -12 Q8 -20 0 -20 Q-8 -20 -15 -12Z" fill="#2a1a10"/>
-</g>
-<g transform="translate(754 634)"><rect width="13" height="12" rx="2" fill="#f6eddb"/><path d="M13 3 q6 0 6 4 q0 4 -6 4" fill="none" stroke="#f6eddb" stroke-width="2"/></g>
-<g transform="translate(820 590)"><rect x="-22" y="40" width="44" height="12" rx="4" fill="#5a341d"/><path d="M-20 48 Q-20 8 0 6 Q20 8 20 48Z" fill="#3d6fa8"/><circle cx="0" cy="-8" r="15" fill="#e9b48a"/>
-<path d="M-14 -16 Q0 -28 14 -16 L14 -10 L-14 -10Z" fill="#14382e"/>
-</g>
-<g transform="translate(834 634)"><rect width="13" height="12" rx="2" fill="#f6eddb"/><path d="M13 3 q6 0 6 4 q0 4 -6 4" fill="none" stroke="#f6eddb" stroke-width="2"/></g>
-<g transform="translate(905 590)"><rect x="-22" y="40" width="44" height="12" rx="4" fill="#5a341d"/><path d="M-20 48 Q-20 8 0 6 Q20 8 20 48Z" fill="#ffcb65"/><circle cx="0" cy="-8" r="15" fill="#c58c63"/>
-<path d="M-16 -8 Q-16 -28 0 -26 Q16 -28 16 -8 Q16 10 10 14 Q14 -6 0 -18 Q-14 -6 -10 14 Q-16 10 -16 -8Z" fill="#d9b25a"/>
-</g>
-<g transform="translate(919 634)"><rect width="13" height="12" rx="2" fill="#f6eddb"/><path d="M13 3 q6 0 6 4 q0 4 -6 4" fill="none" stroke="#f6eddb" stroke-width="2"/></g>
-<g transform="translate(990 590)"><rect x="-22" y="40" width="44" height="12" rx="4" fill="#5a341d"/><path d="M-20 48 Q-20 8 0 6 Q20 8 20 48Z" fill="#b33b35"/><circle cx="0" cy="-8" r="15" fill="#8a5a3a"/>
-<path d="M-15 -10 Q0 -32 15 -10Z" fill="#9a9a96"/>
-</g>
-<g transform="translate(1004 634)"><rect width="13" height="12" rx="2" fill="#f6eddb"/><path d="M13 3 q6 0 6 4 q0 4 -6 4" fill="none" stroke="#f6eddb" stroke-width="2"/></g>
-<g transform="translate(1075 590)"><rect x="-22" y="40" width="44" height="12" rx="4" fill="#5a341d"/><path d="M-20 48 Q-20 8 0 6 Q20 8 20 48Z" fill="#2f6b55"/><circle cx="0" cy="-8" r="15" fill="#f0c8a0"/>
-<path d="M-15 -12 Q0 -30 15 -12 Q8 -20 0 -20 Q-8 -20 -15 -12Z" fill="#5a3a20"/>
-</g>
-<g transform="translate(1089 634)"><rect width="13" height="12" rx="2" fill="#f6eddb"/><path d="M13 3 q6 0 6 4 q0 4 -6 4" fill="none" stroke="#f6eddb" stroke-width="2"/></g>
-</a>
-<g class="c-bubble" style="animation-delay:0.0s"><rect x="667" y="520" width="186" height="32" rx="16" fill="#f6eddb" stroke="#14382e" stroke-width="2"/><path d="M754 551 l6 12 l8 -12" fill="#f6eddb" stroke="#14382e" stroke-width="2" stroke-linejoin="round"/><path d="M755 550 h12" stroke="#f6eddb" stroke-width="4"/><text x="760" y="541" text-anchor="middle" font-size="14" font-weight="800" fill="#14382e" font-family="DM Sans,system-ui,sans-serif">…and THEN the moose</text></g>
-<g class="c-bubble" style="animation-delay:1.6s"><rect x="796" y="470" width="278" height="32" rx="16" fill="#f6eddb" stroke="#14382e" stroke-width="2"/><path d="M929 501 l6 12 l8 -12" fill="#f6eddb" stroke="#14382e" stroke-width="2" stroke-linejoin="round"/><path d="M930 500 h12" stroke="#f6eddb" stroke-width="4"/><text x="935" y="491" text-anchor="middle" font-size="14" font-weight="800" fill="#14382e" font-family="DM Sans,system-ui,sans-serif">Second left after the old mill</text></g>
-<g class="c-bubble" style="animation-delay:3.2s"><rect x="980" y="530" width="160" height="32" rx="16" fill="#f6eddb" stroke="#14382e" stroke-width="2"/><path d="M1054 561 l6 12 l8 -12" fill="#f6eddb" stroke="#14382e" stroke-width="2" stroke-linejoin="round"/><path d="M1055 560 h12" stroke="#f6eddb" stroke-width="4"/><text x="1060" y="551" text-anchor="middle" font-size="14" font-weight="800" fill="#14382e" font-family="DM Sans,system-ui,sans-serif">Who brought pie?</text></g>
-<g transform="translate(1140 715)"><path d="M-14 0 l4 -30 h20 l4 30z" fill="#b55237"/><path d="M0 -30 q-20 -30 -26 -50 q20 10 26 40 q6 -40 22 -54 q-4 30 -22 64" fill="#3f8a5a"/></g>
-<g transform="translate(640 715)"><path d="M-14 0 l4 -30 h20 l4 30z" fill="#b55237"/><path d="M0 -30 q-20 -30 -26 -50 q20 10 26 40 q6 -40 22 -54 q-4 30 -22 64" fill="#3f8a5a"/></g>
-<a href="#oddities" class="c-tag" tabindex="-1" aria-hidden="true"><path d="M1222 163 L1150 214" stroke="#ffcb65" stroke-width="2" stroke-dasharray="4 4"/><circle cx="1150" cy="214" r="5" fill="#ffcb65"/><rect x="1096" y="150" width="252" height="26" rx="13" fill="#ffcb65"/><text x="1222" y="167.5" text-anchor="middle" font-size="12.5" font-weight="900" fill="#14382e" font-family="DM Sans,system-ui,sans-serif" letter-spacing=".04em">LOST &amp; FOUND: 41 UMBRELLAS</text></a>
-<a href="#inside" class="c-tag" tabindex="-1" aria-hidden="true"><path d="M800 343 L760 300" stroke="#ffcb65" stroke-width="2" stroke-dasharray="4 4"/><circle cx="760" cy="300" r="5" fill="#ffcb65"/><rect x="701" y="330" width="199" height="26" rx="13" fill="#ffcb65"/><text x="800" y="347.5" text-anchor="middle" font-size="12.5" font-weight="900" fill="#14382e" font-family="DM Sans,system-ui,sans-serif" letter-spacing=".04em">THE COFFEE-SACK CEILING</text></a>
-<a href="#ted" class="c-tag" tabindex="-1" aria-hidden="true"><path d="M1530 653 L1452 556" stroke="#ffcb65" stroke-width="2" stroke-dasharray="4 4"/><circle cx="1452" cy="556" r="5" fill="#ffcb65"/><rect x="1465" y="640" width="130" height="26" rx="13" fill="#ffcb65"/><text x="1530" y="657.5" text-anchor="middle" font-size="12.5" font-weight="900" fill="#14382e" font-family="DM Sans,system-ui,sans-serif" letter-spacing=".04em">TED, MID-STORY</text></a>
-<a href="#people" class="c-tag" tabindex="-1" aria-hidden="true"><path d="M915 693 L915 652" stroke="#ffcb65" stroke-width="2" stroke-dasharray="4 4"/><circle cx="915" cy="652" r="5" fill="#ffcb65"/><rect x="831" y="680" width="168" height="26" rx="13" fill="#ffcb65"/><text x="915" y="697.5" text-anchor="middle" font-size="12.5" font-weight="900" fill="#14382e" font-family="DM Sans,system-ui,sans-serif" letter-spacing=".04em">THE COMMUNITY TABLE</text></a>
-<a href="#ted" class="c-tag" tabindex="-1" aria-hidden="true"><path d="M1012 813 L1150 790" stroke="#ffcb65" stroke-width="2" stroke-dasharray="4 4"/><circle cx="1150" cy="790" r="5" fill="#ffcb65"/><rect x="928" y="800" width="168" height="26" rx="13" fill="#ffcb65"/><text x="1012" y="817.5" text-anchor="middle" font-size="12.5" font-weight="900" fill="#14382e" font-family="DM Sans,system-ui,sans-serif" letter-spacing=".04em">CARROT CAKE R&amp;D</text></a>
-</svg>
-        <div class="cut-copy">
-          <p class="cut-kicker">Quesnel's gathering place since 1992</p>
-          <h2 class="cut-title">Welcome to<br><em>Granville's Coffee</em></h2>
-          <p class="cut-sub">We sliced the café open so you can see what goes on inside. Mostly coffee. Mostly.</p>
-          <a class="btn cut-btn" href="#town-stage">Start the adventure ↓</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <button class="hero-arrow hero-prev" type="button" aria-label="Previous banner" aria-controls="heroSlides">‹</button>
-  <button class="hero-arrow hero-next" type="button" aria-label="Next banner" aria-controls="heroSlides">›</button>
-  <div class="hero-dots" role="group" aria-label="Choose a banner">
-    <button type="button" class="hero-dot is-active" aria-label="Show welcome banner" aria-pressed="true"></button>
-    <button type="button" class="hero-dot" aria-label="Show illustrated café banner" aria-pressed="false"></button>
-  </div>
-  <button class="hero-pause" type="button" aria-pressed="false">Pause slideshow</button>
-</div>
-
-<div aria-hidden="true" class="ticker"><span>COFFEE ✳ CONVERSATION ✳ COMPLETELY UNSOLICITED ADVICE ✳ POSSIBLY TRUE GOSSIP ✳ GOOD FOOD ✳ NEW FRIENDS ✳ <b>COFFEE ✳ CONVERSATION ✳ COMPLETELY UNSOLICITED ADVICE ✳ POSSIBLY TRUE GOSSIP ✳ GOOD FOOD ✳ NEW FRIENDS ✳</b></span></div>
-
-<!-- ===== Town stage ===== -->
-<section aria-labelledby="town-title" class="town-stage" id="town-stage">
-  <div class="town-top"><span class="town-stamp">✳ GRANVILLE'S · UNOFFICIAL TOWN HALL ✳</span><span class="town-signal"><i></i> OPEN TO STRANGERS, FRIENDS &amp; PEOPLE WHO KNOW GARY</span></div>
-  <div class="town-intro">
+<section class="masthead">
+  <div class="wrap masthead-grid">
     <div>
-      <div class="town-overline">THE SOCIAL NETWORK THAT DOESN'T REQUIRE WI-FI</div>
-      <h2 id="town-title" data-content="town.title" data-rich>One table.<br><em>A thousand stories.</em></h2>
-      <p data-content="town.intro">In Quesnel, a cup of coffee can turn into a friendship, a fishing forecast, or seven conflicting directions. Pull up a chair. The plot is already in progress.</p>
-      <button class="town-cta" id="town-spin" type="button">☕ Pull up a chair <span>↗</span></button>
+      <span class="est">Est. 1992 · Quesnel's first espresso shop</span>
+      <h1 data-content="home.title" data-rich>Quesnel's front room<br><em>since 1992.</em></h1>
+      <p class="lead" data-content="home.lead">Granville's sits right in the middle of downtown, and most of the town passes through it sooner or later. Locals come for coffee and home cooking. Visitors come in to ask the way and leave knowing half the room. We've been open over thirty years, and we still haven't worked out how to make a visit last less than an hour.</p>
+      <div class="btns">
+        <a class="btn brass" href="menu.html">🍽️ See the food &amp; drink menu</a>
+        <a class="btn on-dark" href="visit.html">📍 How to find us</a>
+      </div>
     </div>
-    <div class="town-counter"><span>STRANGERS WHO STAY STRANGERS</span><strong id="town-strangers">00</strong><small>Unofficial estimate. We haven't checked.</small></div>
+    <figure class="photo-frame">
+      <img src="assets/img/ceiling-one.webp" alt="The real ceiling at Granville's, lined with burlap coffee sacks stamped Product of Colombia" width="1125" height="1500">
+      <figcaption><strong>Our real ceiling.</strong>Yes, those are coffee sacks. Some places frame their certificates. We upholstered the roof.</figcaption>
+    </figure>
   </div>
-  <div aria-label="Illustrated Granville's community table" class="town-world" id="town-world" role="img">
-    <svg aria-hidden="true" class="town-lines" preserveAspectRatio="none" viewBox="0 0 1200 490"><path d="M105 90 Q360 200 560 245 T1090 105"/><path d="M110 380 Q390 260 600 250 T1100 380"/><path d="M320 50 Q500 180 610 250 T880 50"/></svg>
-    <div class="town-doodle town-star" aria-hidden="true">✳</div><div class="town-doodle town-heart" aria-hidden="true">♥</div><div class="town-doodle town-sun" aria-hidden="true">✺</div>
-    <div class="town-person town-person-a"><div class="town-bubble">“Is this seat taken?”</div><div aria-hidden="true" class="town-avatar">🧑‍🦳</div><span>THE REGULAR</span></div>
-    <div class="town-person town-person-b"><div class="town-bubble">“Not anymore!”</div><div aria-hidden="true" class="town-avatar">🧑🏽</div><span>THE NEWCOMER</span></div>
-    <div class="town-person town-person-c"><div class="town-bubble">“I know a shortcut…”</div><div aria-hidden="true" class="town-avatar">👩🏻‍🦰</div><span>THE DIRECTIONS EXPERT</span></div>
-    <div class="town-table"><div class="town-table-inner"><div class="town-cup" aria-hidden="true">☕<span class="town-steam">〰</span></div><strong>THE COMMUNITY<br>TABLE</strong><small>Seats: somehow always one more</small></div></div>
-    <div aria-live="polite" class="town-caption" id="town-caption">You came for coffee. You've been invited to somebody's barbecue.</div>
-  </div>
-  <div class="town-bottom">
-    <div><span class="town-bottom-label">TODAY'S COMPLETELY UNOFFICIAL REPORT</span><p id="town-story" aria-live="polite">“A traveller asked where the highway was. Four locals answered. None agreed. All offered to drive them.”</p></div>
-    <button class="town-next" id="town-next" type="button">Another story <span>↻</span></button>
-  </div>
-  <p class="town-disclaimer">Illustrated characters and conversations are fictional. The welcome is the point. Real food appears in the next act ↓</p>
 </section>
 
-<!-- ===== Our people ===== -->
-<section aria-labelledby="storyworld-title" class="storyworld" id="people">
-  <div class="storyworld-heading">
-    <span class="eyebrow">AN INTERACTIVE TALE FROM THE UNOFFICIAL QUESNEL UNIVERSE</span>
-    <h2 id="storyworld-title" data-content="people.title" data-rich>The day you accidentally<br><em>became a local.</em></h2>
-    <p data-content="people.intro">Three characters. One suspiciously friendly café. A completely unnecessary quest. Tap a character to hear their side of the story.</p>
+<section class="today" aria-label="Today at Granville's">
+  <div class="wrap today-grid">
+    <div><b>Open today</b><span id="todayHours">7:00 a.m. – 7:00 p.m.</span></div>
+    <div><b>Find us</b><span data-setting="address">383 Reid Street, Quesnel</span></div>
+    <div><b>Call</b><a href="tel:+12509923667" data-setting-tel><span data-setting="phone">250-992-3667</span></a></div>
+    <div><b>How to order</b><span>Walk in and say hello</span></div>
   </div>
-  <div aria-label="Three fictional café regulars" class="character-stage" role="group">
-    <button class="character selected" data-character="0" type="button" aria-pressed="true"><span aria-hidden="true" class="avatar">🧣</span><strong>Mabel</strong><small>Unofficial Minister of Everyone</small></button>
-    <button class="character" data-character="1" type="button" aria-pressed="false"><span aria-hidden="true" class="avatar">🧭</span><strong>Doug</strong><small>Directions, Mostly Historical</small></button>
-    <button class="character" data-character="2" type="button" aria-pressed="false"><span aria-hidden="true" class="avatar">🎒</span><strong>Alex</strong><small>New in Town (For 4 Minutes)</small></button>
-    <div aria-live="polite" class="speech" id="character-speech">“New around here? Sit down. You're late for a friendship you didn't know you had.”</div>
-  </div>
-  <div class="quest" id="quest">
-    <div class="quest-header"><span class="eyebrow" style="color:#a35431">THE GREAT GRANVILLE'S DETOUR</span><h3>One stop. Three side quests.</h3><p>Make a fictional friend, solve a food mystery, and survive Quesnel's most confident directions. Your decisions change the ending.</p></div>
-    <div class="quest-progress" id="quest-progress">CHAPTER 1 OF 3</div>
-    <div class="quest-card"><div aria-hidden="true" class="quest-art" id="quest-art">🥪</div><h4 id="quest-question" aria-live="polite">A sandwich has vanished. What do you investigate first?</h4><div class="quest-choices" id="quest-choices"></div><p aria-live="polite" id="quest-reaction"></p></div>
-    <button class="quest-restart" id="quest-restart" type="button">↻ Start a new adventure</button>
-  </div>
-  <p class="fiction-note">Mabel, Doug, Alex and their adventures are fictional. The welcome is the point.</p>
 </section>
 
-<!-- ===== Menu ===== -->
-<section aria-labelledby="real-menu-title" class="real-menu" id="menu-theatre">
-  <div class="real-menu-head">
-    <span class="menu-kicker">✦ THE REAL FOOD · THE FICTIONAL DRAMA ✦</span>
-    <h2 id="real-menu-title" data-content="menu.title" data-rich>The usual suspects.<br><em>Now with actual names.</em></h2>
-    <p data-content="menu.intro">Real dishes reported on Granville's published menu listings, introduced by a narrator who really should get out more.</p>
-  </div>
-  <div aria-label="Explore menu categories" class="menu-tabs" id="menu-tabs" role="group"></div>
-  <div aria-live="polite" class="menu-spotlight" id="menu-spotlight">
-    <div aria-hidden="true" class="spotlight-art"><div class="spotlight-halo"></div><span id="spotlight-emoji">🥪</span><span class="sparkle one">✳</span><span class="sparkle two">✦</span></div>
-    <div class="spotlight-text"><span class="spotlight-label" id="spotlight-label">THE SANDWICH DEPARTMENT</span><h3 id="spotlight-title">Classic Reuben</h3><p id="spotlight-joke">A sandwich with so much character, it may introduce you to its relatives.</p><span class="spotlight-price" id="spotlight-price"></span><button class="spotlight-next" id="spotlight-next" type="button">Meet another suspect ↝</button></div>
-  </div>
-  <div class="menu-item-grid" id="menu-items"></div>
-  <p class="menu-source-note" data-content="menu.note">These are reported menu items from third-party listings, not a verified current menu. Selection, recipes, availability and prices may change. For the current selection, please visit the café.</p>
-  <p class="menu-source-note" style="margin-top:6px"><a href="https://granvillescoffee.gotoeat.net/menu" rel="noopener noreferrer" target="_blank" id="menuListingLink">See the published menu listing ↗</a></p>
-</section>
-
-<div aria-label="Chapter 02" class="journey-chapter" role="note"><span class="chapter-number" aria-hidden="true">02</span><div class="chapter-copy"><span>THE GRANVILLE'S STORY · CHAPTER 02</span><h3>A stranger walks into a café…</h3><p>…and walks out knowing half the town, two dogs, and somebody's cousin.</p></div><span aria-hidden="true" class="chapter-art">🫂</span></div>
-
-<!-- ===== Ted ===== -->
-<section class="ted-section" id="ted" aria-labelledby="ted-title">
-  <div class="ted-portrait reveal">
-    <div class="portrait-frame" id="tedPortrait">
-<svg aria-label="Playful illustrated portrait placeholder for Ted Martindale" role="img" viewBox="0 0 380 450"><rect fill="#f5c76c" height="450" rx="30" width="380"></rect><circle cx="315" cy="76" fill="#e97e4b" r="68"></circle><path d="M70 450q-15-180 120-180t120 180" fill="#184637"></path><path d="M139 288l52 71 52-71" fill="#fff4da"></path><ellipse cx="190" cy="191" fill="#f0b98e" rx="87" ry="109"></ellipse><path d="M102 181q-9-110 88-115 100 0 91 115-24-35-49-40-77 31-130 40" fill="#eae5d8"></path><path d="M151 198q15-9 29 0m27 0q15-9 29 0" fill="none" stroke="#483c34" stroke-linecap="round" stroke-width="5"></path><path d="M165 241q26 24 52 0" fill="none" stroke="#8b4c3a" stroke-linecap="round" stroke-width="6"></path><path d="M90 125q-31-16-40 12" fill="none" stroke="#184637" stroke-width="12"></path><text fill="#fff4da" font-family="Georgia" font-size="23" text-anchor="middle" x="190" y="414">TED'S CORNER</text></svg>
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">The middle of town</span>
+      <h2 data-content="home.meet.title">Where Quesnel meets.</h2>
+      <p data-content="home.meet.intro">Reid Street is where the town crosses paths, and Granville's is where it stops to sit down. Here's what usually happens when you walk in.</p>
     </div>
-    <span class="portrait-label" id="tedPortraitLabel">Illustration placeholder · Not Ted's likeness</span>
-    <span class="portrait-sticker" aria-hidden="true">80 years young.<br>Still causing cake.</span>
-  </div>
-  <div class="ted-copy reveal">
-    <span class="eyebrow">Meet the owner · Keeper of the kettle</span>
-    <h2 id="ted-title" data-content="ted.title" data-rich>Ted Martindale.<br><em>Not your average cup of Ted.</em></h2>
-    <p data-content="ted.p1">Since 1992, Granville's has been a Quesnel gathering place. Ted built more than a coffee shop: a room where strangers turn into neighbours, and a five-minute visit has a habit of becoming an afternoon.</p>
-    <p data-content="ted.p2">In 2026, Ted marked his 80th birthday with a nearly 6,000-pound carrot cake. Because apparently a regular birthday cake wouldn't feed enough people—or make enough headlines.</p>
-    <p data-content="ted.p3">He was also honoured with a small-business award at Quesnel's October 2026 Business Excellence Awards. But the part worth remembering isn't the trophy. It's the generosity, the open door, and the sense that there's always room for one more person.</p>
-    <a class="btn" href="#oracle">Read the bottom of your cup ↓</a>
-  </div>
-</section>
-
-<!-- ===== Inside Granville's (real photos) ===== -->
-<section class="inside" id="inside" aria-labelledby="inside-title">
-  <div class="inside-head reveal">
-    <span class="eyebrow">Real photos · No filters, just lighting</span>
-    <h2 id="inside-title" data-content="inside.title">Inside Granville's.</h2>
-    <p data-content="inside.intro">A few things you'll notice the moment you walk in. Some of them will notice you back.</p>
-  </div>
-  <div class="inside-grid" id="inside-grid">
-    <figure><img src="assets/img/ceiling-one.webp" alt="Ceiling lined with burlap coffee sacks stamped 'Product of Colombia', with track lights" loading="lazy" width="1125" height="1500"><figcaption><strong>Look up.</strong>The ceiling is upholstered in coffee sacks. Colombia says hello.</figcaption></figure>
-    <figure><img src="assets/img/ceiling-two.webp" alt="Coffee-sack ceiling with a vintage ceiling fan and a wall of signs" loading="lazy" width="1125" height="1500"><figcaption><strong>Keep looking.</strong>A fan, a hundred sacks, and walls that collect stories.</figcaption></figure>
-    <figure><img src="assets/img/clock.webp" alt="The green Granville's Coffee wall clock" loading="lazy" width="1125" height="1500"><figcaption><strong>The clock.</strong>The real one. It keeps better time than the conversations do.</figcaption></figure>
-    <figure><img src="assets/img/pager.webp" alt="An orange table pager labelled 'When flashing, wave us down'" loading="lazy" width="1125" height="1500"><figcaption><strong>When flashing, wave us down.</strong>Your food is ready. Your conversation can continue.</figcaption></figure>
-  </div>
-</section>
-
-<!-- ===== Oddities ===== -->
-<section class="oddities" id="oddities" aria-labelledby="oddities-title">
-  <span class="eyebrow">THE GRANVILLE'S FIELD GUIDE</span>
-  <h2 id="oddities-title">Things a map<br><em>can't tell you.</em></h2>
-  <div class="oddity-grid">
-    <div><span>01 / THE CEILING</span><h3>Look up.</h3><p>Yes, those are coffee sacks overhead. Some businesses frame certificates. Granville's went in another direction.</p></div>
-    <div><span>02 / THE CONVERSATION</span><h3>Bring a question.</h3><p>Leave with an answer, a second answer, and a spirited debate about the first answer.</p></div>
-    <div><span>03 / THE HOUSE RULE</span><h3>Walk right in.</h3><p>No online ordering. No reservation labyrinth. Just a real door and people on the other side.</p></div>
-  </div>
-</section>
-
-<!-- ===== Games ===== -->
-<section class="dark" id="games" aria-labelledby="games-title">
-  <div class="section-head reveal">
-    <div class="eyebrow">Department of important nonsense</div>
-    <h2 id="games-title">Games, gossip &amp; other terrible uses of the internet.</h2>
-    <p>We don't take online orders. We do, however, provide completely unnecessary entertainment while you decide to visit in person.</p>
-  </div>
-  <div class="game-grid">
-    <article class="game reveal"><span class="badge">Interactive foolishness #01</span><h3>The Local Directions Machine</h3><p>Ask for directions. Receive advice from people who all know a shortcut.</p><button id="directions" type="button">Ask another local ↗</button><div aria-live="polite" class="result" id="directionsResult">“Turn left where the old hardware store used to be. Unless you're coming from the other side.”</div><small>Fictional jokes, not actual navigation. Please use a map to drive.</small></article>
-    <article class="game reveal"><span class="badge">Interactive foolishness #02</span><h3>Catch the runaway bun</h3><p>You have 15 seconds. The bun has no intention of cooperating.</p><div class="score"><span id="score">Caught: 0</span><span id="timer">Time: 15s</span></div><div class="bun-stage" id="stage"><button aria-label="Catch the cinnamon bun" class="bun" id="bun" type="button">🥮</button></div><button id="start" type="button">Start the nonsense →</button><div aria-live="polite" id="bunMessage" style="margin-top:12px;min-height:24px">No buns were harmed in the making of this game.</div></article>
-    <article class="game reveal"><span class="badge">Interactive foolishness #03</span><h3>Rumour or ridiculous?</h3><p>Generate a harmless imaginary piece of small-town news.</p><button id="rumour" type="button">Print the scandal 🗞️</button><div aria-live="polite" class="result" id="rumourResult">Breaking: somebody ordered tea. The coffee cups are requesting a meeting.</div><small>All rumours are fictional. Real people deserve better.</small></article>
-    <article class="game reveal"><span class="badge">Interactive foolishness #04</span><h3>How long until you're a local?</h3><p>Take our scientifically unsupported citizenship test.</p><button id="local" type="button">Assess my localness →</button><div aria-live="polite" class="result" id="localResult">Our highly trained committee (one imaginary uncle) is standing by.</div><small>No personal information collected. Not legally binding anywhere.</small></article>
-  </div>
-</section>
-
-<!-- ===== The Bottom of the Cup (coffee-grounds reading) ===== -->
-<section class="oracle" id="oracle" aria-labelledby="oracle-title">
-  <div class="oracle-copy">
-    <span class="eyebrow">Never before attempted on a café website</span>
-    <h2 id="oracle-title">The Bottom<br><em>of the Cup</em></h2>
-    <p>Every cup at Granville's ends the same way: a little puddle of grounds and a lot of opinions about what it means. Give the cup a swirl. The grounds will gather, settle, and tell you something about your day.</p>
-  </div>
-  <div class="oracle-play">
-    <div class="oracle-controls">
-      <button class="oracle-btn" id="oracleSwirl" type="button">Swirl the cup</button>
-      <span class="oracle-tally" id="oracleTally" aria-live="polite">12 symbols are hiding in this cup</span>
-    </div>
-    <div class="oracle-reading" id="oracleReading" aria-live="polite">
-      <span class="oracle-kicker" id="oracleKicker">The grounds are listening</span>
-      <h3 id="oracleName">Your reading appears here.</h3>
-      <p id="oracleText">Press the button, or draw a few circles on the cup with your finger or mouse to swirl it yourself.</p>
-      <p class="oracle-order" id="oracleOrder" hidden></p>
-    </div>
-    <small>For entertainment only. The grounds have no formal training, and a very rare reading is pure gold.</small>
-  </div>
-  <div class="oracle-stage">
-    <canvas id="oracleCup" width="560" height="560" role="img" aria-label="A coffee cup seen from above. Swirl it and the grounds settle into a symbol."></canvas>
-  </div>
-</section>
-
-<!-- ===== Visit ===== -->
-<section class="visit" id="visit" aria-labelledby="visit-title">
-  <div class="eyebrow">The only call to action that matters</div>
-  <h2 id="visit-title" data-content="visit.title">Get in here.</h2>
-  <p><span data-content="visit.intro">Bring your appetite. Bring your curiosity. Leave your awkward small talk at the door—we've got plenty.</span></p>
-  <div class="visit-grid">
-    <div class="visit-card">
-      <h3>Find us</h3>
-      <p><strong>Granville's Coffee</strong><br><span data-setting="address">383 Reid Street, Quesnel, BC</span></p>
-      <p id="phoneLine" hidden>Phone: <a data-setting-link="phone" href="#"></a></p>
-      <p id="emailLine" hidden>Email: <a data-setting-link="email" href="#"></a></p>
-      <p style="margin-top:14px"><a class="btn" id="mapsLink" href="https://www.google.com/maps/search/?api=1&amp;query=Granville%27s+Coffee+383+Reid+Street+Quesnel+BC" rel="noopener noreferrer" target="_blank">Show me the way ↗</a></p>
-    </div>
-    <div class="visit-card">
-      <h3>Hours</h3>
-      <ul id="hoursList"><li><span>Walk-in focused</span><span>Call ahead</span></li></ul>
-      <p class="note" style="margin-top:10px" data-content="visit.hoursNote">Please confirm current opening hours before travelling.</p>
-    </div>
-    <div class="visit-card">
-      <h3>Say hello</h3>
-      <form class="visit-form" id="contactForm" novalidate>
-        <label class="sr-only" for="cName">Your name</label><input id="cName" name="name" autocomplete="name" placeholder="Your name" required maxlength="120">
-        <label class="sr-only" for="cEmail">Email</label><input id="cEmail" name="email" type="email" autocomplete="email" placeholder="Email" required maxlength="200">
-        <label class="sr-only" for="cMsg">Message</label><textarea id="cMsg" name="message" placeholder="Question, compliment, or catering request" required maxlength="3000"></textarea>
-        <label style="font-size:13px;display:flex;gap:8px;align-items:flex-start"><input type="checkbox" name="newsletter" style="width:auto;margin-top:3px"> Send me the occasional café news (unsubscribe any time)</label>
-        <button type="submit">Send message</button>
-        <p class="form-status" id="formStatus" role="status"></p>
-      </form>
+    <div class="grid g3">
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1758691031152-2a727e97e6b6?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="Three older friends talking over coffee at a table" loading="lazy">
+        <div class="body"><h3>You'll meet people</h3><p>The regulars have been at the same tables for years. They're friendly, they're curious, and they will find out where you're from before your coffee cools.</p></div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1582298537624-c6a00f906e51?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="A group of people sharing a wooden table in a café" loading="lazy">
+        <div class="body"><h3>You'll get directions</h3><p>Ask the way to Barkerville and you'll get the route, three shortcuts and a story about 1986. For the sensible version, use our <a href="visit.html#directions">Directions Desk</a>.</p></div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="A full mug of coffee on a table" loading="lazy">
+        <div class="body"><h3>You'll stay longer than you planned</h3><p>Nobody has ever left Granville's in under twenty minutes. We don't hurry anyone, and refills are how most of the friendships in this town got started.</p></div>
+      </article>
     </div>
   </div>
-  <p class="note">Walk-in focused. Prices and menu items can change; ask at the counter.</p>
 </section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">What are you hungry for?</span>
+      <h2>Pick a picture. We'll show you the menu.</h2>
+    </div>
+    <div class="grid g3" id="homeTiles">
+      <a class="tile" href="menu.html#breakfast"><img src="https://images.unsplash.com/photo-1678983839772-3642df88d2c1?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="Breakfast plate with eggs, waffles and bacon" loading="lazy"><span>Breakfast <span aria-hidden="true">→</span></span></a>
+      <a class="tile" href="menu.html#sandwiches"><img src="https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="A stacked sandwich" loading="lazy"><span>Sandwiches &amp; Panini <span aria-hidden="true">→</span></span></a>
+      <a class="tile" href="menu.html#home-recipes"><img src="https://images.unsplash.com/photo-1729450411383-1f089460ba42?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="A bowl of chili" loading="lazy"><span>Soups &amp; Home Recipes <span aria-hidden="true">→</span></span></a>
+      <a class="tile" href="menu.html#baking"><img src="https://images.unsplash.com/photo-1694632288834-17d86b340745?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="A pan of iced cinnamon buns" loading="lazy"><span>Baking &amp; Desserts <span aria-hidden="true">→</span></span></a>
+      <a class="tile" href="menu.html#coffee"><img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="A barista pouring latte art" loading="lazy"><span>Coffee &amp; Hot Drinks <span aria-hidden="true">→</span></span></a>
+      <a class="tile" href="menu.html#cold-drinks"><img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="A strawberry milkshake in a tall glass" loading="lazy"><span>Shakes &amp; Cold Drinks <span aria-hidden="true">→</span></span></a>
+    </div>
+    <p class="btns"><a class="btn" href="menu.html">See the whole menu</a></p>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap split">
+    <div>
+      <span class="kicker">A Quesnel institution</span>
+      <h2 data-content="home.legacy.title">Thirty-some years on the same street.</h2>
+      <p data-content="home.legacy.text">Ted Martindale opened Granville's in 1992 with borrowed money, second-hand equipment and no restaurant experience at all. It worked out. Today Granville's is one of the oldest independent coffee shops in small-town B.C., and Ted, at 80, still comes to work every day.</p>
+      <div class="numbers">
+        <div><b id="yearsOpen">34</b><span>years on Reid Street</span></div>
+        <div><b>26</b><span>people on the team</span></div>
+        <div><b>3</b><span>community awards for Ted</span></div>
+        <div><b>6,000</b><span>lb of birthday carrot cake</span></div>
+      </div>
+      <div class="btns"><a class="btn brass" href="story.html">📖 Read our story</a><a class="btn on-dark" href="awards.html">🏆 See the awards</a></div>
+    </div>
+    <figure class="photo-frame">
+      <img src="assets/img/clock.webp" alt="The green Granville's Coffee wall clock" loading="lazy" width="1125" height="1500">
+      <figcaption><strong>The clock on our wall.</strong>It keeps perfect time. Our visitors mostly ignore it.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Overheard at the counter</span>
+      <h2>Things that happen here every week.</h2>
+    </div>
+    <div class="quotes" id="quotes">
+      <blockquote class="quote"><p>“A traveller asked where the highway was. Four locals answered. None agreed. All offered to drive.”</p><cite>Directions are free. Accuracy is extra.</cite></blockquote>
+      <blockquote class="quote"><p>“Someone came in to ask the time. They left with two recipes, a fishing tip and a new friend.”</p><cite>The clock on the wall is right. The visit length never is.</cite></blockquote>
+      <blockquote class="quote"><p>“The newcomer said they didn't know anyone in town. The room took that personally.”</p><cite>Stranger status usually lasts one coffee.</cite></blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap split">
+    <figure class="photo-frame">
+      <img src="assets/img/pager.webp" alt="An orange table pager labelled When flashing, wave us down" loading="lazy" width="1125" height="1500">
+      <figcaption><strong>The real pager on your table.</strong>When it flashes, your food is ready. Your conversation can carry on.</figcaption>
+    </figure>
+    <div>
+      <span class="kicker">Come on in</span>
+      <h2 data-content="home.visit.title">There's always room for one more.</h2>
+      <p data-content="home.visit.text">Order at the counter, take a pager, and find a seat. If every table looks full, ask anyway. Somebody will shuffle over. That's how most people here met.</p>
+      <div class="btns"><a class="btn" href="visit.html">📍 Hours, map &amp; directions</a><a class="btn line" href="tel:+12509923667" data-setting-tel>📞 Call us</a></div>
+    </div>
+  </div>
+</section>
+
 </main>
 
-<footer>
-  <strong>Granville's Coffee · Quesnel, BC</strong>
-  <nav aria-label="Footer"><a href="#menu-theatre">Menu</a><a href="#ted">Our story</a><a href="#inside">Photos</a><a href="#visit">Visit &amp; contact</a><a href="admin/" id="staffLink" hidden>Staff login</a></nav>
-  <span>© <span id="year">2026</span> Granville's Coffee. Humorous scenarios are fictional.</span>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h2>Granville's Coffee</h2>
+        <p><span data-setting="address">383 Reid Street, Quesnel, BC V2J 2M5</span><br>
+        Phone: <a href="tel:+12509923667" data-setting-tel><span data-setting="phone">250-992-3667</span></a><span class="email-line" hidden><br>Email: <a data-setting-link="email" href="#"></a></span></p>
+        <p>Walk right in. No reservations, no online ordering, no awkward silences.</p>
+      </div>
+      <div>
+        <h2>Pages</h2>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Food &amp; Drink Menu</a></li>
+          <li><a href="story.html">Our Story</a></li>
+          <li><a href="awards.html">Awards</a></li>
+          <li><a href="visit.html">Visit &amp; Directions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Hours</h2>
+        <ul class="foot-hours" data-hours-short><li>Mon to Sat: 7:00 a.m. – 7:00 p.m.</li><li>Sunday: 8:00 a.m. – 5:00 p.m.</li></ul>
+        <p class="small" style="margin-top:.6em">Please call to confirm holiday hours.</p>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>© <span id="year">2026</span> Granville's Coffee · Quesnel's front room since 1992</span>
+      <span><a href="visit.html#credits">Photo credits</a> · <a href="admin/" id="staffLink" hidden>Staff login</a></span>
+    </div>
+  </div>
 </footer>
-
-<script src="assets/js/content.js?v=20261105"></script>
-<script src="assets/js/site.js?v=20261105"></script>
+<script src="assets/js/content.js?v=20261106"></script>
+<script src="assets/js/site.js?v=20261106"></script>
 </body>
 </html>

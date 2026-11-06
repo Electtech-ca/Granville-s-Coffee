@@ -82,9 +82,9 @@ const R = {
   gallery: { table: "gallery", read: "staff", write: "manager", order: "sort, id", content: true,
     fields: { src: "text!", title: "text", caption: "text", alt: "text", sort: "int", visible: "bool" } },
   categories: { table: "menu_categories", read: "staff", write: "manager", order: "sort, id", content: true,
-    fields: { slug: "slug!", label: "text!", title: "text", emoji: "text", sort: "int", visible: "bool" } },
+    fields: { slug: "slug!", label: "text!", title: "text", emoji: "text", photo: "text", sort: "int", visible: "bool" } },
   items: { table: "menu_items", read: "staff", write: "manager", order: "sort, id", content: true, search: ["name", "description"],
-    fields: { category_id: "int!", name: "text!", description: "text", price: "num", cost: "num", emoji: "text", sort: "int", visible: "bool" } },
+    fields: { category_id: "int!", name: "text!", description: "text", price: "num", cost: "num", emoji: "text", photo: "text", sort: "int", visible: "bool" } },
   kpis: { table: "kpi_targets", pk: "metric", read: "staff", write: "manager", order: "metric",
     fields: { metric: "slug!", label: "text!", target: "num!", direction: "text", unit: "text" } },
   newsletter: { table: "newsletter", pk: "email", read: "manager", write: "manager", order: "created_at desc", search: ["email", "name"],
@@ -196,7 +196,7 @@ router.put("/content/text", requireRole("manager"), wrap(async (req, res) => {
   res.json({ ok: true, saved: entries.length });
 }));
 
-const SETTING_KEYS = ["settings", "hours", "lists", "stories", "characters", "quest", "oracle", "tedPhoto"];
+const SETTING_KEYS = ["settings", "hours", "stories", "awards", "timeline", "places", "tedPhoto"];
 router.put("/content/settings/:key", requireRole("manager"), wrap(async (req, res) => {
   if (!SETTING_KEYS.includes(req.params.key)) return bad(res, "Unknown setting.", 404);
   const value = req.body.value;

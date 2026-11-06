@@ -258,7 +258,7 @@
 
   /* ================= Website editor ================= */
   views.website = async (el, [tab = "text"]) => {
-    const tabs = [["text", "Page text"], ["menu", "Menu"], ["photos", "Photos"], ["contact", "Contact & hours"], ["fun", "Stories & games"]];
+    const tabs = [["text", "Page text"], ["menu", "Menu & food photos"], ["awards", "Awards"], ["history", "History"], ["directions", "Directions desk"], ["photos", "Photos & Ted"], ["contact", "Contact & hours"], ["fun", "Stories"]];
     el.innerHTML = header("Edit website", "Changes go live on the website within a few seconds.", `<a class="btn light" href="../" target="_blank" rel="noopener">View website ↗</a>`) +
       `<nav class="tabs">${tabs.map(([id, l]) => `<a href="#/website/${id}" class="${tab === id ? "on" : ""}">${l}</a>`).join("")}</nav><div id="tab"></div>`;
     const box = $("#tab", el);
@@ -268,7 +268,49 @@
     if (tab === "photos") return websitePhotos(box, content);
     if (tab === "contact") return websiteContact(box, content);
     if (tab === "fun") return websiteFun(box, content);
+    if (tab === "awards") return websiteList(box, content, LIST_EDITORS.awards);
+    if (tab === "history") return websiteList(box, content, LIST_EDITORS.timeline);
+    if (tab === "directions") return websiteList(box, content, LIST_EDITORS.places);
   };
+
+  // Simple card editors for the Awards wall, the history timeline and the Directions Desk.
+  const LIST_EDITORS = {
+    awards: { key: "awards", title: "Awards & honours", noun: "award", saved: "Awards saved. The Wall of Honour is updated.",
+      intro: "Each award is shown as a plaque on the Awards page, newest first in the order below. Add a source link so visitors can see where it was reported.",
+      fields: [["year", "Year", "input"], ["title", "Award name", "input"], ["from", "Given by", "input"], ["status", "Type", "select", [["confirmed", "Confirmed (reported in the news)"], ["pending", "Pending (decision not announced yet)"], ["milestone", "Milestone (a proud fact, not a trophy)"]]], ["text", "What it was for", "textarea"], ["source", "Source name (e.g. Quesnel Observer, May 2026)", "input"], ["sourceUrl", "Source link (https://…)", "input"]] },
+    timeline: { key: "timeline", title: "History timeline", noun: "year", saved: "History saved.",
+      intro: "The timeline on the Our Story page, from the oldest at the top to the newest at the bottom.",
+      fields: [["year", "Year or years", "input"], ["title", "Headline", "input"], ["text", "What happened", "textarea"]] },
+    places: { key: "places", title: "Directions desk", noun: "place", saved: "Directions desk saved.",
+      intro: "Places visitors often ask about, shown on the Visit page. Give the sensible directions, then the regulars' version. The map button uses the \"Map search\" words.",
+      fields: [["name", "Place", "input"], ["time", "How long it takes", "input"], ["how", "Sensible directions", "textarea"], ["local", "What the regulars would say", "textarea"], ["query", "Map search (what to look up on Google Maps)", "input"]] }
+  };
+  function websiteList(box, content, cfg) {
+    const rows = Array.isArray(content.settings[cfg.key]) ? content.settings[cfg.key] : [];
+    const field = ([k, label, type, opts], v) => type === "textarea" ? `<label class="field full">${esc(label)}<textarea data-k="${k}" rows="3">${esc(v[k] || "")}</textarea></label>`
+      : type === "select" ? `<label class="field">${esc(label)}<select data-k="${k}">${opts.map(([o, l]) => `<option value="${o}" ${(v[k] || opts[0][0]) === o ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></label>`
+      : `<label class="field">${esc(label)}<input type="text" data-k="${k}" value="${esc(v[k] || "")}"></label>`;
+    const row = (v) => `<div class="story list-row" style="border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff"><div class="form-grid">${cfg.fields.map((f) => field(f, v)).join("")}
+      <div class="row full"><button type="button" class="btn light sm" data-up>↑ Move up</button><button type="button" class="btn light sm" data-down>↓ Move down</button><span class="spacer"></span><button type="button" class="btn danger sm" data-rm>Remove</button></div></div></div>`;
+    box.innerHTML = `<form class="card stack" id="listForm"><h2>${esc(cfg.title)}</h2><p class="sub">${esc(cfg.intro)}</p>
+      <div id="listRows" class="stack">${rows.map(row).join("")}</div>
+      <div class="row"><button class="btn light sm" type="button" id="addRow">+ Add ${esc(cfg.noun)}</button><span class="spacer"></span><button class="btn gold" type="submit">💾 Save</button></div></form>`;
+    const list = $("#listRows", box);
+    $("#addRow", box).onclick = () => list.insertAdjacentHTML("beforeend", row({}));
+    list.addEventListener("click", (e) => {
+      const r = e.target.closest(".list-row"); if (!r) return;
+      if (e.target.matches("[data-rm]")) r.remove();
+      if (e.target.matches("[data-up]") && r.previousElementSibling) r.parentNode.insertBefore(r, r.previousElementSibling);
+      if (e.target.matches("[data-down]") && r.nextElementSibling) r.parentNode.insertBefore(r.nextElementSibling, r);
+    });
+    $("#listForm", box).onsubmit = (e) => {
+      e.preventDefault();
+      const value = $$(".list-row", list).map((r) => Object.fromEntries(cfg.fields.map(([k]) => [k, $(`[data-k="${k}"]`, r).value.trim()]))).filter((v) => v[cfg.fields[0][0]] || v[cfg.fields[1][0]]);
+      const bad = value.find((v) => v.sourceUrl && !/^https:\/\//.test(v.sourceUrl));
+      if (bad) return toast("Source links need to start with https://", true);
+      busy(e.submitter, async () => { await put("/content/settings/" + cfg.key, { value }); content.settings[cfg.key] = value; toast(cfg.saved); });
+    };
+  }
 
   function websiteText(box, content) {
     const groups = {};
@@ -301,7 +343,7 @@
       <p class="small muted" style="margin:8px 0 0">Prices and costs are always used for sales and profit reports. Untick to keep the website price-free.</p></div>
       ${cats.map((c) => `<details class="menu-cat" open><summary>${esc(c.emoji)} ${esc(c.label.startsWith(c.emoji) ? c.label.slice(c.emoji.length).trim() : c.label)} <span class="pill">${c.items.length} items</span>${c.visible ? "" : '<span class="pill warn">hidden</span>'}<span class="spacer"></span><button class="icon-btn" data-edit-cat="${c.id}" type="button">Edit category</button></summary>
         <div class="items">
-          <div class="item-row small muted" style="border:0"><span>Name</span><span>Description</span><span>Price</span><span>Cost</span><span></span></div>
+          <div class="item-row small muted" style="border:0"><span>Photo</span><span>Name</span><span>Description</span><span>Price</span><span>Cost</span><span></span></div>
           ${c.items.map((i) => itemRow(i)).join("")}
           <button class="btn light sm" data-add-item="${c.id}" style="margin-top:10px">+ Add item to ${esc(c.label)}</button>
         </div></details>`).join("")}`;
@@ -318,6 +360,13 @@
     $$(".item-row[data-id]", box).forEach((row) => {
       const id = row.dataset.id;
       $("[data-save]", row).onclick = (e) => busy(e.currentTarget, async () => { await put("/r/items/" + id, formData(row)); toast("Saved."); });
+      $("[data-photo]", row).onchange = (e) => busy(null, async () => {
+        const url = await uploadImage(e.target.files[0]); if (!url) return;
+        $("[name=photo]", row).value = url;
+        await put("/r/items/" + id, formData(row));
+        $(".item-photo", row).firstElementChild.outerHTML = `<img src="${esc(imgSrc(url))}" alt="">`;
+        toast("Photo saved. It's on the menu now.");
+      });
       $("[data-del]", row).onclick = async () => { if (await confirmBox("Delete this menu item? Past sales keep their history.")) { await del("/r/items/" + id).catch((e) => toast(e.message, true)); websiteMenu(box, content); } };
       $("[data-ai]", row).onclick = (e) => busy(e.currentTarget, async () => {
         const r = await post("/ai/menuDescription", { name: $("[name=name]", row).value, category: row.closest(".menu-cat").querySelector("summary").textContent });
@@ -326,6 +375,8 @@
     });
   }
   const itemRow = (i) => `<div class="item-row" data-id="${i.id}">
+      <label class="item-photo" title="Change this dish's photo">${i.photo ? `<img src="${esc(imgSrc(i.photo))}" alt="">` : `<span>No photo</span>`}<b>Change photo</b><input type="file" accept="image/*" hidden data-photo></label>
+      <input type="hidden" name="photo" value="${esc(i.photo || "")}">
       <input type="text" name="name" value="${esc(i.name)}" aria-label="Name">
       <textarea name="description" rows="2" aria-label="Description">${esc(i.description)}</textarea>
       <input type="number" step="0.01" min="0" name="price" value="${i.price != null ? Number(i.price).toFixed(2) : ""}" placeholder="0.00" aria-label="Price">
@@ -371,9 +422,9 @@
         <div class="row"><label class="field" style="width:80px">Order<input type="number" name="sort" value="${p.sort}"></label><label class="check"><input type="checkbox" name="visible" ${p.visible ? "checked" : ""}> Show</label></div>
         <div class="row"><button class="btn sm" data-save type="button">Save</button><button class="icon-btn" data-del type="button">🗑 Delete</button></div></form>`).join("")}
       <div class="card stack" style="justify-content:center;align-items:center;text-align:center"><h3>Add a photo</h3><p class="small muted">JPG, PNG or WebP, up to 6 MB.</p><label class="btn gold">Upload photo<input type="file" accept="image/*" hidden id="newPhoto"></label></div></div>
-      <div class="card" style="margin-top:16px"><h2>Ted's portrait</h2><p class="sub">The "Meet Ted" section shows an illustration until you upload an approved photo.</p>
-        <div class="row">${ted ? `<img src="${esc(imgSrc(ted))}" alt="" style="width:120px;border-radius:12px">` : `<span class="pill warn">Using the illustration</span>`}
-        <label class="btn light">Upload Ted's photo<input type="file" accept="image/*" hidden id="tedPhoto"></label>${ted ? `<button class="btn danger sm" id="tedRemove">Use illustration again</button>` : ""}</div></div>`;
+      <div class="card" style="margin-top:16px"><h2>Ted's portrait</h2><p class="sub">The Our Story page shows a "portrait goes here" frame until you upload an approved photo of Ted.</p>
+        <div class="row">${ted ? `<img src="${esc(imgSrc(ted))}" alt="" style="width:120px;border-radius:12px">` : `<span class="pill warn">No photo yet</span>`}
+        <label class="btn light">Upload Ted's photo<input type="file" accept="image/*" hidden id="tedPhoto"></label>${ted ? `<button class="btn danger sm" id="tedRemove">Remove photo</button>` : ""}</div></div>`;
     $$("form[data-id]", box).forEach((f) => {
       const id = f.dataset.id;
       $("[data-file]", f).onchange = (e) => busy(null, async () => { const url = await uploadImage(e.target.files[0]); $("[name=src]", f).value = url; $("img", f).src = imgSrc(url); toast("Photo uploaded. Click Save to publish it."); });
@@ -416,63 +467,21 @@
   }
 
   function websiteFun(box, content) {
-    const L = content.settings.lists || {};
     const stories = content.settings.stories || [];
-    const lines = (arr) => esc((arr || []).join("\n"));
-    const O = content.settings.oracle || {}, G = O.legendary || {};
-    box.innerHTML = `<div class="notice info" style="margin-bottom:14px">One item per line. These feed the buttons in the games section of the website.</div>
-      <form class="grid g3" id="listsForm">
-        <label class="card field">Local Directions Machine<textarea name="directions" rows="8">${lines(L.directions)}</textarea></label>
-        <label class="card field">Rumour or ridiculous?<textarea name="rumours" rows="8">${lines(L.rumours)}</textarea></label>
-        <label class="card field">How long until you're a local?<textarea name="locals" rows="8">${lines(L.locals)}</textarea></label>
-        <div class="span2"><button class="btn gold" type="submit">Save game lines</button></div></form>
-      <form class="card stack" id="storiesForm" style="margin-top:16px"><h2>Community table stories</h2><p class="sub">Shown when visitors press "Another story". Speech bubbles are for the three characters.</p>
+    box.innerHTML = `<form class="card stack" id="storiesForm"><h2>Overheard at the counter</h2><p class="sub">The first three stories show on the home page. Keep them short, friendly and true to life.</p>
         <div id="storyRows" class="stack">${stories.map(storyRow).join("")}</div>
-        <div class="row"><button class="btn light sm" type="button" id="addStory">+ Add story</button><span class="spacer"></span><button class="btn gold" type="submit">Save stories</button></div></form>
-      <form class="card stack" id="oracleForm" style="margin-top:16px"><h2>The Bottom of the Cup</h2><p class="sub">Visitors swirl a coffee cup and the grounds settle into one of these symbols. Use a single emoji for the symbol.</p>
-        <div id="cupRows" class="stack">${(O.readings || []).map(cupRow).join("")}</div>
-        <div class="row"><button class="btn light sm" type="button" id="addCup">+ Add reading</button></div>
-        <h3 style="margin-top:8px">The rare golden reading</h3>
-        <div class="story" id="cupGold" style="border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff8e1"><div class="form-grid">
-          <label class="field">Symbol<input type="text" data-k="symbol" maxlength="8" value="${esc(G.symbol || "")}"></label>
-          <label class="field">Name<input type="text" data-k="name" value="${esc(G.name || "")}"></label>
-          <label class="field full">Reading<textarea data-k="reading" rows="2">${esc(G.reading || "")}</textarea></label>
-          <label class="field">How rare? (1 in ...)<span class="hint">40 means about one swirl in forty</span><input type="number" min="2" max="1000" id="cupOdds" value="${esc(O.odds || 40)}"></label></div></div>
-        <div class="row"><span class="spacer"></span><button class="btn gold" type="submit">Save cup readings</button></div></form>`;
-    $("#listsForm").onsubmit = (e) => {
-      e.preventDefault();
-      const f = formData(e.target), split = (v) => v.split("\n").map((s) => s.trim()).filter(Boolean);
-      const value = { directions: split(f.directions), rumours: split(f.rumours), locals: split(f.locals) };
-      busy(e.submitter, async () => { await put("/content/settings/lists", { value }); content.settings.lists = value; toast("Game lines saved."); });
-    };
-    $("#addStory").onclick = () => $("#storyRows").insertAdjacentHTML("beforeend", storyRow({ line: "", caption: "", bubbles: ["", "", ""] }));
+        <div class="row"><button class="btn light sm" type="button" id="addStory">+ Add story</button><span class="spacer"></span><button class="btn gold" type="submit">Save stories</button></div></form>`;
+    $("#addStory").onclick = () => $("#storyRows").insertAdjacentHTML("beforeend", storyRow({ line: "", caption: "" }));
     $("#storyRows").addEventListener("click", (e) => { if (e.target.matches("[data-rm]")) e.target.closest(".story").remove(); });
     $("#storiesForm").onsubmit = (e) => {
       e.preventDefault();
-      const value = $$(".story", box).map((s) => ({ line: $("[data-k=line]", s).value.trim(), caption: $("[data-k=caption]", s).value.trim(), bubbles: $$("[data-k=bubble]", s).map((b) => b.value.trim()) })).filter((s) => s.line);
+      const value = $$(".story", box).map((s) => ({ line: $("[data-k=line]", s).value.trim(), caption: $("[data-k=caption]", s).value.trim() })).filter((s) => s.line);
       busy(e.submitter, async () => { await put("/content/settings/stories", { value }); content.settings.stories = value; toast("Stories saved."); });
     };
-    const readCup = (el) => ({ symbol: $("[data-k=symbol]", el).value.trim(), name: $("[data-k=name]", el).value.trim(), reading: $("[data-k=reading]", el).value.trim() });
-    $("#addCup").onclick = () => $("#cupRows").insertAdjacentHTML("beforeend", cupRow({ symbol: "", name: "", reading: "" }));
-    $("#cupRows").addEventListener("click", (e) => { if (e.target.matches("[data-rm]")) e.target.closest(".story").remove(); });
-    $("#oracleForm").onsubmit = (e) => {
-      e.preventDefault();
-      const readings = $$("#cupRows .story", box).map(readCup).filter((r) => r.symbol && r.name);
-      if (!readings.length) return toast("Add at least one reading with a symbol and a name.", true);
-      const odds = Math.min(1000, Math.max(2, parseInt($("#cupOdds").value, 10) || 40));
-      const value = { odds, readings, legendary: readCup($("#cupGold")) };
-      busy(e.submitter, async () => { await put("/content/settings/oracle", { value }); content.settings.oracle = value; toast("Cup readings saved."); });
-    };
   }
-  const cupRow = (r) => `<div class="story" style="border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff">
-    <div class="form-grid"><label class="field">Symbol<input type="text" data-k="symbol" maxlength="8" value="${esc(r.symbol)}"></label>
-    <label class="field">Name<input type="text" data-k="name" value="${esc(r.name)}"></label>
-    <label class="field full">Reading<textarea data-k="reading" rows="2">${esc(r.reading)}</textarea></label>
-    <div class="row"><button type="button" class="btn danger sm" data-rm>Remove</button></div></div></div>`;
   const storyRow = (s) => `<div class="story" style="border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff">
     <div class="form-grid"><label class="field full">Story<textarea data-k="line" rows="2">${esc(s.line)}</textarea></label>
     <label class="field full">Caption<input type="text" data-k="caption" value="${esc(s.caption)}"></label>
-    ${[0, 1, 2].map((i) => `<label class="field">Bubble ${i + 1}<input type="text" data-k="bubble" value="${esc((s.bubbles || [])[i] || "")}"></label>`).join("")}
     <div class="row"><button type="button" class="btn danger sm" data-rm>Remove</button></div></div></div>`;
 
   /* ================= Inbox ================= */
