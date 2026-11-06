@@ -63,7 +63,6 @@ const LABELS = {
 const DEFAULT_GALLERY = [
   { src: "assets/img/ceiling-one.webp", title: "Look up.", caption: "The ceiling is upholstered in coffee sacks. Colombia says hello.", alt: "Ceiling lined with burlap coffee sacks stamped 'Product of Colombia'" },
   { src: "assets/img/ceiling-two.webp", title: "Keep looking.", caption: "A fan, a hundred sacks, and walls that collect stories.", alt: "Coffee-sack ceiling with a vintage ceiling fan" },
-  { src: "assets/img/clock.webp", title: "The clock.", caption: "The real one. It keeps better time than the conversations do.", alt: "The green Granville's Coffee wall clock" },
   { src: "assets/img/pager.webp", title: "When flashing, wave us down.", caption: "Your food is ready. Your conversation can continue.", alt: "An orange table pager labelled 'When flashing, wave us down'" }
 ];
 
@@ -144,6 +143,8 @@ async function seedContent() {
   // Fill in what older installs left blank: published opening hours and the café's phone number.
   await db.query("update site_settings set value=$1 where key='hours' and value='[]'::jsonb", [JSON.stringify(D.hours || [])]);
   await db.query("update site_settings set value=jsonb_set(value,'{phone}',to_jsonb($1::text)) where key='settings' and coalesce(value->>'phone','')=''", [D.settings.phone || ""]);
+  // The wall clock photo was retired from the site in Nov 2026.
+  await db.query("update gallery set visible=false where src='assets/img/clock.webp'");
   const g = await db.one("select count(*)::int n from gallery");
   if (g.n === 0) for (const [i, p] of DEFAULT_GALLERY.entries()) await db.query("insert into gallery(src,title,caption,alt,sort) values ($1,$2,$3,$4,$5)", [p.src, p.title, p.caption, p.alt, i]);
   for (const k of DEFAULT_KPIS) await db.query("insert into kpi_targets(metric,label,target,direction,unit) values ($1,$2,$3,$4,$5) on conflict do nothing", k);
