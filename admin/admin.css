@@ -153,8 +153,11 @@ table.t tr.click{cursor:pointer}
 .menu-cat{border:1px solid var(--line);border-radius:14px;margin-bottom:12px;background:#fff}
 .menu-cat summary{padding:12px 14px;cursor:pointer;font-weight:800;display:flex;gap:10px;align-items:center}
 .menu-cat .items{padding:0 14px 14px}
-.item-row{display:grid;grid-template-columns:1.2fr 2fr 90px 90px auto;gap:8px;align-items:start;padding:8px 0;border-top:1px solid #f0e8d8}
-@media(max-width:900px){.item-row{grid-template-columns:1fr 1fr}.item-row textarea{grid-column:1/-1}}
+.item-row{display:grid;grid-template-columns:96px 1.2fr 2fr 90px 90px 230px;gap:8px;align-items:start;padding:8px 0;border-top:1px solid #f0e8d8}
+.item-photo{display:flex;flex-direction:column;gap:4px;cursor:pointer;font-size:11px;text-align:center;color:#6b5b3e}
+.item-photo img,.item-photo span{width:96px;height:64px;object-fit:cover;border-radius:8px;background:#f3ead8;display:flex;align-items:center;justify-content:center}
+.item-photo b{text-decoration:underline}
+@media(max-width:900px){.item-row{grid-template-columns:96px 1fr 1fr}.item-row textarea{grid-column:1/-1}}
 .matrix{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .matrix>div{border-radius:14px;padding:12px;min-height:120px}
 .matrix h3{font-size:15px}

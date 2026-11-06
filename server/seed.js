@@ -15,41 +15,49 @@ function loadDefaults() {
 
 const decode = (s) => s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 
-// Reads every data-content="key" element from index.html so the admin starts with the live text.
+// Reads every data-content="key" element from the public pages so the admin starts with the live text.
+const PAGES = ["index.html", "menu.html", "story.html", "awards.html", "visit.html"];
 function loadPageText() {
-  const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
-  const re = /<(\w+)([^>]*?)data-content="([^"]+)"([^>]*)>([\s\S]*?)<\/\1>/g;
   const out = [];
-  let m;
-  while ((m = re.exec(html))) {
-    const rich = /data-rich/.test(m[2] + m[4]);
-    let v = m[5].trim().replace(/\s+/g, " ");
-    v = rich ? v.replace(/<(?!\/?(br|em|strong)\b)[^>]*>/g, "") : v.replace(/<[^>]*>/g, "");
-    out.push({ key: m[3], value: decode(v), rich });
+  for (const file of PAGES) {
+    const html = fs.readFileSync(path.join(ROOT, file), "utf8");
+    const re = /<(\w+)([^>]*?)data-content="([^"]+)"([^>]*)>([\s\S]*?)<\/\1>/g;
+    let m;
+    while ((m = re.exec(html))) {
+      const rich = /data-rich/.test(m[2] + m[4]);
+      let v = m[5].trim().replace(/\s+/g, " ");
+      v = rich ? v.replace(/<(?!\/?(br|em|strong)\b)[^>]*>/g, "") : v.replace(/<[^>]*>/g, "");
+      out.push({ key: m[3], value: decode(v), rich });
+    }
   }
   return out;
 }
 
 const LABELS = {
-  "hero.eyebrow": "Welcome banner · small line above the headline",
-  "hero.title": "Welcome banner · headline",
-  "hero.lead": "Welcome banner · intro paragraph",
-  "town.title": "Community table · headline",
-  "town.intro": "Community table · intro",
-  "people.title": "Our people · headline",
-  "people.intro": "Our people · intro",
-  "menu.title": "Menu · headline",
-  "menu.intro": "Menu · intro",
-  "menu.note": "Menu · small print under the menu",
-  "ted.title": "Meet Ted · headline",
-  "ted.p1": "Meet Ted · paragraph 1",
-  "ted.p2": "Meet Ted · paragraph 2",
-  "ted.p3": "Meet Ted · paragraph 3",
-  "inside.title": "Photos · headline",
-  "inside.intro": "Photos · intro",
-  "visit.title": "Visit · headline",
-  "visit.intro": "Visit · intro",
-  "visit.hoursNote": "Visit · note under the hours"
+  "home.title": "Home page · headline",
+  "home.lead": "Home page · welcome paragraph",
+  "home.meet.title": "Home page · \"Where Quesnel meets\" headline",
+  "home.meet.intro": "Home page · \"Where Quesnel meets\" paragraph",
+  "home.legacy.title": "Home page · history box headline",
+  "home.legacy.text": "Home page · history box paragraph",
+  "home.visit.title": "Home page · \"Come on in\" headline",
+  "home.visit.text": "Home page · \"Come on in\" paragraph",
+  "menus.title": "Menu page · headline",
+  "menus.intro": "Menu page · intro",
+  "menus.note": "Menu page · small print at the bottom",
+  "story.title": "Our Story page · headline",
+  "story.lead": "Our Story page · intro",
+  "story.ted.title": "Our Story page · Ted's name heading",
+  "story.ted.p1": "Our Story page · about Ted, paragraph 1",
+  "story.ted.p2": "Our Story page · about Ted, paragraph 2",
+  "story.ted.p3": "Our Story page · about Ted, paragraph 3",
+  "awards.title": "Awards page · headline",
+  "awards.intro": "Awards page · intro",
+  "visitus.title": "Visit page · headline",
+  "visitus.intro": "Visit page · intro",
+  "visitus.hoursNote": "Visit page · note under the hours",
+  "visitus.desk.title": "Visit page · Directions Desk headline",
+  "visitus.desk.intro": "Visit page · Directions Desk intro"
 };
 
 const DEFAULT_GALLERY = [
@@ -69,40 +77,80 @@ const DEFAULT_KPIS = [
   ["reply_hours", "Average message reply time", 24, "down", "h"]
 ];
 
+// One-time move from the first site's short menu to the full published menu with photos.
+// Prices, costs and sales history are kept; dishes that aren't on the published menu are hidden, not deleted.
+const OLD_SLUGS = { comfort: "home-recipes", sweets: "baking", drinks: "coffee" };
+const OLD_NAMES = { "Ham & Cheese Omelette": "Ham and Cheese Omelette", "Giant Homemade Cinnamon Buns": "Cinnamon Roll", "Dutch Apple Pie": "Apple Pie", "Crispy Chicken Burger": "Crispy Chicken Burger and Fries" };
+async function upgradeMenu(menu) {
+  await db.tx(async (c) => {
+    for (const [from, to] of Object.entries(OLD_SLUGS)) {
+      const clash = (await c.query("select 1 from menu_categories where slug=$1", [to])).rows[0];
+      if (!clash) await c.query("update menu_categories set slug=$2 where slug=$1", [from, to]);
+    }
+    const keep = [];
+    for (const [ci, cat] of menu.entries()) {
+      const row = (await c.query(`insert into menu_categories(slug,label,title,emoji,photo,sort,visible) values ($1,$2,$3,$4,$5,$6,true)
+        on conflict (slug) do update set label=excluded.label, title=excluded.title, emoji=excluded.emoji, photo=excluded.photo, sort=excluded.sort, visible=true returning id`,
+        [cat.slug, cat.label, cat.title, cat.emoji, cat.photo || null, ci])).rows[0];
+      for (const [ii, it] of cat.items.entries()) {
+        const found = (await c.query("select id from menu_items where lower(name) in (lower($1), lower($3)) and not (id = any($2::int[])) order by lower(name)=lower($1) desc, id limit 1", [it.name, keep, OLD_NAMES[it.name] || it.name])).rows[0];
+        if (found) {
+          await c.query("update menu_items set category_id=$2, name=$3, description=$4, photo=$5, sort=$6, visible=true where id=$1", [found.id, row.id, it.name, it.description || "", it.photo || null, ii]);
+          keep.push(found.id);
+        } else {
+          keep.push((await c.query("insert into menu_items(category_id,name,description,photo,sort) values ($1,$2,$3,$4,$5) returning id", [row.id, it.name, it.description || "", it.photo || null, ii])).rows[0].id);
+        }
+      }
+    }
+    await c.query("update menu_items set visible=false where not (id = any($1::int[]))", [keep]);
+    await c.query("update menu_categories set visible=false where not (slug = any($1::text[])) and not exists (select 1 from menu_items i where i.category_id=menu_categories.id and i.visible)", [menu.map((m) => m.slug)]);
+  });
+  console.log("[seed] menu updated to the full published menu");
+}
+
 async function seedContent() {
   const D = loadDefaults();
   const have = await db.one("select count(*)::int n from menu_categories");
   if (have.n === 0) {
     for (const [ci, c] of D.menu.entries()) {
-      const cat = await db.one("insert into menu_categories(slug,label,title,emoji,sort) values ($1,$2,$3,$4,$5) returning id", [c.slug, c.label, c.title, c.emoji, ci]);
+      const cat = await db.one("insert into menu_categories(slug,label,title,emoji,photo,sort) values ($1,$2,$3,$4,$5,$6) returning id", [c.slug, c.label, c.title, c.emoji, c.photo || null, ci]);
       for (const [ii, it] of c.items.entries()) {
-        await db.query("insert into menu_items(category_id,name,description,sort) values ($1,$2,$3,$4)", [cat.id, it.name, it.description || "", ii]);
+        await db.query("insert into menu_items(category_id,name,description,photo,sort) values ($1,$2,$3,$4,$5)", [cat.id, it.name, it.description || "", it.photo || null, ii]);
       }
     }
+  } else {
+    const ver = await db.one("select value from site_settings where key='menuVersion'");
+    if (!ver) await upgradeMenu(D.menu);
   }
-  for (const t of loadPageText()) {
-    await db.query("insert into site_text(key,label,value) values ($1,$2,$3) on conflict (key) do nothing", [t.key, LABELS[t.key] || t.key, t.value]);
+  await db.query("insert into site_settings(key,value) values ('menuVersion','2') on conflict (key) do nothing");
+  const pageText = loadPageText();
+  for (const t of pageText) {
+    await db.query("insert into site_text(key,label,value) values ($1,$2,$3) on conflict (key) do update set label=excluded.label", [t.key, LABELS[t.key] || t.key, t.value]);
   }
+  // Text from sections that no longer exist on the site would only clutter the editor.
+  await db.query("delete from site_text where not (key = any($1::text[]))", [pageText.map((t) => t.key)]);
   const settings = {
     settings: Object.assign({ showPrices: false }, D.settings),
     hours: D.hours || [],
-    lists: D.lists,
     stories: D.stories,
-    characters: D.characters,
-    quest: D.quest,
-    oracle: D.oracle,
+    awards: D.awards,
+    timeline: D.timeline,
+    places: D.places,
     tedPhoto: ""
   };
   for (const [k, v] of Object.entries(settings)) {
     await db.query("insert into site_settings(key,value) values ($1,$2) on conflict (key) do nothing", [k, JSON.stringify(v)]);
   }
+  // Fill in what older installs left blank: published opening hours and the café's phone number.
+  await db.query("update site_settings set value=$1 where key='hours' and value='[]'::jsonb", [JSON.stringify(D.hours || [])]);
+  await db.query("update site_settings set value=jsonb_set(value,'{phone}',to_jsonb($1::text)) where key='settings' and coalesce(value->>'phone','')=''", [D.settings.phone || ""]);
   const g = await db.one("select count(*)::int n from gallery");
   if (g.n === 0) for (const [i, p] of DEFAULT_GALLERY.entries()) await db.query("insert into gallery(src,title,caption,alt,sort) values ($1,$2,$3,$4,$5)", [p.src, p.title, p.caption, p.alt, i]);
   for (const k of DEFAULT_KPIS) await db.query("insert into kpi_targets(metric,label,target,direction,unit) values ($1,$2,$3,$4,$5) on conflict do nothing", k);
 }
 
 // ---------- Demo business data (clearly marked, removable from the admin) ----------
-const DEMO_PRICES = { sandwiches: [13.5, 4.6], comfort: [14.5, 4.8], breakfast: [12.5, 3.9], sweets: [5.75, 1.6], drinks: [4.75, 1.05] };
+const DEMO_PRICES = { sandwiches: [13.5, 4.6], "home-recipes": [14.5, 4.8], comfort: [14.5, 4.8], breakfast: [12.5, 3.9], baking: [5.75, 1.6], sweets: [5.75, 1.6], coffee: [4.75, 1.05], "cold-drinks": [6.5, 1.6], drinks: [4.75, 1.05] };
 const FIRST = ["Mabel", "Doug", "Alex", "Gary", "Margaret", "Bill", "Dave", "Priya", "Jordan", "Sam", "Lena", "Owen", "Rosa", "Tom", "Aiyana", "Kenji", "Claire", "Marcus", "Nora", "Ravi"];
 const LAST = ["Abbott", "Bennett", "Chu", "Dhillon", "Eriksen", "Fraser", "Gill", "Hughes", "Ito", "Jensen", "Klassen", "Lam", "McLeod", "Nash", "Olsen", "Paquette"];
 
@@ -148,7 +196,7 @@ async function seedDemo({ days = 120 } = {}) {
     for (const [n, u, oh, rl, rq, uc, s] of inv) await c.query("insert into inventory_items(name,unit,on_hand,reorder_level,reorder_qty,unit_cost,supplier_id,category) values ($1,$2,$3,$4,$5,$6,$7,$8)", [n, u, oh, rl, rq, uc, sup[s], u === "sleeve" ? "Packaging" : "Ingredients"]);
 
     // sales & shifts per day
-    const weights = { sandwiches: 1.2, comfort: 0.8, breakfast: 0.9, sweets: 1.1, drinks: 2.6 };
+    const weights = { sandwiches: 1.2, "home-recipes": 0.8, comfort: 0.8, breakfast: 0.9, baking: 1.1, sweets: 1.1, coffee: 2.6, "cold-drinks": 0.9, drinks: 2.6 };
     for (let d = days; d >= 1; d--) { // stop at yesterday so no sample sale is in the future
       const date = new Date(); date.setDate(date.getDate() - d); date.setHours(0, 0, 0, 0);
       const dow = date.getDay();

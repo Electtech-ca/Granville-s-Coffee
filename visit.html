@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Visit & Directions · Granville's Coffee, 383 Reid Street, Quesnel</title>
+<meta name="description" content="Hours, map, phone and directions to Granville's Coffee at 383 Reid Street, Quesnel, plus the Directions Desk for Barkerville, the Pinnacles and more.">
+<meta name="theme-color" content="#1d3b2e">
+<meta property="og:title" content="Visit & Directions · Granville's Coffee, 383 Reid Street, Quesnel">
+<meta property="og:description" content="Hours, map, phone and directions to Granville's Coffee at 383 Reid Street, Quesnel, plus the Directions Desk for Barkerville, the Pinnacles and more.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/og-image.jpg">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css?v=20261106">
+<script>try{if(localStorage.getItem("granvilles-big")==="1")document.documentElement.classList.add("big")}catch(e){}</script>
+</head>
+<body data-page="visit">
+<a class="skip" href="#main">Skip to the page</a>
+
+<header class="site-head">
+  <div class="wrap head-top">
+    <a class="brand" href="index.html"><b>Granville's Coffee</b><small>Est. 1992 · 383 Reid Street · Quesnel, B.C.</small></a>
+    <div class="head-tools">
+      <a class="call" href="tel:+12509923667" data-setting-tel><span aria-hidden="true">📞</span> Call <span data-setting="phone">250-992-3667</span></a>
+      <button class="textsize" type="button" id="textSize" aria-pressed="false">A+ Bigger text</button>
+    </div>
+  </div>
+  <nav class="wrap mainnav" aria-label="Main">
+      <a href="index.html"><span class="ico" aria-hidden="true">🏠</span>Home</a>
+      <a href="menu.html" class="menu-link"><span class="ico" aria-hidden="true">🍽️</span>Food &amp; Drink Menu</a>
+      <a href="story.html"><span class="ico" aria-hidden="true">📖</span>Our Story</a>
+      <a href="awards.html"><span class="ico" aria-hidden="true">🏆</span>Awards</a>
+      <a href="visit.html" aria-current="page"><span class="ico" aria-hidden="true">📍</span>Visit &amp; Directions</a>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1">
+
+<div class="page-head">
+  <div class="wrap">
+    <span class="kicker">Come and see us</span>
+    <h1 data-content="visitus.title">Visit &amp; Directions</h1>
+    <p class="lead" data-content="visitus.intro">We're on Reid Street in the middle of downtown Quesnel. Walk in any time we're open. No reservations, and no need to know anybody. You will by the time you leave.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap grid g3">
+    <div class="info-card">
+      <h2>Find us</h2>
+      <p style="font-size:1.15rem"><strong>Granville's Coffee</strong><br><span data-setting="address">383 Reid Street, Quesnel, BC V2J 2M5</span></p>
+      <p class="btns"><a class="btn" id="mapsLink" href="https://www.google.com/maps/search/?api=1&amp;query=Granville%27s+Coffee+383+Reid+Street+Quesnel+BC" rel="noopener" target="_blank">🗺️ Open the map</a></p>
+    </div>
+    <div class="info-card">
+      <h2>Hours</h2>
+      <ul class="hours" id="hoursList"><li><span>Monday to Saturday</span><span>7:00 a.m. – 7:00 p.m.</span></li><li><span>Sunday</span><span>8:00 a.m. – 5:00 p.m.</span></li></ul>
+      <p class="small muted" style="margin-top:.8em" data-content="visitus.hoursNote">Hours can change on holidays. If you're driving in from out of town, give us a call first.</p>
+    </div>
+    <div class="info-card">
+      <h2>Call or write</h2>
+      <p style="font-size:1.15rem">Phone: <a href="tel:+12509923667" data-setting-tel><strong data-setting="phone">250-992-3667</strong></a></p>
+      <p class="email-line" hidden>Email: <a data-setting-link="email" href="#"></a></p>
+      <p>Catering, big groups, or a question about the menu? Call, or use the form below.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="directions">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">The Directions Desk</span>
+      <h2 data-content="visitus.desk.title">Where are you headed?</h2>
+      <p data-content="visitus.desk.intro">For thirty years visitors have walked in and asked us the way. Here are the answers we give most often: the sensible directions first, then what the regulars would tell you. Use a proper map for driving; the regulars' version is for entertainment.</p>
+    </div>
+    <div class="desk" id="desk"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split" style="align-items:start">
+    <div>
+      <span class="kicker">Say hello</span>
+      <h2>Send us a message</h2>
+      <p>Questions, compliments, catering, or a story about Ted we haven't heard. We read every one.</p>
+      <form class="contact" id="contactForm" novalidate>
+        <label>Your name<input type="text" name="name" autocomplete="name" required maxlength="120"></label>
+        <label>Your email<input type="email" name="email" autocomplete="email" required maxlength="200"></label>
+        <label>Your message<textarea name="message" required maxlength="3000"></textarea></label>
+        <label class="check"><input type="checkbox" name="newsletter"> Send me the occasional café news (you can stop any time)</label>
+        <button class="btn" type="submit">Send message</button>
+        <p class="form-status" id="formStatus" role="status"></p>
+      </form>
+    </div>
+    <figure class="photo-frame">
+      <img src="https://images.unsplash.com/photo-1483648969698-5e7dcaa3444f?auto=format&amp;fit=crop&amp;w=1000&amp;q=70" alt="Wooden café tables near a brick wall, waiting for company" loading="lazy">
+      <figcaption><strong>A table is waiting.</strong>Not this exact one. This one's a stock photo. Ours have better stories.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="alt" id="credits">
+  <div class="wrap">
+    <h2>Photo credits</h2>
+    <p class="small">The ceiling, clock and pager photos are Granville's own. Food, drink and people photos are free-licence stand-ins from <a href="https://unsplash.com" rel="noopener" target="_blank">Unsplash</a> until we photograph our own. With thanks to:</p>
+    <ul class="credits" id="creditList"></ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h2>Granville's Coffee</h2>
+        <p><span data-setting="address">383 Reid Street, Quesnel, BC V2J 2M5</span><br>
+        Phone: <a href="tel:+12509923667" data-setting-tel><span data-setting="phone">250-992-3667</span></a><span class="email-line" hidden><br>Email: <a data-setting-link="email" href="#"></a></span></p>
+        <p>Walk right in. No reservations, no online ordering, no awkward silences.</p>
+      </div>
+      <div>
+        <h2>Pages</h2>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Food &amp; Drink Menu</a></li>
+          <li><a href="story.html">Our Story</a></li>
+          <li><a href="awards.html">Awards</a></li>
+          <li><a href="visit.html">Visit &amp; Directions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Hours</h2>
+        <ul class="foot-hours" data-hours-short><li>Mon to Sat: 7:00 a.m. – 7:00 p.m.</li><li>Sunday: 8:00 a.m. – 5:00 p.m.</li></ul>
+        <p class="small" style="margin-top:.6em">Please call to confirm holiday hours.</p>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>© <span id="year">2026</span> Granville's Coffee · Quesnel's front room since 1992</span>
+      <span><a href="visit.html#credits">Photo credits</a> · <a href="admin/" id="staffLink" hidden>Staff login</a></span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/content.js?v=20261106"></script>
+<script src="assets/js/site.js?v=20261106"></script>
+</body>
+</html>

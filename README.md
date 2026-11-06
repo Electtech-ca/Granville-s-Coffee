@@ -4,24 +4,26 @@ The public website for Granville's Coffee, 383 Reid Street, Quesnel, BC, plus a 
 portal for running the café: edit the website, answer messages, know your customers, record sales,
 manage stock and suppliers, track staff and money, set goals, and get AI help.
 
-The site is built from the "hero carousel final fix" concept (a single 4.6 MB `index.html`), cleaned up so it
-is stable and fast. It still works as a plain static site (GitHub Pages); with the server running, everything on
-it comes from the database and can be changed from `/admin/`.
+The public site was rebuilt in November 2026 around one concept: **"Quesnel's front room, est. 1992"**, a heritage
+main-street landmark with Granville green, warm paper, brass award plaques and newspaper type. It is made for readers of
+every age: 20px+ text (Atkinson Hyperlegible), high contrast, big buttons, an "A+ Bigger text" switch, a "Call" button on
+every page, and **no animation at all**. It still works as a plain static site (GitHub Pages); with the server running,
+everything on it comes from the database and can be changed from `/admin/`.
 
-## What's on the page
+## The pages
 
-| Section | What it does |
+Five pages, the same big navigation bar on each (on phones the Menu button sits on top, full width):
+
+| Page | What's on it |
 |---|---|
-| Header + mobile menu | Links to every section; collapses into a ☰ Menu button on phones |
-| Journey ribbon | Sticky section jumper with a 3-stamp "passport" earned by playing |
-| Hero carousel | Slide 1: welcome copy and a live Quesnel-time clock. Slide 2: the illustrated café banner, with every button drawn in the picture clickable. Arrows, dots, pause, swipe, keyboard; pauses on hover/focus and for reduced-motion users |
-| Town stage | "Pull up a chair" / "Another story" cycle the community-table stories |
-| Our people | Three characters with lines, plus a 3-chapter choose-your-path quest |
-| Menu | Category tabs, spotlight, "Meet another suspect", clickable dishes (optional prices) |
-| Meet Ted | Owner story (portrait placeholder until an approved photo is added) |
-| Inside Granville's | The real photos: coffee-sack ceiling (×2), the wall clock, the table pager |
-| Field guide, Games, Fitness test | Directions machine, catch-the-bun, rumour generator, localness test, Ted's fitness exam |
-| Visit | Address, map link, hours, contact form |
+| `index.html` Home | Welcome, today's hours/address/phone, "Where Quesnel meets" (meet people, get directions, stay a while), photo tiles into each menu section, the legacy box with key numbers, "Overheard at the counter", the real café photos |
+| `menu.html` Food & Drink Menu | The full published menu (breakfast, panini, home recipes, baking, North Roast coffee, shakes) with a photo per dish, a section jump bar, print button. Prices show only if "Show prices" is ticked in the admin |
+| `story.html` Our Story | Ted Martindale's story, the timeline from 1992, the 6,000 lb carrot cake by the numbers, inside photos, community giving |
+| `awards.html` Awards | The Wall of Honour: one brass plaque per award, each marked Confirmed / Pending / Milestone with its news source linked |
+| `visit.html` Visit & Directions | Address and map, hours with today highlighted, contact form, the Directions Desk (real directions to Barkerville, the Pinnacles, the footbridge, the museum, Bowron Lake, Highway 97 plus "what the regulars would say"), photo credits |
+
+Food and people photos are free-licence Unsplash photos, loaded from Unsplash's image server, until the café's own are
+uploaded (Edit website → Menu & food photos). The ceiling, clock and pager photos are the café's own.
 
 ## The admin portal (`/admin/`)
 
@@ -30,7 +32,7 @@ Plain-language screens, built for phones and laptops. Each person logs in with t
 | Screen | What you can do |
 |---|---|
 | **Dashboard** | Revenue, orders, average ticket, gross margin, labour %, estimated net profit, each compared with the previous period. Sales trend with a 7-day forecast, busiest hours and days, top sellers, low stock, unread messages, regulars to win back, website visits and where they came from. A "What to know" list of plain-English insights, plus an AI weekly briefing |
-| **Edit website** | Every heading and paragraph on the site, the menu (names, descriptions, prices, costs, show/hide, categories, optional prices on the site), photos (upload, replace, captions, Ted's portrait), address, phone, email, map link and opening hours, and the stories, directions, rumours and game lines. Changes go live within seconds. AI can rewrite text and menu descriptions in the café's voice |
+| **Edit website** | Every heading and paragraph on the site, the menu (names, descriptions, photo for each dish, prices, costs, show/hide, categories, optional prices on the site), the Awards wall, the history timeline, the Directions Desk, photos (upload, replace, captions, Ted's portrait), address, phone, email, map link and opening hours, and the "Overheard" stories. Changes go live within seconds. AI can rewrite text and menu descriptions in the café's voice |
 | **Inbox** | Messages from the website contact form. Open, reply by email, mark as replied or archived, or let AI draft a reply |
 | **Customers (CRM)** | Customer list with search, tags, loyalty points and email consent. Automatic segments: Champions, Loyal, New, At risk, Lost, Prospects. Each customer has a profile with their spend, favourite items and a timeline of visits, notes, calls and messages |
 | **Record sales** | A tap-to-ring till for when the till doesn't sync: items, customer, staff member, payment, GST. Recent sales with undo. Loyalty points are added automatically |
