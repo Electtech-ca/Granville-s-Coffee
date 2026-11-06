@@ -20,7 +20,7 @@ Five pages, the same big navigation bar on each (on phones the Menu button sits 
 | `menu.html` Food & Drink Menu | The full published menu (breakfast, panini, home recipes, baking, North Roast coffee, shakes) with a photo per dish, a section jump bar, print button. Prices show only if "Show prices" is ticked in the admin |
 | `story.html` Our Story | Ted Martindale's story, the timeline from 1992, the 6,000 lb carrot cake by the numbers, inside photos, community giving |
 | `awards.html` Awards | The Wall of Honour: one brass plaque per award, each marked Confirmed / Pending / Milestone with its news source linked |
-| `visit.html` Visit & Directions | Address and map, hours with today highlighted, contact form, the Directions Desk (real directions to Barkerville, the Pinnacles, the footbridge, the museum, Bowron Lake, Highway 97 plus "what the regulars would say"), photo credits |
+| `visit.html` Visit & Directions | Address and map, hours with today highlighted, contact form, the Directions Desk (real directions to Barkerville, the Pinnacles, the footbridge, the museum, Bowron Lake, Highway 97 plus "what the regulars would say") |
 
 Food and people photos are free-licence Unsplash photos, loaded from Unsplash's image server, until the café's own are
 uploaded (Edit website → Menu & food photos). The ceiling, clock and pager photos are the café's own.
