@@ -171,7 +171,7 @@
     wall.replaceChildren(...plaques);
   }
 
-  /* ---------- Visit: the Directions Desk + credits ---------- */
+  /* ---------- Visit: the Directions Desk ---------- */
   function renderDesk() {
     const desk = $("#desk");
     if (desk && Array.isArray(C.places)) {
@@ -181,8 +181,6 @@
         p.local ? el("p", { class: "local" }, el("span", { class: "sr-only", text: "What the regulars would say: " }), p.local) : null,
         el("a", { class: "btn line", href: "https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent("383 Reid Street, Quesnel, BC") + "&destination=" + encodeURIComponent(p.query || p.name), rel: "noopener", target: "_blank" }, "🗺️ Directions from Granville's"))));
     }
-    const cl = $("#creditList");
-    if (cl && Array.isArray(C.photoCredits)) cl.replaceChildren(...C.photoCredits.map((n) => el("li", { text: n })));
   }
 
   function renderAll() { renderText(); renderSettings(); renderHours(); renderQuotes(); renderMenu(); renderStory(); renderAwards(); renderDesk(); }

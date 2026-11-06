@@ -141,18 +141,6 @@
       { line: "“The newcomer said they didn't know anyone in town. The room took that personally.”", caption: "Stranger status usually lasts one coffee." },
       { line: "“A simple question about the weather produced seven forecasts and an argument about 1996.”", caption: "Forecast: a 100% chance of conversation." },
       { line: "“One person ordered lunch. Somehow the whole table is now organizing a fundraiser.”", caption: "That's how a lot of good things in this town got started." }
-    ],
-
-    // Photographers whose free-licence (Unsplash) photos stand in until Granville's own are added.
-    photoCredits: [
-      "Nathan Dumlao", "Mae Mu", "Pixzolo Photography", "Shuvro Mojumder", "charlesdeluvio", "Orkun Orcan", "Nima Naseri", "Eiliv Aceron",
-      "Suea Sivilaisith", "Asnim Ansari", "Raphael Nogueira", "Jay Wennington", "Maria Klichik", "David Foodphototasty",
-      "Rasmus Gundorff Sæderup", "Chris Tweten", "Cliffer Rebelo", "Monika Grabkowska", "Anisa Cakesandbakes", "Hugo Aitken",
-      "Daniel Morris", "Diliara Garifullina", "Jarek Ceborski", "Dani", "Fahmi Fakhrudin", "Maddi Bazzocco", "Giancarlo Duarte",
-      "Jeremy Yap", "tabitha turner", "Elena Leya", "Katya Azimova", "Pablo Merchán Montes", "Sebastian Coman Photography",
-      "Victor Rutka", "Clarissa Carbungco", "Doug Bagg", "Sara Julie", "Jugoslocos", "Fanny Gustafsson", "Jonathan Borba",
-      "Tyrone Sanders", "Rhamely", "Luke Tokaryk", "Joseph Gonzalez", "Joyful", "Jessica Kantak Bailey", "Crystal Jo", "James Kern",
-      "Brooke Cagle", "Vitaly Gariev", "Zeno Hind", "Toa Heftiba", "Uta Scholl"
     ]
   };
 })();

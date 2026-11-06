@@ -225,7 +225,6 @@ form.contact textarea{min-height:140px}
 form.contact .check{display:flex;gap:10px;align-items:flex-start;font-weight:400}
 form.contact .check input{width:24px;height:24px;margin-top:3px}
 .form-status{min-height:1.5em;font-weight:700;color:var(--green-ink)}
-.credits{columns:3 220px;font-size:.85rem;color:var(--muted);padding:0;list-style:none}
 
 /* ---------- Footer ---------- */
 .site-foot{background:var(--green-ink);color:#e9ebe3;padding:40px 0 28px;border-top:6px solid var(--brass)}
