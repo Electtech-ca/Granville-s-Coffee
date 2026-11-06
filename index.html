@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css?v=20261106c">
+<link rel="stylesheet" href="assets/css/site.css?v=20261106d">
 <script>try{if(localStorage.getItem("granvilles-big")==="1")document.documentElement.classList.add("big")}catch(e){}</script>
 </head>
 <body data-page="index">
@@ -63,6 +63,17 @@
     <div><b>Find us</b><span data-setting="address">383 Reid Street, Quesnel</span></div>
     <div><b>Call</b><a href="tel:+12509923667" data-setting-tel><span data-setting="phone">250-992-3667</span></a></div>
     <div><b>How to order</b><span>Walk in and say hello</span></div>
+  </div>
+</section>
+
+<section class="board-wrap" id="todayBoard" hidden aria-labelledby="boardTitle">
+  <div class="wrap">
+    <div class="board">
+      <span class="board-date" id="boardDate"></span>
+      <h2 id="boardTitle">On the board today</h2>
+      <dl class="board-items" id="boardItems"></dl>
+      <p class="board-note" id="boardNote" hidden></p>
+    </div>
   </div>
 </section>
 
@@ -129,6 +140,19 @@
   </div>
 </section>
 
+<section id="faces">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Faces of Granville's</span>
+      <h2 data-content="home.faces.title">The people who make this place.</h2>
+      <p data-content="home.faces.intro">A coffee shop is only as good as the people at its tables. Meet a few of ours. Some have been coming in longer than some of our staff have been alive, and every one of them agreed to be here. We asked nicely and bought the coffee.</p>
+    </div>
+    <div class="faces" id="facesGrid">
+      <article class="face invite"><div class="face-photo"><span aria-hidden="true">☕</span></div><div class="face-body"><h3>Could this be you?</h3><p>Been coming in for years? Ask at the counter. We'll take your picture, write down your story, and make you famous on Reid Street.</p></div></article>
+    </div>
+  </div>
+</section>
+
 <section>
   <div class="wrap">
     <div class="section-head">
@@ -191,7 +215,7 @@
     </div>
   </div>
 </footer>
-<script src="assets/js/content.js?v=20261106c"></script>
-<script src="assets/js/site.js?v=20261106c"></script>
+<script src="assets/js/content.js?v=20261106d"></script>
+<script src="assets/js/site.js?v=20261106d"></script>
 </body>
 </html>

@@ -183,7 +183,33 @@
     }
   }
 
-  function renderAll() { renderText(); renderSettings(); renderHours(); renderQuotes(); renderMenu(); renderStory(); renderAwards(); renderDesk(); }
+  /* ---------- Today's board: shown only on the day it was written ---------- */
+  const todayIso = () => new Intl.DateTimeFormat("en-CA", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: TZ }).format(new Date());
+  function renderBoard() {
+    const b = C.board;
+    const fresh = b && b.date === todayIso() && (b.soup || b.special || b.baking || b.note);
+    $$("#todayBoard").forEach((box) => {
+      box.hidden = !fresh;
+      if (!fresh) return;
+      $("#boardDate", box).textContent = new Intl.DateTimeFormat("en-CA", { weekday: "long", month: "long", day: "numeric", timeZone: TZ }).format(new Date());
+      const rows = [["Soup of the day", b.soup], ["Today's special", b.special], ["Fresh from the oven", b.baking]].filter((r) => r[1]);
+      $("#boardItems", box).replaceChildren(...rows.flatMap(([k, v]) => [el("dt", { text: k }), el("dd", { text: v })]));
+      const note = $("#boardNote", box); note.hidden = !b.note; note.textContent = b.note || "";
+    });
+  }
+
+  /* ---------- Faces of Granville's (only people who agreed, with a photo) ---------- */
+  function renderFaces() {
+    const grid = $("#facesGrid");
+    if (!grid || !Array.isArray(C.faces) || !C.faces.length) return;
+    const invite = grid.querySelector(".invite");
+    const cards = C.faces.filter((f) => safeUrl(f.photo)).map((f) => el("article", { class: "face" },
+      el("div", { class: "face-photo" }, photo(f.photo, "Photo of " + (f.name || "a Granville's regular"), "☕")),
+      el("div", { class: "face-body" }, el("h3", { text: f.name || "" }), f.since ? el("span", { class: "since", text: f.since }) : null, f.line ? el("p", { text: f.line }) : null)));
+    grid.replaceChildren(...cards, invite || "");
+  }
+
+  function renderAll() { renderText(); renderSettings(); renderHours(); renderBoard(); renderFaces(); renderQuotes(); renderMenu(); renderStory(); renderAwards(); renderDesk(); }
 
   /* ---------- Contact form ---------- */
   (function contact() {
@@ -230,6 +256,8 @@
       ["settings", "text"].forEach((k) => { if (live[k]) C[k] = Object.assign({}, C[k], live[k]); });
       ["menu", "hours", "stories", "awards", "timeline", "places", "gallery"].forEach((k) => { if (Array.isArray(live[k]) && live[k].length) C[k] = live[k]; });
       if (live.tedPhoto) C.tedPhoto = live.tedPhoto;
+      if (Array.isArray(live.faces)) C.faces = live.faces;
+      if (live.board) C.board = live.board;
       renderAll();
       navigator.sendBeacon?.(API + "/public/track", new Blob([JSON.stringify({ path: location.pathname + location.hash, referrer: document.referrer.slice(0, 300) })], { type: "application/json" }));
     })

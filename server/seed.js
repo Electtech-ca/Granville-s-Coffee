@@ -57,7 +57,9 @@ const LABELS = {
   "visitus.intro": "Visit page · intro",
   "visitus.hoursNote": "Visit page · note under the hours",
   "visitus.desk.title": "Visit page · Directions Desk headline",
-  "visitus.desk.intro": "Visit page · Directions Desk intro"
+  "visitus.desk.intro": "Visit page · Directions Desk intro",
+  "home.faces.title": "Home page · Faces of Granville's headline",
+  "home.faces.intro": "Home page · Faces of Granville's paragraph"
 };
 
 const DEFAULT_GALLERY = [
@@ -135,6 +137,7 @@ async function seedContent() {
     awards: D.awards,
     timeline: D.timeline,
     places: D.places,
+    faces: [],
     tedPhoto: ""
   };
   for (const [k, v] of Object.entries(settings)) {

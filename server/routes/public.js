@@ -29,6 +29,9 @@ async function siteContent() {
     awards: S.awards,
     timeline: S.timeline,
     places: S.places,
+    // Only regulars who agreed to appear, and only with a photo.
+    faces: (Array.isArray(S.faces) ? S.faces : []).filter((f) => f && f.consent === "yes" && f.photo).map(({ name, since, line, photo }) => ({ name, since, line, photo })),
+    board: S.board || null,
     tedPhoto: S.tedPhoto || "",
     menu,
     gallery

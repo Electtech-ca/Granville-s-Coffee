@@ -196,7 +196,7 @@ router.put("/content/text", requireRole("manager"), wrap(async (req, res) => {
   res.json({ ok: true, saved: entries.length });
 }));
 
-const SETTING_KEYS = ["settings", "hours", "stories", "awards", "timeline", "places", "tedPhoto"];
+const SETTING_KEYS = ["settings", "hours", "stories", "awards", "timeline", "places", "faces", "board", "tedPhoto"];
 router.put("/content/settings/:key", requireRole("manager"), wrap(async (req, res) => {
   if (!SETTING_KEYS.includes(req.params.key)) return bad(res, "Unknown setting.", 404);
   const value = req.body.value;
@@ -206,6 +206,18 @@ router.put("/content/settings/:key", requireRole("manager"), wrap(async (req, re
   invalidate();
   await audit(req, "update", "setting", req.params.key);
   res.json({ ok: true });
+}));
+
+// Today's board (soup, special, baking): every staff member can update it from a phone.
+router.put("/board", wrap(async (req, res) => {
+  const b = req.body || {};
+  const clean = (v) => String(v == null ? "" : v).trim().slice(0, 300);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(b.date || ""))) return bad(res, "Missing the date.");
+  const value = { date: b.date, soup: clean(b.soup), special: clean(b.special), baking: clean(b.baking), note: clean(b.note), by: req.user.name || "" };
+  await db.query("insert into site_settings(key,value,updated_at) values ('board',$1,now()) on conflict (key) do update set value=excluded.value, updated_at=now()", [JSON.stringify(value)]);
+  invalidate();
+  await audit(req, "update", "setting", "board");
+  res.json({ ok: true, value });
 }));
 
 router.get("/menu", wrap(async (_req, res) => {
